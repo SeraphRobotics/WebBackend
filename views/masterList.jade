@@ -1,0 +1,29 @@
+extends layout
+block body
+    h1.text-center Master List
+    div(ng-controller="masterList").large-10.column.large-centered
+        table
+            thead
+                tr
+                    th Name
+                    th Part Number
+                    th Vendor
+                    th Num Per Batch
+                    th Lead Time
+                    th Number Per Printer
+                    th Number Per Scanner
+                    th Number Per Cartridge
+                    th Number Per Filament
+
+            tbody
+                tr(ng-repeat="part in parts")
+                    td {{part.name}}
+                    td {{part.partNumber}}
+                    td {{part.vendor}}
+                    td {{part.numPerBatch}}
+                    td {{part.numInStock}}
+                    td {{part.leadTime}}
+                    td {{part.numPerPrinter}}
+                    td {{part.numPerScanner}}
+                    td {{part.numPerCartridge}}
+                    td {{part.numPerFilament}}

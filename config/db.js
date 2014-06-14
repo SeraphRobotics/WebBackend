@@ -4,16 +4,24 @@ var mongoose = require('mongoose');
 var config = {
   "db": "sereph",  
   "host": "localhost",  
-  "user": "berks",
-  "pw": "things",
+  "user": "user",
+  "pw": "password",
   "port": 27017
 };
 
 var port = (config.port.length > 0) ? ":" + config.port : '';
 var login = (config.user.length > 0) ? config.user + ":" + config.pw + "@" : '';
-var uristring =  "mongodb://" + login + config.host + port + "/" + config.db;
+if (process.env.NODE_ENV === 'development') {
+  var uristring =  "mongodb://" + config.host + port + "/" + config.db;
+} else {
+  var uristring =  "mongodb://" + login + config.host + port + "/" + config.db;
+}
 
-var mongoOptions = { db: { safe: true } };
+var mongoOptions = {
+  db: {
+    safe: true
+  }
+};
 
 // Connect to Database
 mongoose.connect(uristring, mongoOptions, function (err, res) {

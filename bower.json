@@ -1,16 +1,27 @@
 {
   "name": "sereph",
   "version": "0.0.1",
-  "description": "sereph Sample Description",
+  "description": "Sereph Robotics internal inventory management software",
   "private": true,
   "dependencies": {
-    "jquery": "latest"
+    "jquery": "latest",
+    "foundation": "~5.2.3",
+    "angular": "~1.2.17",
+    "modernizr": "~2.8.2",
+    "angular-smart-table": "*"
   },
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
-  ]
+    "tests",
+    "public/bower_components"
+  ],
+  "authors": [
+    "Berkeley Martinez <Berkeley@robotie.com>"
+  ],
+  "main": "app.js",
+  "license": "MIT",
+  "homepage": "serephrobotics.com"
 }

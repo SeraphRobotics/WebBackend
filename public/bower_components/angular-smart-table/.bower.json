@@ -1,0 +1,14 @@
+{
+  "name": "angular-smart-table",
+  "homepage": "https://github.com/lorenzofox3/Smart-Table",
+  "_release": "34cbbaba4e",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "34cbbaba4ecf1a8421c165fc6109842bb541775a"
+  },
+  "_source": "git://github.com/lorenzofox3/Smart-Table.git",
+  "_target": "*",
+  "_originalSource": "angular-smart-table",
+  "_direct": true
+}

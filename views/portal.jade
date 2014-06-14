@@ -1,0 +1,39 @@
+extends layout
+block body
+    .row
+        .medium-6.column.text-center.border.margin.equalHeight
+            h3  Components and Inventory
+            ul.no-bullet
+                li: a(href="compInventory") Component Inventory
+                li: a Component Ordering
+                li: a Component Recieving
+                li: a Completed Items Inventory
+        .medium-6.column.text-center.border.margin.equalHeight
+            h3 Machines and Order
+            ul.no-bullet
+                li: a Product Generation
+                li: a Update Machine Status
+                li: a Order Que
+                li: a Order Fulfillment Status
+                li: a Machine Details
+    .row
+        .medium-6.column.text-center.border.margin.equalHeight
+            h3 Customer Support
+            ul.no-bullet
+                li: a Customer Details
+                li: a Customer Support
+        .medium-6.column.text-center.border.margin.equalHeight
+            h3 Book Keeping and Overviews
+            ul.no-bullet
+                li: a Book Keeping Billing Report
+                li: a Global Overview
+                li: a(href="/masterList") Master Component List
+    .row
+        .medium-12.column.text-center.border.margin
+            h3 Outside links
+            ul.inline-list
+                li: a Sereph Robotics
+                li: a CRM
+                li: a Help Desk
+                li: a Fedex
+                li: a Gmail

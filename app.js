@@ -1,21 +1,21 @@
 'use strict';
 
 // Module dependencies.
-var express = require('express'),
+var loopback = require('loopback'),
     path = require('path'),
     fs = require('fs'),
-    methodOverride = require('method-override'),
-    morgan = require('morgan'),
-    bodyParser = require('body-parser'),
+    mo = require('method-override'),
+    logger = require('morgan'),
+    body = require('body-parser'),
     errorhandler = require('errorhandler');
 
-var app = module.exports = exports.app = express();
+var app = module.exports = exports.app = loopback();
 
 app.locals.siteName = "sereph";
 
 // Connect to database
 var db = require('./config/db');
-app.use(express.static(__dirname + '/public'));
+app.use(loopback.static(__dirname + '/public'));
 
 
 // Bootstrap models
@@ -27,41 +27,37 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 var env = process.env.NODE_ENV || 'development';
 var port = process.env.PORT || 3000;
 
-if ('development' == env) {
-    app.use(morgan('dev'));
-    app.use(errorhandler({
-        dumpExceptions: true,
-        showStack: true
-    }));
-    app.set('view options', {
-        pretty: true
-    });
+if ('development' === env) {
+  app.use(logger('dev'));
+  app.use(errorhandler({
+      dumpExceptions: true,
+      showStack: true
+  }));
+  app.locals.pretty = true;
 }
 
-if ('test' == env) {
-    port = 9997;
-    app.use(morgan('test'));
-    app.set('view options', {
-        pretty: true
-    });
-    app.use(errorhandler({
-        dumpExceptions: true,
-        showStack: true
-    }));
+if ('test' === env) {
+  port = 9997;
+  app.use(logger('test'));
+  app.use(errorhandler({
+    dumpExceptions: true,
+    showStack: true
+  }));
+  app.locals.pretty = true;
 }
 
-if ('production' == env) {
-    app.use(morgan());
-     app.use(errorhandler({
-        dumpExceptions: false,
-        showStack: false
-    }));
+if ('production' === env) {
+  app.use(logger());
+  app.use(errorhandler({
+    dumpExceptions: false,
+    showStack: false
+  }));
 }
 
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-app.use(methodOverride());
-app.use(bodyParser());
+app.engine('jade', require('jade').__express);
+app.set('view engine', 'jade');
+app.use(mo());
+app.use(body());
 
 // Bootstrap routes/api
 var routesPath = path.join(__dirname, 'routes');
@@ -71,5 +67,5 @@ fs.readdirSync(routesPath).forEach(function(file) {
 
 // Start server
 app.listen(port, function () {
-  console.log('Express server listening on port %d in %s mode', port, app.get('env'));
+  console.log('LoopBack server listening on port %d in %s mode', port, app.get('env'));
 });

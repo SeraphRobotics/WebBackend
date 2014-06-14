@@ -1,0 +1,41 @@
+extends layout
+block body
+    h1.text-center Component Inventory
+    .row.text-left
+        h4 Macine Compenets
+        table.large-10.large-centered.column
+            thead
+                tr
+                    th Name
+                    th Part Number
+                    th Vendor
+                    th Number per Batch
+                    th Number in Stock
+                    th(colspan="2") Orders Placed
+                    th(colspan="2") Printers
+                    th(colspan="2") Scanners
+            tbody
+                tr(ng-repeat="part in parts")
+                    td {{part.Name}}
+                    td {{part.partNumber}}
+                    td {{part.vendor}}
+                    td {{part.numberPerBatch}}
+                    td {{part.numberInStock}}
+                    td {{part.leadTime}}
+                    td {{part.orders.date}}
+                    td {{part.orders.numPerBatch}}
+                    td {{part.printers.inStock}}
+                    td {{part.printers.ordered}}
+                    td {{part.scanners.inStock}}
+                    td {{part.scanners.ordered}}
+    .row
+        h4 Cartridge Components
+        table.large-10.large-centered.column
+            thead
+                th Name
+                th Part Number
+                th Vendor
+                th Number per Batch
+                th Number in Stock
+                th Lead Time
+                th(colspan="2") Orders Placed
