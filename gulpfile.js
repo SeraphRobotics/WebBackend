@@ -3,6 +3,7 @@
 var gulp    = require('gulp'),
   mocha     = require('gulp-mocha'),
   watch     = require('gulp-watch'),
+  wait      = require('gulp-wait'),
   concat    = require('gulp-concat'),
   nodemon   = require('gulp-nodemon'),
   reload    = require('gulp-livereload'),
@@ -31,7 +32,6 @@ gulp.task('sass', function () {
 gulp.task('nodemon', function () {
   nodemon({
     script: 'app.js',
-    watch: 'app.js',
     env: {
       'NODE_ENV': 'development',
       'PORT': 9000
@@ -50,6 +50,7 @@ gulp.task('watch', function() {
   ;
   gulp.src(['views/*.jade', 'public/css/style.css'])
     .pipe(watch())
+    .pipe(wait(1000))
     .pipe(reload())
   ;
   gulp.watch(['stylesheets/*.sass'], ['sass']);

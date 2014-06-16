@@ -1,20 +1,22 @@
 "use strict";
 angular.module('app',[
-
+  'mm.foundation'
 ])
   .controller('masterList', function ($scope) {
     console.log('here');
-  });
-/*
+  })
   .controller('inventoryView', function ($scope) {
 
   })
   .controller('compOrdering', function ($scope) {
-
+    $scope.vendors = [
+      'smith&Wessen',
+      'coke'
+    ];
   })
   .controller('compReceiving', function ($scope) {
-
   })
+/*
   .controller('compCompInventory', function ($scope) {
 
   })
@@ -50,5 +52,5 @@ angular.module('app',[
   })
   .controller('subSetting', function ($scope) {
 
-  })
-;*/
+  })*/
+;

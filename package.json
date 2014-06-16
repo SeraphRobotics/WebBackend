@@ -23,6 +23,7 @@
     "gulp-load-plugins": "^0.5.1",
     "gulp-mocha": "latest",
     "gulp-nodemon": "latest",
+    "gulp-wait": "0.0.2",
     "gulp-watch": "~0.6.4",
     "mocha": "latest",
     "supertest": "latest"
