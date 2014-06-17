@@ -13,7 +13,6 @@ var login = (config.user.length > 0) ? config.user + ":" + config.pw + "@" : '';
 if (process.env.NODE_ENV === 'development') {
   var uristring =  'mongodb://localhost:27017' + "/" + config.db;
 } else {
-  console.log(port);
   var uristring =  "mongodb://" + login + config.host + ':' + config.port + "/" + config.db;
 }
 

@@ -30,6 +30,6 @@
   },
   "scripts": {
     "test": "gulp test",
-    "start": "app.js"
+    "start": "node app.js"
   }
 }
