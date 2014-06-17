@@ -3,16 +3,16 @@ var mongoose = require('mongoose');
 
 var config = {
   "db": "seraph",
-  "host": "localhost",  
-  "user": "user",
-  "pw": "password",
-  "port": 27017
+  "host": "ds047427.mongolab.com",
+  "user": "seraphAdmin",
+  "pw": "seraph1seraph1",
+  "port": 47427
 };
 
 var port = (config.port.length > 0) ? ":" + config.port : '';
 var login = (config.user.length > 0) ? config.user + ":" + config.pw + "@" : '';
 if (process.env.NODE_ENV === 'development') {
-  var uristring =  "mongodb://" + config.host + port + "/" + config.db;
+  var uristring =  "mongodb://localhost" + '27017' + "/" + config.db;
 } else {
   var uristring =  "mongodb://" + login + config.host + port + "/" + config.db;
 }
