@@ -1,18 +1,28 @@
 "use strict";
 angular.module('app',[
-  'mm.foundation'
+  'services'
 ])
   .controller('masterList', function ($scope) {
     console.log('here');
   })
-  .controller('inventoryView', function ($scope) {
+  .controller('compInventory', function ($scope) {
 
   })
-  .controller('compOrdering', function ($scope) {
+  .controller('compOrdering', function ($scope, Parts) {
     $scope.vendors = [
       'smith&Wessen',
       'coke'
     ];
+
+    $scope.parts = Parts.query()//returns array of parts
+        .$promise
+        .then(function () {
+          console.log('success');
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
+    ;
   })
   .controller('compReceiving', function ($scope) {
   })

@@ -56,5 +56,18 @@ gulp.task('watch', function() {
   gulp.watch(['stylesheets/*.sass'], ['sass']);
 });
 
+gulp.task('mockDataDev', function () {
+  nodemon({
+    script: './config/mockData.js',
+    env: {
+      'NODE_ENV': process.env.NODE_ENV || 'development',
+      'PORT': process.env.PORT || 9000
+    },
+    nodeArgs: ['--debug=9999']
+  })
+  ;
+});
+
+
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', ['sass', 'nodemon', 'watch']);

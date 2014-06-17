@@ -1,6 +1,4 @@
 'use strict';
-
-// Module dependencies.
 var loopback = require('loopback'),
     path = require('path'),
     fs = require('fs'),
