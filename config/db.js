@@ -9,12 +9,12 @@ var config = {
   "port": 47427
 };
 
-var port = (config.port.length > 0) ? ":" + config.port : '';
 var login = (config.user.length > 0) ? config.user + ":" + config.pw + "@" : '';
 if (process.env.NODE_ENV === 'development') {
-  var uristring =  "mongodb://localhost" + '27017' + "/" + config.db;
+  var uristring =  'mongodb://localhost:27017' + "/" + config.db;
 } else {
-  var uristring =  "mongodb://" + login + config.host + port + "/" + config.db;
+  console.log(port);
+  var uristring =  "mongodb://" + login + config.host + ':' + config.port + "/" + config.db;
 }
 
 var mongoOptions = {
@@ -27,6 +27,7 @@ var mongoOptions = {
 mongoose.connect(uristring, mongoOptions, function (err, res) {
   if(err){
     console.log('ERROR connecting to: ' + uristring + '. ' + err);
+    console.log(err);
   }else{
     console.log('Successfully connected to: ' + uristring);
   }
