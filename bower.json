@@ -1,7 +1,7 @@
 {
-  "name": "sereph",
+  "name": "seraph",
   "version": "0.0.1",
-  "description": "Sereph Robotics internal inventory management software",
+  "description": "Seraph Robotics internal inventory management software",
   "private": true,
   "dependencies": {
     "jquery": "latest",
@@ -25,5 +25,5 @@
   ],
   "main": "app.js",
   "license": "MIT",
-  "homepage": "serephrobotics.com"
+  "homepage": "SeraphRobotics.com"
 }

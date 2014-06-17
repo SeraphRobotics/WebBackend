@@ -9,7 +9,7 @@ var loopback = require('loopback'),
 
 var app = module.exports = exports.app = loopback();
 
-app.locals.siteName = "sereph";
+app.locals.siteName = "Seraph";
 
 // Connect to database
 var db = require('./config/db');

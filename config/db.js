@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 var config = {
-  "db": "sereph",  
+  "db": "seraph",
   "host": "localhost",  
   "user": "user",
   "pw": "password",

@@ -1,6 +1,6 @@
 {
-  "name": "Sereph",
-  "description": "Sereph internal inventory management",
+  "name": "Seraph",
+  "description": "Seraph internal inventory management",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
