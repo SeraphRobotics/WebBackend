@@ -19,7 +19,7 @@ app.locals.siteName = "Seraph";
 //var db = require('./config/db');
 
 var env = process.env.NODE_ENV || app.get('env') || 'development';
-var port = process.env.PORT || app.get('port') || 9000;
+app.set('port', process.env.PORT || app.get('port') || 9000);
 console.log(env);
 if ('development' === env) {
   dataSources.db = {
