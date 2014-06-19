@@ -1,9 +1,5 @@
 "use strict";
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  ObjectId = Schema.ObjectId;
-
-var Vendor = new Schema({
+var Vendor = {
   name: {
     type: String,
     require: true,
@@ -13,6 +9,11 @@ var Vendor = new Schema({
     type: Date,
     default: Date.now()
   }
-});
+};
 
-module.exports = mongoose.model('Vendor', Vendor);
+module.exports = {
+  properties: Vendor,
+  dataSource: 'db',
+  public: true,
+  relations: {}
+};

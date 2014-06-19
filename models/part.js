@@ -1,9 +1,5 @@
 "use strict";
-var mongoose  = require('mongoose'),
-    Schema    = mongoose.Schema,
-    ObjectId  = Schema.ObjectId;
-
-var PartSchema = new Schema({
+var Part= {
   name: {
     type: String,
     required: true
@@ -24,6 +20,10 @@ var PartSchema = new Schema({
   costPer: Number,
   batchSize: Number,
   expectedLeadTime: Number
-});
-
-module.exports = mongoose.model('Part', PartSchema);
+};
+module.exports = {
+  properties: Part,
+  dataSource: 'db',
+  public: true,
+  relations: {}
+};

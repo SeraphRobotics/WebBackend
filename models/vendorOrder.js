@@ -1,10 +1,5 @@
 "use strict";
-var mongoose  = require('mongoose'),
-    Schema    = mongoose.Schema,
-    model     = mongoose.model,
-    ObjectId  = Schema.ObjectId;
-
-var VendorOrderSchema = new Schema({
+var VendorOrder = {
   name: {
     type: String,
     required: true,
@@ -31,6 +26,10 @@ var VendorOrderSchema = new Schema({
       dateReceived: Date
     }
   ]
-});
-
-module.exports = mongoose.model('vendorOrder', VendorOrderSchema);
+};
+module.exports = {
+  properties: VendorOrder,
+  dataSource: 'db',
+  public: true,
+  relations: {}
+};

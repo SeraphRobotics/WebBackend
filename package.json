@@ -2,6 +2,7 @@
   "name": "Seraph",
   "description": "Seraph internal inventory management",
   "version": "0.0.1",
+  "main": "app.js",
   "private": true,
   "dependencies": {
     "body-parser": "latest",
@@ -25,6 +26,7 @@
     "gulp-nodemon": "latest",
     "gulp-wait": "0.0.2",
     "gulp-watch": "~0.6.4",
+    "loopback-explorer": "^1.1.1",
     "mocha": "latest",
     "supertest": "latest"
   },
