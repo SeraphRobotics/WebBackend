@@ -105,8 +105,12 @@ app.use(loopback.static(__dirname + '/public'));
 app.use(loopback.urlNotFound());
 // Start server
 app.set('host', process.env.HOST || app.get('host') || 'localhost');
+console.log(app.get('host'));
+console.log(process.env.HOST);
+console.log(app.get('port'));
+console.log(process.env.PORT);
 app.start = function() {
-  return app.listen(function() {
+  return app.listen(process.env.PORT, function() {
     var baseUrl = 'http://' + app.get('host') + ':' + app.get('port');
     app.emit('started', baseUrl);
     console.log('LoopBack server listening @ %s%s', baseUrl, '/');
