@@ -11,6 +11,7 @@
     "express": "latest",
     "jade": "^1.3.1",
     "loopback": "^1.8.8",
+    "loopback-explorer": "^1.1.1",
     "loopback-connector-mongodb": "^1.3.0",
     "method-override": "latest",
     "mongoose": "latest",
@@ -26,7 +27,6 @@
     "gulp-nodemon": "latest",
     "gulp-wait": "0.0.2",
     "gulp-watch": "~0.6.4",
-    "loopback-explorer": "^1.1.1",
     "mocha": "latest",
     "supertest": "latest"
   },

@@ -18,12 +18,9 @@ app.locals.siteName = "Seraph";
 // Connect to database
 //var db = require('./config/db');
 
-
-
-
 var env = process.env.NODE_ENV || app.get('env') || 'development';
 var port = process.env.PORT || app.get('port') || 9000;
-
+console.log(env);
 if ('development' === env) {
   dataSources.db = {
     "defaultForType": "db",
@@ -36,21 +33,6 @@ if ('development' === env) {
   app.use(errorHandler({
       dumpExceptions: true,
       showStack: true
-  }));
-  app.locals.pretty = true;
-} else if ('test' === env) {
-  dataSources.db = {
-    "defaultForType": "db",
-    "database": "seraph",
-    "connector": "mongodb",
-    "host": "localhost",
-    "port": 27017
-  };
-  port = 9997;
-  app.use(logger('test'));
-  app.use(errorHandler({
-    dumpExceptions: true,
-    showStack: true
   }));
   app.locals.pretty = true;
 } else {
@@ -84,11 +66,6 @@ var modelName;
 fs.readdirSync(modelsPath).forEach(function (file) {
   modelName = file.toString().replace('.js', '');
   app.model(modelName, require(modelsPath + '/' + file));
-});
-var models = app.models();
-
-models.forEach(function (Model) {
-  console.log(Model.modelName);
 });
 
 //var ds = new DataSource('mongodb');
