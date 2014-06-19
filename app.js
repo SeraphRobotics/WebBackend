@@ -17,7 +17,7 @@ app.locals.siteName = "Seraph";
 
 // Connect to database
 //var db = require('./config/db');
-
+app.use(loopback.favicon(__dirname + '/public/favicon.ico'));
 var env = process.env.NODE_ENV || app.get('env') || 'development';
 app.set('port', process.env.PORT || app.get('port') || 9000);
 console.log(env);
@@ -104,6 +104,7 @@ app.use(loopback.static(__dirname + '/public'));
 // Not found
 app.use(loopback.urlNotFound());
 // Start server
+app.set('host', process.env.HOST || app.get('host') || 'localhost');
 app.start = function() {
   return app.listen(function() {
     var baseUrl = 'http://' + app.get('host') + ':' + app.get('port');
