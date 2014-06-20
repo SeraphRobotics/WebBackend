@@ -14,7 +14,7 @@ var VendorOrder = {
     required: true,
     unique: true
   },
-  compOrder: [
+  partsOrdered: [
     {
       partNum: Number,
       quantity: Number

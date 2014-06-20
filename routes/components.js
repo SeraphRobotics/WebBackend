@@ -8,7 +8,7 @@ module.exports = function (app) {
     res.render('compOrdering');
   };
   comp.receiving = function (req, res) {
-
+    res.render('compReceiving');
   };
   comp.completed = function (req, res) {
 

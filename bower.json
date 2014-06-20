@@ -10,7 +10,8 @@
     "modernizr": "~2.8.2",
     "angular-smart-table": "*",
     "angular-foundation": "~0.2.2",
-    "angular-resource": "~1.2.18"
+    "angular-resource": "~1.2.18",
+    "lodash": "~2.4.1"
   },
   "ignore": [
     "**/.*",

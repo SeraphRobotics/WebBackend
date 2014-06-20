@@ -1,66 +1,1 @@
-"use strict";
-angular.module('app',[
-  'services'
-])
-  .controller('masterList', function ($scope) {
-    console.log('here');
-  })
-  .controller('compInventory', function ($scope) {
-
-  })
-  .controller('compOrdering', function ($scope, Parts) {
-    $scope.vendors = [
-      'smith&Wessen',
-      'coke'
-    ];
-
-    $scope.parts = Parts.query()//returns array of parts
-        .$promise
-        .then(function () {
-          console.log('success');
-        })
-        .catch(function (err) {
-          console.log(err);
-        })
-    ;
-  })
-  .controller('compReceiving', function ($scope) {
-  })
-/*
-  .controller('compCompInventory', function ($scope) {
-
-  })
-  .controller('itemFin', function ($scope) {
-
-  })
-  .controller('updateMachineStat', function ($scope) {
-
-  })
-  .controller('repairManufactureQue', function ($scope) {
-
-  })
-  .controller('orderStatAndUpdate', function ($scope) {
-
-  })
-  .controller('custDetails', function ($scope) {
-
-  })
-  .controller('customerSupport', function ($scope) {
-
-  })
-  .controller('globOverview', function ($scope) {
-
-  })
-  .controller('machineDetails', function ($scope) {
-
-  })
-  .controller('bookKeeping', function ($scope) {
-
-  })
-  .controller('portal', function ($scope) {
-
-  })
-  .controller('subSetting', function ($scope) {
-
-  })*/
-;
+"use strict";angular.module('app',[  'services',  'mm.foundation.modal',  'mm.foundation.tpls'])  .controller('masterList', function ($scope) {    console.log('here');  })  .controller('compInventory', function ($scope) {  })  .controller('compOrdering', function ($scope, Parts) {    $scope.vendors = [      'smith&Wessen',      'coke'    ];    $scope.addItem = function () {    };    $scope.parts = Parts.query()//returns array of parts        .$promise        .then(function (res) {          console.log('success');          console.log(res);        })        .catch(function (err) {          console.log(err);        })    ;  })  .controller('compReceiving', function ($scope, $modal) {    $scope.vendorOrders = [      {        id: 42,        orderNum: 1234,        receivedInFull: false,        partsOrdered: [          {            partNum: 48484,            name: 'Coke+',            batchesOrdered: 3,            batchesReceived: 0          },          {            partNum: 1337,            name: 'Pepsi1',            batchesOrdered: 3,            batchesReceived: 0          }        ],        datePlaced: new Date(2014, 12, 1)      }    ];    $scope.editOrder = function (order) {      var editOrderModal = $modal.open({        templateUrl: 'editOrderModal.html',        controller: 'editOrderModalController',        resolve: {          order: function () {            return order;          }        }      });    };  })  .controller('editOrderModalController', function ($scope, VendorOrders, $modalInstance, order) {    $scope.order = order;    $scope.saveChanges = function () {      console.log('save');    };  });/*  .controller('compCompInventory', function ($scope) {  })  .controller('itemFin', function ($scope) {  })  .controller('updateMachineStat', function ($scope) {  })  .controller('repairManufactureQue', function ($scope) {  })  .controller('orderStatAndUpdate', function ($scope) {  })  .controller('custDetails', function ($scope) {  })  .controller('customerSupport', function ($scope) {  })  .controller('globOverview', function ($scope) {  })  .controller('machineDetails', function ($scope) {  })  .controller('bookKeeping', function ($scope) {  })  .controller('portal', function ($scope) {  })  .controller('subSetting', function ($scope) {  })*/;

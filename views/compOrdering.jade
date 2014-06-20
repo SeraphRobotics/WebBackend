@@ -1,19 +1,41 @@
 extends layout
 block body
     h1.text-center Component Ordering
-        form(ng-controller="compOrdering")
-            .row
-                .small-6.column.small-centered
-                    label Date
+    form(ng-controller="compOrdering")
+        .row
+            .small-9.column.small-centered
+                .row.collapse
+                    .small-2.column
+                        span.prefix Date
+                    .small-10.column
                         input(type="date")
-                    select(ng-model="mySelect" ng-options="vendor as vendor for vendor in vendors")
-                    table
+                .row.collapse
+                    .small-2.column
+                        span.prefix(for="vendorSelect") Vendor
+                    .small-10.column
+                        select(ng-model="mySelect" ng-options="vendor as vendor for vendor in vendors")
+                .row.collapse
+                    .small-2.column(style="height: 100%")
+                        span.prefix Order Num
+                    .small-10.column
+                        input(type="text" required)
+                .row
+                    .button.expand(ng-click="addItem()") Add Item to order
+                .row
+                    table.small-12.column
                         thead
-                            th Number of Batches
-                            th Name
-                            th Part Number
-                            th Number per Batch
-                        tbody
                             tr
-                                td
+                                th Part Number
+                                th Name
+                                th Number of Batches
+                                th Number per Batch
+                        tbody
+                            tr(ng-repeat="part in thisOrder")
+                                td {{part.partNum}}
+                                td {{part.name}}
+                                td {{part.numOfBatches}}
+                                td {{part.numPerBatch}}
+                .row
+                    .button.expand(ng-click="placeOrder()") Place Order
+
 

@@ -15,12 +15,10 @@ var app = module.exports = exports.app = loopback();
 
 app.locals.siteName = "Seraph";
 
-// Connect to database
-//var db = require('./config/db');
 app.use(loopback.favicon(__dirname + '/public/favicon.ico'));
-var env = process.env.NODE_ENV || app.get('env') || 'development';
-app.set('port', process.env.PORT || app.get('port') || 9000);
-console.log(env);
+var env   = process.env.NODE_ENV  || app.get('env')   || 'development';
+var port  = process.env.PORT      || app.get('port')  || 9000;
+
 if ('development' === env) {
   dataSources.db = {
     "defaultForType": "db",
@@ -52,23 +50,27 @@ if ('development' === env) {
   }));
 }
 /**
- * Add Loopback model schemas
+ * Add Loopback Models and Datasource
  */
 app.boot({
   models: models,
   datasources: dataSources
 });
 
-// Bootstrap models
+/**
+ * Bootstrap ./models
+ */
 var modelsPath = path.join(__dirname, 'models');
 var modelName;
-
 fs.readdirSync(modelsPath).forEach(function (file) {
   modelName = file.toString().replace('.js', '');
   app.model(modelName, require(modelsPath + '/' + file));
 });
 
-//var ds = new DataSource('mongodb');
+/**
+ * get a reference to the mongo database
+ */
+var db = loopback.getDefaultDataSourceForType('db'); //require('./config/db');
 
 app.engine('jade', require('jade').__express);
 app.set('view engine', 'jade');
@@ -92,11 +94,14 @@ try {
 }
 
 
-// Bootstrap routes/api
+/**
+ * Load ./routes
+ */
 var routesPath = path.join(__dirname, 'routes');
 fs.readdirSync(routesPath).forEach(function(file) {
   require(routesPath + '/' + file)(app);
 });
+
 app.use(app.router);
 
 // Serve files
@@ -105,10 +110,7 @@ app.use(loopback.static(__dirname + '/public'));
 app.use(loopback.urlNotFound());
 // Start server
 app.set('host', process.env.HOST || app.get('host') || 'localhost');
-console.log(app.get('host'));
-console.log(process.env.HOST);
-console.log(app.get('port'));
-console.log(process.env.PORT);
+
 app.start = function() {
   return app.listen(process.env.PORT, function() {
     var baseUrl = 'http://' + app.get('host') + ':' + app.get('port');
