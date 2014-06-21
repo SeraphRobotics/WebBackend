@@ -8,7 +8,8 @@ var loopback      = require('loopback'),
     errorHandler  = require('errorhandler'),
     models        = require('./models.json'),
     DataSource    = require('loopback-datasource-juggler').DataSource,
-    dataSources   = require('./datasources.json')
+    config        = require('config'),
+    dataSources   = config.dataSources
 ;
 
 var app = module.exports = exports.app = loopback();
@@ -20,13 +21,6 @@ var env   = process.env.NODE_ENV  || app.get('env')   || 'development';
 var port  = process.env.PORT      || app.get('port')  || 9000;
 
 if ('development' === env) {
-  dataSources.db = {
-    "defaultForType": "db",
-    "connector": "mongodb",
-    "host": "localhost",
-    "port": 27017,
-    "database": "seraph"
-  };
   app.use(logger('dev'));
   app.use(errorHandler({
       dumpExceptions: true,
@@ -34,15 +28,6 @@ if ('development' === env) {
   }));
   app.locals.pretty = true;
 } else {
-  dataSources.db = {
-    "defaultForType": "db",
-    "connector": "mongodb",
-    "database": "seraph",
-    "host": "ds047427.mongolab.com",
-    "username": "seraphAdmin",
-    "password": "seraph1seraph1",
-    "port": 47427
-  };
   app.use(logger());
   app.use(errorHandler({
     dumpExceptions: false,
@@ -54,7 +39,7 @@ if ('development' === env) {
  */
 app.boot({
   models: models,
-  datasources: dataSources
+  dataSources: dataSources
 });
 
 /**

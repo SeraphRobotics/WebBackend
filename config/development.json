@@ -1,0 +1,11 @@
+{
+  "dataSources": {
+    "db": {
+      "defaultForType": "db",
+      "connector": "mongodb",
+      "host": "localhost",
+      "port": 27017,
+      "database": "seraph"
+    }
+  }
+}

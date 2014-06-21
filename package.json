@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "body-parser": "latest",
+    "config": "^0.4.36",
     "ejs": "latest",
     "errorhandler": "latest",
     "express": "latest",

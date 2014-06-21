@@ -1,0 +1,24 @@
+{
+  "dataSources": {
+    "db": {
+      "debug": false,
+      "safe": true,
+      "w": 1,
+      "hostname": "localhost",
+      "url": "mongodb://localhost:27017/seraph"
+    },
+    "mail": {
+      "debug": false
+    }
+  },
+  "db": {
+    "debug": false,
+    "safe": true,
+    "w": 1,
+    "hostname": "localhost",
+    "url": "mongodb://localhost:27017/seraph"
+  },
+  "mail": {
+    "debug": false
+  }
+}

@@ -33,4 +33,4 @@ mongoose.connect(uristring, mongoOptions, function (err, res) {
 });
 
 
-exports.mongoose = mongoose;
+//exports.mongoose = mongoose;

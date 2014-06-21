@@ -1,0 +1,11 @@
+{
+  "dataSources": {
+    "db": {
+      "connector": "mongodb"
+    },
+    "mail": {
+      "defaultForType": "mail",
+      "connector": "mail"
+    }
+  }
+}
