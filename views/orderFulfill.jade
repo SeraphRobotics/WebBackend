@@ -1,0 +1,50 @@
+extends layout
+block body
+    h2.text-center Order Fulfillment Status and Update
+    form.row(ng-controller="orderFullfill")
+        .small-10.column.small-centered
+            .row.collapse
+                .small-3.column
+                    span.prefix Order Number
+                .small-9.column
+                    input(type="text")
+            .row.collapse
+                .small-3.column
+                    span.prefix Customer Name
+                .small-6.column
+                    input(type="text")
+                .small-3.column
+                    .postfix.button Copy
+            .row.collapse
+                .small-3.column
+                    span.prefix Customer Address
+                .small-6.column
+                    input(type="text")
+                .small-3.column
+                    .postfix.button Copy
+            .row.collapse
+                .small-3.column
+                    span.prefix Customer Number
+                .small-6.column
+                    input(type="text")
+                .small-3.column
+                    .postfix.button Copy
+            .row
+                table.small-11.column.small-centered
+                    thead
+                        tr
+                            th Item
+                            th Serial Number
+                            th Status
+                            th Add to Shipment
+                    tbody
+                        tr(ng-repeat="part in orders")
+                            td {{part.name}}
+                            td {{part.partNum}}
+                            td {{part.status}}
+                            td.button.tiny.expand(ng-click="addToShip()") Add
+            .row.collapse
+                .small-6.column.panel.text-center
+                    span Tracking Number (TODO: pull from fedex)
+                .small-6.column.panel.text-center
+                    span {{order.trackingNum || "'Tracking number'"}}

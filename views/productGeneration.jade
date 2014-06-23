@@ -1,0 +1,30 @@
+extends layout
+block body
+    h1.text-center Product Generation
+    form.row(ng-controller="productGeneration")
+        .small-10.column.small-centered
+            .row.collapse
+                .small-3.column
+                    span.prefix Product Type
+                .small-9.column
+                    select(ng-model="productType")
+                        option Filament
+                        option Cartridge
+                        option Tablet
+                        option Scanner
+                        option Printer
+            //- Generate Serial number
+            .row.collapse(ng-hide="productType === 'Tablet'")
+                .small-3.column
+                    span.prefix Generate Serial Num
+                .small-9.column
+                    input(type="text" disabled ng-model="genSerialNumber")
+            //- Set Serial Number
+            .row.collapse(ng-show="productType === 'Tablet'")
+                .small-3.column
+                    span.prefix Set Serial Number
+                .small-9.column
+                    input(type="text" ng-model="setSerialNumber" ng-required="productType === 'Tablet'")
+            .row
+                .small-6.column.small-centered
+                    .button.expand(type="submit") Save

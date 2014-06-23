@@ -11,7 +11,7 @@ module.exports = function (app) {
     res.render('compReceiving');
   };
   comp.completed = function (req, res) {
-
+    res.render('compCompleted');
   };
   app.use('/compInventory', comp.inventory);
   app.use('/compOrdering' , comp.ordering);

@@ -1,0 +1,31 @@
+extends layout
+block body
+    h1.text-center Update Machine Status
+    form.row(ng-controller="updateMachine")
+        .small-10.column.small-centered
+            .row.collapse
+                .small-3.column
+                    span.prefix Serial Number
+                .small-9.column
+                    input(type="text" ng-model="serialNum" on-blur ui-blur="findMachine()")
+            .row.collapse
+                .small-3.column
+                    span.prefix Status
+                .small-9.column
+                    select(ng-model="machine.machineStatus")
+                        option Operational in warehouse
+                        option In transit to warehouse
+                        option In transit to Customer
+                        option Broken in warehouse
+                        option Broken at customer
+                        option Operational at Customer
+                        option Decommissioned
+            .row
+                .small-3.column
+                    label.left.inline Comments
+                .small-9.column
+                    textarea(rows="5")
+            .row
+                .small-6.column.small-centered
+                    .button.expand(type="submit") Update Machine
+
