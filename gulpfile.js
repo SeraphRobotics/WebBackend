@@ -7,7 +7,7 @@ var gulp    = require('gulp'),
   concat    = require('gulp-concat'),
   nodemon   = require('gulp-nodemon'),
   reload    = require('gulp-livereload'),
-  sass      = require('gulp-ruby-sass')
+  stylus    = require('gulp-stylus')
 ;
 
 
@@ -20,10 +20,10 @@ gulp.task('test', function () {
     }));   
 });
 
-//sass to css
-gulp.task('sass', function () {
-  gulp.src(['stylesheets/*.sass'])
-    .pipe(sass())
+//stylus to css
+gulp.task('stylus', function () {
+  gulp.src(['stylesheets/*.styl'])
+    .pipe(stylus())
     .pipe(concat('style.css'))
     .pipe(gulp.dest('public/css'))
   ;
@@ -53,7 +53,7 @@ gulp.task('watch', function() {
     .pipe(wait(1000))
     .pipe(reload())
   ;
-  gulp.watch(['stylesheets/*.sass'], ['sass']);
+  gulp.watch(['stylesheets/*.styl'], ['stylus']);
 });
 
 gulp.task('mockDataDev', function () {
@@ -70,4 +70,4 @@ gulp.task('mockDataDev', function () {
 
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['sass', 'nodemon', 'watch']);
+gulp.task('default', ['stylus', 'nodemon', 'watch']);

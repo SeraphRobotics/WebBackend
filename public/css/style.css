@@ -1,18 +1,22 @@
 .border {
-  border: 1px solid black; }
-
+  border: 1px solid #000;
+}
 .margin {
-  margin: 1rem 0; }
-
+  margin: 1rem 0;
+}
 .equalHeight {
-  height: 20em; }
-
+  height: 20em;
+}
 .portal--buttonMargin .button {
-  margin: 0 0 0.25rem; }
-
+  margin: 0 0 0.25rem;
+}
 .divider {
   border-top: solid 2px #2ba6cb;
   margin-bottom: 0.5em;
   clear: both;
   height: 1px;
-  width: 100%; }
+  width: 100%;
+}
+.scrollable {
+  overflow-x: scroll;
+}
