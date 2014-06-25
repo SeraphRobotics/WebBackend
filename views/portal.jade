@@ -4,38 +4,39 @@ block body
     .row
         .medium-6.column.text-center.border.margin.equalHeight
             h3  Components and Inventory
-            ul.no-bullet
-                li: a(href="compInventory") Component Inventory
-                li: a(href="compOrdering") Component Ordering
-                li: a(href="compReceiving") Component Recieving
-                li: a(href="compCompleted") Completed Items Inventory
+            ul.no-bullet.small-8.column.small-centered.portal--buttonMargin
+                li: a.button.small.expand(href="compInventory") Component Inventory
+                li: a.button.small.expand(href="compOrdering") Component Ordering
+                li: a.button.small.expand(href="compReceiving") Component Recieving
+                li: a.button.small.expand(href="compCompleted") Completed Items Inventory
         .medium-6.column.text-center.border.margin.equalHeight
             h3 Machines and Order
-            ul.no-bullet
-                li: a(href="productGeneration") Product Generation
-                li: a(href="updateMachine") Update Machine Status
-                li: a(href="orderQueue") Order Queue
-                li: a(href="orderFulfill") Order Fulfillment Status
-                li: a(href="machineDetails") Machine Details
+            ul.no-bullet.small-8.column.small-centered.portal--buttonMargin
+                li: a.button.small.expand(href="productGeneration") Product Generation
+                li: a.button.small.expand(href="updateMachine") Update Machine Status
+                li: a.button.small.expand(href="orderQueue") Order Queue
+                li: a.button.small.expand(href="orderFulfill") Order Fulfillment Status
+                li: a.button.small.expand(href="machineDetails") Machine Details
     .row
         .medium-6.column.text-center.border.margin.equalHeight
             h3 Customer Support
-            ul.no-bullet
-                li: a(href="customerDetails") Customer Details
-                li: a(href="customerSupport") Customer Support
+            ul.no-bullet.small-8.column.small-centered.portal--buttonMargin
+                li: a.button.small.expand(href="customerDetails") Customer Details
+                li: a.button.small.expand(href="customerSupport") Customer Support
         .medium-6.column.text-center.border.margin.equalHeight
             h3 Book Keeping and Overviews
-            ul.no-bullet
-                li: a(href="bookKeeping") Book Keeping Billing Report
-                li: a(href="globalOverview") Global Overview
-                li: a(href="masterList") Master Component List
+            ul.no-bullet.small-8.column.small-centered.portal--buttonMargin
+                li: a.button.small.expand(href="masterList") Master Component List
+                li: a.button.small.expand(href="globalOverview") Global Overview
+                li: a.button.small.expand(href="subscriptionSettings") Subscription Settings
+                li: a.button.small.expand(href="bookKeeping") Book Keeping Billing Report
     .row
         .medium-12.column.text-center.border.margin
             h3 Outside links
-            ul.inline-list
-                li: a(href="http://seraphrobotics.com/") Seraph Robotics
-                li: a(href="#") CRM
-                li: a(href="#") Help Desk
-                li: a(href="#") Fedex
-                li: a(href="gmail.google.com") Gmail
-                li: a(href="/explorer") Explore the API
+            ul.small-block-grid-3
+                li: a.button.small.expand(href="http://seraphrobotics.com/") Seraph Robotics
+                li: a.button.small.expand(href="#") CRM
+                li: a.button.small.expand(href="#") Help Desk
+                li: a.button.small.expand(href="https://www.fedex.com/us/") Fedex
+                li: a.button.small.expand(href="http://gmail.google.com") Gmail
+                li: a.button.small.expand(href="/explorer") Seraph's RESTful API

@@ -6,7 +6,7 @@ module.exports = function (app) {
     res.render('custDetails');
   };
   custSupport.custSupport = function (req, res) {
-    res.render('custDetails');
+    res.render('custSupport');
   };
 
   app.get('/customerDetails', custSupport.custDetails);

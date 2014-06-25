@@ -1,4 +1,60 @@
 extends layout
-block header
 block body
-block footer
+    h2.text-center Machine Details
+    form.small-10.column.small-centered(ng-controller="machineDetails")
+        .row.collapse
+            .small-3.column
+                span.prefix Serial Number
+            .small-6.column
+                input(type="text" required)
+            .small-3.column
+                .button.postfix Search
+        .row.collapse
+            .small-3.column
+                span.prefix Type
+            .small-9.column
+                input(type="text" ng-model="machine.type" placeholder="Machine Type" disabled)
+        .row.collapse
+            .small-3.column
+                span.prefix Status
+            .small-9.column
+                input(type="text" ng-model="machine.status" placeholder="Machine Status" disabled)
+        .row.collapse
+            .small-3.column
+                span.prefix Date Created
+            .small-9.column
+                input(type="text" ng-model="machine.dateCreated" placeholder="Date Created" disabled)
+        .row
+            .small-12.column.button(ng-click="isValid? 'updateMachine()':'';") Update This Machine
+        .row
+            .small-12.column
+                h3.text-left Service Logs
+        .row(ng-hide="isLog") No logs loaded
+        .row(ng-repeat="log in logs" ng-show="isLog")
+            .small-12.column.border
+                .row.collapse
+                    .small-3.column
+                        span.prefix Status
+                    .small-3.column
+                        input(type="text" ng-model="log.status" disabled)
+                    .small-3.column
+                        span.prefix Date
+                    .small-3.column
+                        input(type="date" ng-model="log.date" disabled)
+                .row.collapse
+                    .small-3.column
+                        span.prefix Cust. Id
+                    .small-3.column
+                        input(type="text" ng-model="log.custId" disabled)
+                    .small-3.column
+                        span.prefix Cust. Name
+                    .small-3.column
+                        input(type="text" ng-model="log.custName" disabled)
+                .row.collapse
+                    .small-3.column
+                        span.prefix Comments
+                    .small-9.column
+                        textarea(rows="3")
+
+
+

@@ -1,4 +1,14 @@
 extends layout
-block header
 block body
-block footer
+    h2.text-center Book Keeping
+    .small-10.column.small-centered
+        .row.collapse
+            .small-4.column
+                span.prefix Date Range
+            .small-4.column
+                input(type="date" ng-model="dateStart" required)
+            .small-4.column
+                input(type="date" ng-model="dateEnd" required)
+        .row
+            .small-12.column.button(ng-click="returnCSV()") Create Report
+

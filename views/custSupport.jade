@@ -1,5 +1,58 @@
 extends layout
-block header
 block body
-    h1 custSupport
-block footer
+    h2.text-center Customer Support
+    form.small-10.column.small-centered(ng-controller="custSupport")
+        h3.text-center Machine Swap and Return
+        .row.collapse
+            .small-6.column
+                span.prefix Customer ID
+            .small-6.column
+                input(type="text" ng-model="custerId" placeholder="ID")
+        .row.collapse
+            .small-6.column
+                span.prefix Returned Serial Number
+            .small-6.column
+                input(type="text" ng-model="returnedId" placeholder="Serial Number")
+        .row.collapse
+            .small-6.column
+                span.prefix Tracking Number
+            .small-6.column
+                input(type="text" ng-model="trackingNum" placeholder="Tracking Number" disabled)
+        .row
+            .small-12.column.button Submit Swap
+        h3.text-center Cartridge Return
+        .row.collapse
+            .small-6.column
+                span.prefix Customer ID
+            .small-6.column
+                input(type="text" ng-model="custerId" placeholder="ID")
+        .row.collapse
+            .small-6.column
+                span.prefix Returned Serial Number
+            .small-6.column
+                input(type="text" ng-model="returnedId" placeholder="Serial Number")
+        .row.collapse
+            .small-6.column
+                span.prefix Number of Cartridges
+            .small-6.column
+                input(type="text" ng-model="numOfCartrigdes" placeholder="Number of Cartridges" disabled)
+        .row
+            .small-12.column.button Submit Swap
+        .row.collapse
+            h3.text-center Change Subscription Rate
+            .small-6.column
+                span.prefix Customer ID
+            .small-6.column
+                input(type="text" ng-model="custerId" placeholder="ID")
+        .row.collapse
+            .small-6.column
+                span.prefix Subscription plan
+            .small-6.column
+                select(ng-model="custSubsciption")
+                    option 10
+                    option 20
+                    option 30
+                    option 40
+                    option 50
+        .row
+            .small-12.column.button Submit Subsription Change

@@ -1,5 +1,82 @@
 extends layout
 block body
     h2.text-center Repair and Manufacturing Queue
-    form.row(ng-controller="orderQueue")
-
+    form(ng-controller="orderQueue")
+        .row.border.margin
+            .small-6.column
+                h3.text-left Orders
+                table
+                    tbody
+                        tr
+                            td Printers
+                            td.panel {{printers.orderNum}}
+                        tr
+                            td Scanners
+                            td.panel {{scanners.orderNum}}
+                        tr
+                            td Tablets
+                            td.panel {{tablets.orderNum}}
+                        tr
+                            td Cartridge
+                            td.panel {{cartridge.orderNum}}
+                        tr
+                            td Filaments
+                            td.panel {{filaments.orderNum}}
+            .small-6.column
+                h3.text-left Repairs
+                table
+                    tbody
+                        tr
+                            td Printers
+                            td.panel {{printers.orderNum}}
+                        tr
+                            td Tablets
+                            td.panel {{tablets.orderNum}}
+                        tr
+                            td Scanners
+                            td.panel {{scanners.orderNum}}
+        .row.border.margin
+            .small-12.column
+                h3.text-left Unfulfilled Orders List
+                table
+                    thead
+                        tr
+                            th Order Number
+                            th Name
+                            th Date Placed
+                            th Replacement or New
+                            th Num of Printers
+                            th Num of Scanners
+                            th Num of Tablets
+                            th Num of Cartridges
+                            th Num of Filaments
+                    tbody
+                        tr(ng-repeat="order in orders")
+                            td {{order.orderNum}}
+                            td {{order.name}}
+                            td {{order.datePlaced}}
+                            td {{order.isNew}}
+                            td {{order.numOfPrinters}}
+                            td {{order.numOfScanners}}
+                            td {{order.numOfTablets}}
+                            td {{order.numOfCartridges}}
+                            td {{order.numOfFilaments}}
+        .row.border.margin
+            .small-12.column
+                h3.text-left Repair Queue
+                table
+                    thead
+                        tr
+                            th Serial Number
+                            th Name
+                            th Date Recieved
+                            th Type
+                    tbody
+                        tr(ng-repeat="machine in repairs")
+                            td {{machine.machineId}}
+                            td {{machine.name}}
+                            td {{machine.dateReceived}}
+                            td {{machine.type}}
+        .row
+            .small-12.column.small-centered
+                .button.expand Update Machine

@@ -1,4 +1,104 @@
 extends layout
-block header
 block body
-block footer
+    h2.text-center Global Overview
+    .small-10.column.small-centered(ng-controller="globerView")
+        h3.text-left Machine
+        h4.text-left Overview
+        .row.collapse
+            .small-4.column
+                span.prefix Date Range
+            .small-4.column
+                input(type="date" ng-model="dateStart" required)
+            .small-4.column
+                input(type="date" ng-model="dateEnd" required)
+        .row.collapse
+            .small-3.column
+                span.prefix Printers
+            .small-3.column
+                input(type="text" ng-model="printers.made" placeholder="Made" disabled)
+            .small-3.column
+                input(type="text" ng-model="printers.shipped" placeholder="Shipped" disabled)
+            .small-3.column
+                input(type="text" ng-model="printers.return" placeholder="Returned" disabled)
+        .row.collapse
+            .small-3.column
+                span.prefix Tablets
+            .small-3.column
+                input(type="text" ng-model="tablets.made" placeholder="Made" disabled)
+            .small-3.column
+                input(type="text" ng-model="tablets.shipped" placeholder="Shipped" disabled)
+            .small-3.column
+                input(type="text" ng-model="tablets.return" placeholder="Returned" disabled)
+        .row.collapse
+            .small-3.column
+                span.prefix Scanners
+            .small-3.column
+                input(type="text" ng-model="scanners.made" placeholder="Made" disabled)
+            .small-3.column
+                input(type="text" ng-model="scanners.shipped" placeholder="Shipped" disabled)
+            .small-3.column
+                input(type="text" ng-model="scanners.return" placeholder="Returned" disabled)
+        h4.text-left Details
+        .row.collapse
+            .small-3.column
+                span.prefix Product Type
+            .small-3.column.end
+                select(ng-model="productType")
+                    option Filament
+                    option Cartridge
+                    option Tablet
+                    option Scanner
+                    option Printer
+        .row(ng-show="dateSelected")
+            table
+                thead
+                    tr
+                        th Serial Number
+                        th Status
+                        th Date Created
+                        th Num of Services
+                        th Current Cutomer
+                        th Previous Customer
+                tbody
+                    tr(ng-repeat="machine in machines")
+                        td {{machine.machineId}}
+                        td {{machine.status}}
+                        td {{machine.dateCreated}}
+                        td {{machine.numOfServices}}
+                        td {{machine.currentCust}}
+                        td {{machine.prevCust}}
+        .row.collapse
+            h3.text-left Cartridges and Filaments
+            h4.text-left Overview
+            .small-3.column
+               span.prefix Cartridge-1
+            .small-3.column
+                input(type="text" ng-model="cartridges.made" placeholder="Made" disabled)
+            .small-3.column
+                input(type="text" ng-model="cartridges.made" placeholder="Made" disabled)
+            .small-3.column
+                input(type="text" ng-model="cartridges.made" placeholder="Made" disabled)
+        .row.collapse
+            .small-3.column
+                span.prefix Cartridge-10
+            .small-3.column
+                input(type="text" ng-model="cartridges.made" placeholder="Made" disabled)
+            .small-3.column
+                input(type="text" ng-model="cartridges.made" placeholder="Made" disabled)
+            .small-3.column
+                input(type="text" ng-model="cartridges.made" placeholder="Made" disabled)
+        .row.collapse
+            .small-3.column
+                span.prefix Filaments-1kg
+            .small-3.column
+                input(type="text" ng-model="cartridges.made" placeholder="Made" disabled)
+            .small-3.column
+                input(type="text" ng-model="cartridges.made" placeholder="Made" disabled)
+            .small-3.column
+                input(type="text" ng-model="cartridges.made" placeholder="Made" disabled)
+        .row
+            .small-12.column.button Export as CSV
+        .row
+            h3.text-left Customers
+            .small-12.column.button Generate Customer Report
+

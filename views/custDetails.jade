@@ -1,4 +1,112 @@
 extends layout
-block header
 block body
-block footer
+    h2.text-center Customer Details
+    form(ng-controller="custDetails").small-10.column.small-centered
+        .row.collapse
+            .small-3.column
+                span.prefix Customer ID
+            .small-6.column
+                input(type="text" ng-model="custId" placeholder="Search with Customer ID")
+            .small-3.column
+                .postfix.button Search
+        .row.collapse
+            .small-3.column
+                span.prefix Order ID
+            .small-6.column
+                input(type="text" ng-model="orderId" placeholder="Seach with Order ID")
+            .small-3.column
+                .postfix.button Search
+        .row
+            .medium-4.column
+                .row.collapse
+                    .small-3.column
+                        span.prefix Name
+                    .small-9.column
+                        input(type="text" ng-model="cust.name" placeholder="No Data")
+                .row.collapse
+                    .small-3.column
+                        span.prefix Street Address
+                    .small-9.column
+                        input(type="text" ng-model="cust.address.street" placeholder="No Data")
+                .row.collapse
+                    .small-3.column
+                        span.prefix City
+                    .small-9.column
+                        input(type="text" ng-model="cust.address.city" placeholder="No Data")
+                .row.collapse
+                    .small-3.column
+                        span.prefix State
+                    .small-9.column
+                        input(type="text" ng-model="cust.address.state" placeholder="No Data")
+                .row.collapse
+                    .small-3.column
+                        span.prefix Zip
+                    .small-9.column
+                        input(type="text" ng-model="cust.address.zip" placeholder="No Data")
+                .row.collapse
+                    .small-3.column
+                        span.prefix Email
+                    .small-9.column
+                        input(type="text" ng-model="cust.email" placeholder="No Data")
+                .row.collapse
+                    .small-3.column
+                        span.prefix Fax
+                    .small-9.column
+                        input(type="text" ng-model="cust.fax" placeholder="No Data")
+                .row(ng-show="isAccount")
+                    span.label Multi-Customer Account?
+                    span.label.secondary {{isMulti? "Yes": "No"}}
+                .row(ng-hide="isAccount")
+                    span.label MultiCustomer Account?
+                    span.label.secondary No cust loaded.
+            .medium-8.column
+                .row
+                    table.small-8.column.small-centered
+                        tbody
+                            tr
+                                td Subscription
+                                td {{cust.subscription || "20"}}
+                            tr
+                                td Num of Cartridge Returns
+                                td {{cust.cartReturns || "3"}}
+                            tr
+                                td Num of Mach. Swaps
+                                td {{cust.numOfSwaps || "1"}}
+                .row.collapse
+                    .small-2.column
+                        span.prefix Date Range
+                    .small-5.column
+                        input(type="date" ng-model="dateStart" required)
+                    .small-5.column
+                        input(type="date" ng-model="dateEnd" required)
+                .row
+                    table
+                        tr
+                            td Num of Cartridges Used
+                            td {{numOfCartridges || "Mock Data"}}
+        .row
+            h3.text-left Machines
+            table.small-9.column.small-centered
+                thead
+                    tr
+                        th Serial Numbers
+                        th Type
+                        th Status
+                tbody
+                    tr
+                        td {{machine.id}}
+                        td {{machine.type}}
+                        td {{machine.status}}
+        .row
+            h3.text-center Records
+        .row
+            h4.text-left Orders
+            accordion(close-others="true")
+                accordion-group(ng-repeat="order in Orders" heading="{{order.id}}-{{order.date}}")
+        .row
+            h4.text-left Returns
+            accordion(close-others="true")
+                accordion-group(ng-repeat="swaps in swaps" heading="{{swap.id}}-{{swap.date}}")
+                accordion-group(ng-repeat="return in returns" heading="{{return.id}}-{{return.date}}")
+
+
