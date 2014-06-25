@@ -17,6 +17,7 @@ block body
             .small-3.column
                 .postfix.button Search
         .row
+            .divider
             .medium-4.column
                 .row.collapse
                     .small-3.column
@@ -86,25 +87,30 @@ block body
                             td {{numOfCartridges || "Mock Data"}}
         .row
             h3.text-left Machines
-            table.small-9.column.small-centered
+            .divider
+            .label(ng-hide="isAccount") No Data
+            table.small-9.column.small-centered(ng-show="isAccount")
                 thead
                     tr
                         th Serial Numbers
                         th Type
                         th Status
                 tbody
-                    tr
+                    tr(ng-repeat="machine in machines" ng-show="isAccount")
                         td {{machine.id}}
                         td {{machine.type}}
                         td {{machine.status}}
         .row
             h3.text-center Records
+        .divider
         .row
             h4.text-left Orders
+            .label(ng-hide="isAccount") No Data
             accordion(close-others="true")
                 accordion-group(ng-repeat="order in Orders" heading="{{order.id}}-{{order.date}}")
         .row
             h4.text-left Returns
+            .label(ng-hide="isAccount") No Data
             accordion(close-others="true")
                 accordion-group(ng-repeat="swaps in swaps" heading="{{swap.id}}-{{swap.date}}")
                 accordion-group(ng-repeat="return in returns" heading="{{return.id}}-{{return.date}}")
