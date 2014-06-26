@@ -2,8 +2,8 @@ extends layout
 block body
     h1.text-center Component Inventory
     .row.text-left(ng-controller="compInventory")
-        h4 Macine Compenets
-        table.large-10.large-centered.column
+        h4 Machine Components
+        table.small-10.small-centered.column
             thead
                 tr
                     th Name
@@ -30,7 +30,7 @@ block body
                     td {{part.scanners.ordered}}
     .row
         h4 Cartridge Components
-        table.large-10.large-centered.column
+        table.small-10.small-centered.column
             thead
                 th Name
                 th Part Number
