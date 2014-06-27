@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var VendorOrder = {
   name: {
     type: String,
@@ -31,5 +31,11 @@ module.exports = {
   properties: VendorOrder,
   dataSource: 'db',
   public: true,
-  relations: {}
+  relations: {
+    vendor: {
+      model: 'vendor',
+      type: 'belongsTo',
+      foreignKey: 'vendorName'
+    }
+  }
 };

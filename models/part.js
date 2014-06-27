@@ -1,19 +1,18 @@
 "use strict";
 var Part= {
+  partNum: {
+    type: String,
+    id: true
+  },
   name: {
     type: String,
     required: true
-  },
-  partNum: {
-    type: String,
-    required: true,
-    unique: true
   },
   vendor: String,
   numInStock: Number,
   machineUsage: [
     {
-      mType: String,
+      machineType: String,
       quantity: Number
     }
   ],
