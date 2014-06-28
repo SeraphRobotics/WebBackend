@@ -24,5 +24,11 @@ module.exports = {
   properties: Part,
   dataSource: 'db',
   public: true,
-  relations: {}
+  relations: {
+    part: {
+      type: 'hasMany',
+      model: 'part',
+      foreignKey: 'partNum'
+    }
+  }
 };

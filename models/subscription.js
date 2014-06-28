@@ -1,6 +1,6 @@
 "use strict";
 var subscriptions = {
-  subsciptionId: {
+  subscriptionId: {
     type: Number,
     id: true
   },
