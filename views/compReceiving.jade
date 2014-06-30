@@ -19,7 +19,7 @@ block body
                                 th Received in Part
                                 th Modify or Delete
                         tbody
-                            tr(ng-repeat="order in vendorOrders")
+                            tr(ng-repeat="order in mockData")
                                 td {{order.orderNum}}
                                 td {{order.recievedInFull? '': 'x'}}
                                 td {{order.recievedInFull? 'x': ''}}

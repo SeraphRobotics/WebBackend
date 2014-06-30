@@ -1,17 +1,21 @@
-"use strict";
+'use strict';
 var machine = {
   machineNum: {
     type: Number,
     id: true
   },
-  machineType: String,
+  machineType: {
+    type: String,
+    required: true
+  },
   dateManufactured: {
     type: Date,
     default: new Date()
   },
-  logs: [
-    String
-  ]
+  logs: {
+    type: [],
+    default: []
+  }
 };
 
 module.exports = {

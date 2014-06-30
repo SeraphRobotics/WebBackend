@@ -1,13 +1,15 @@
 'use strict';
 
-var gulp    = require('gulp'),
+var fs      = require('fs'),
+  gulp      = require('gulp'),
+  wait      = require('gulp-wait'),
   mocha     = require('gulp-mocha'),
   watch     = require('gulp-watch'),
-  wait      = require('gulp-wait'),
+  stylus    = require('gulp-stylus'),
   concat    = require('gulp-concat'),
   nodemon   = require('gulp-nodemon'),
   reload    = require('gulp-livereload'),
-  stylus    = require('gulp-stylus')
+  lbng      = require('loopback-angular')
 ;
 
 
@@ -66,6 +68,15 @@ gulp.task('mockDataDev', function () {
     nodeArgs: ['--debug=9999']
   })
   ;
+});
+
+gulp.task('lbServices', function generateLoopBackServices(callback) {
+  try {
+    var content = lbng.services('app.js', 'lbServices', 'http://myapp.com/api');
+    fs.writeFile('public/js/lbServices.js', content, 'utf-8', callback);
+  } catch(err) {
+    callback(err);
+  }
 });
 
 

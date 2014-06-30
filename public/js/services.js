@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 angular.module('services', ['ngResource'])
-  .factory('Parts', function ($resource) {
-    return $resource('api/parts');
-  })
-  .factory('VendorOrders', function ($resource) {
-    return $resource('api/vendorOrders');
-  })
+//  .factory('Parts', function ($resource) {
+//    return $resource('api/parts');
+//  })
+//  .factory('VendorOrders', function ($resource) {
+//    return $resource('api/vendorOrders');
+//  })
 ;

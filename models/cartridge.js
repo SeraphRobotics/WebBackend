@@ -1,6 +1,6 @@
 "use strict";
 var cartridge = {
-  cartNum: {
+  cartridgeNum: {
     type: Number,
     id: true
   },
