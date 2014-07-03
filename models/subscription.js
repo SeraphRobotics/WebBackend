@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var subscriptions = {
   subscriptionId: {
     type: Number,
@@ -25,6 +25,11 @@ module.exports = {
       type: 'belongsTo',
       model: 'customer',
       foreignKey: 'custId'
+    },
+    plans: {
+      type: 'hasMany',
+      model: 'subscriptionPlan',
+      foreignKey: 'planId'
     }
   }
 };

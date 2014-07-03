@@ -25,10 +25,10 @@ module.exports = {
   dataSource: 'db',
   public: true,
   relations: {
-    part: {
-      type: 'hasMany',
-      model: 'part',
-      foreignKey: 'partNum'
+    vendorOrder: {
+      type: 'hasAndBelongsToMany',
+      model: 'vendorOrder',
+      foreignKey: 'orderNum'
     }
   }
 };

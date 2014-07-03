@@ -1616,6 +1616,12 @@ module.factory(
           url: urlBase + "/cartridges/:id",
           method: "PUT",
         },
+
+        // INTERNAL. Use cartridgeReturn.cartridge() instead.
+        "::get::cartridgeReturn::cartridge": {
+          url: urlBase + "/cartridgeReturns/:id/cartridge",
+          method: "GET",
+        },
       }
     );
 
@@ -1962,6 +1968,508 @@ module.factory(
 
 /**
  * @ngdoc object
+ * @name lbServices.CartridgeReturn
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `CartridgeReturn` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "CartridgeReturn",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/cartridgeReturns/:id",
+      { 'id': '@id' },
+      {
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#create
+         * @methodOf lbServices.CartridgeReturn
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/cartridgeReturns",
+          method: "POST",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#updateOrCreate
+         * @methodOf lbServices.CartridgeReturn
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        "updateOrCreate": {
+          url: urlBase + "/cartridgeReturns",
+          method: "PUT",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#exists
+         * @methodOf lbServices.CartridgeReturn
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{*=}` - 
+         */
+        "exists": {
+          url: urlBase + "/cartridgeReturns/:id/exists",
+          method: "GET",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#findById
+         * @methodOf lbServices.CartridgeReturn
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/cartridgeReturns/:id",
+          method: "GET",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#find
+         * @methodOf lbServices.CartridgeReturn
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        "find": {
+          url: urlBase + "/cartridgeReturns",
+          method: "GET",
+          isArray: true,
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#findOne
+         * @methodOf lbServices.CartridgeReturn
+         *
+         * @description
+         *
+         * Find first instance of the model matched by filter from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/cartridgeReturns/findOne",
+          method: "GET",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#destroyById
+         * @methodOf lbServices.CartridgeReturn
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "destroyById": {
+          url: urlBase + "/cartridgeReturns/:id",
+          method: "DELETE",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#count
+         * @methodOf lbServices.CartridgeReturn
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "count": {
+          url: urlBase + "/cartridgeReturns/count",
+          method: "GET",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#prototype$updateAttributes
+         * @methodOf lbServices.CartridgeReturn
+         *
+         * @description
+         *
+         * Update attributes for a model instance and persist it into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - cartridgeReturn id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        "prototype$updateAttributes": {
+          url: urlBase + "/cartridgeReturns/:id",
+          method: "PUT",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#prototype$__get__cartridge
+         * @methodOf lbServices.CartridgeReturn
+         * @deprecated Use cartridgeReturn.cartridge() instead.
+         *
+         * @description
+         *
+         * Fetches belongsTo relation cartridge
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - cartridgeReturn id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        "prototype$__get__cartridge": {
+          url: urlBase + "/cartridgeReturns/:id/cartridge",
+          method: "GET",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#prototype$__get__customer
+         * @methodOf lbServices.CartridgeReturn
+         * @deprecated Use cartridgeReturn.customer() instead.
+         *
+         * @description
+         *
+         * Fetches belongsTo relation customer
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - cartridgeReturn id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        "prototype$__get__customer": {
+          url: urlBase + "/cartridgeReturns/:id/customer",
+          method: "GET",
+        },
+
+        // INTERNAL. Use customer.cartridgeReturn() instead.
+        "::get::customer::cartridgeReturn": {
+          url: urlBase + "/customers/:id/cartridgeReturn",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use customer.cartridgeReturn.create() instead.
+        "::create::customer::cartridgeReturn": {
+          url: urlBase + "/customers/:id/cartridgeReturn",
+          method: "POST",
+        },
+
+        // INTERNAL. Use customer.cartridgeReturn.destroyAll() instead.
+        "::delete::customer::cartridgeReturn": {
+          url: urlBase + "/customers/:id/cartridgeReturn",
+          method: "DELETE",
+        },
+      }
+    );
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#cartridge
+         * @methodOf lbServices.CartridgeReturn
+         * @deprecated Use cartridgeReturn.cartridge() instead.
+         *
+         * @description
+         *
+         * Fetches belongsTo relation cartridge
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - cartridgeReturn id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Cartridge` object.)
+         * </em>
+         */
+        R.cartridge = function() {
+          var TargetResource = $injector.get("Cartridge");
+          var action = TargetResource["::get::cartridgeReturn::cartridge"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeReturn#customer
+         * @methodOf lbServices.CartridgeReturn
+         * @deprecated Use cartridgeReturn.customer() instead.
+         *
+         * @description
+         *
+         * Fetches belongsTo relation customer
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - cartridgeReturn id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        R.customer = function() {
+          var TargetResource = $injector.get("Customer");
+          var action = TargetResource["::get::cartridgeReturn::customer"];
+          return action.apply(R, arguments);
+        };
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
  * @name lbServices.Customer
  * @object
  *
@@ -2293,13 +2801,13 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Customer#prototype$__get__orders
+         * @name lbServices.Customer#prototype$__get__cartridgeReturn
          * @methodOf lbServices.Customer
-         * @deprecated Use customer.orders() instead.
+         * @deprecated Use customer.cartridgeReturn() instead.
          *
          * @description
          *
-         * Queries orders of this model.
+         * Queries cartridgeReturn of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -2322,21 +2830,21 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        "prototype$__get__orders": {
-          url: urlBase + "/customers/:id/orders",
+        "prototype$__get__cartridgeReturn": {
+          url: urlBase + "/customers/:id/cartridgeReturn",
           method: "GET",
           isArray: true,
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Customer#prototype$__create__orders
+         * @name lbServices.Customer#prototype$__create__cartridgeReturn
          * @methodOf lbServices.Customer
-         * @deprecated Use customer.orders.create() instead.
+         * @deprecated Use customer.cartridgeReturn.create() instead.
          *
          * @description
          *
-         * Creates a new instance in orders of this model.
+         * Creates a new instance in cartridgeReturn of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -2361,20 +2869,20 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        "prototype$__create__orders": {
-          url: urlBase + "/customers/:id/orders",
+        "prototype$__create__cartridgeReturn": {
+          url: urlBase + "/customers/:id/cartridgeReturn",
           method: "POST",
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Customer#prototype$__delete__orders
+         * @name lbServices.Customer#prototype$__delete__cartridgeReturn
          * @methodOf lbServices.Customer
-         * @deprecated Use customer.orders.destroyAll() instead.
+         * @deprecated Use customer.cartridgeReturn.destroyAll() instead.
          *
          * @description
          *
-         * Deletes all orders of this model.
+         * Deletes all cartridgeReturn of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -2395,9 +2903,675 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        "prototype$__delete__orders": {
-          url: urlBase + "/customers/:id/orders",
+        "prototype$__delete__cartridgeReturn": {
+          url: urlBase + "/customers/:id/cartridgeReturn",
           method: "DELETE",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__get__filamentChange
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.filamentChange() instead.
+         *
+         * @description
+         *
+         * Queries filamentChange of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__get__filamentChange": {
+          url: urlBase + "/customers/:id/filamentChange",
+          method: "GET",
+          isArray: true,
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__create__filamentChange
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.filamentChange.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in filamentChange of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__create__filamentChange": {
+          url: urlBase + "/customers/:id/filamentChange",
+          method: "POST",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__delete__filamentChange
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.filamentChange.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all filamentChange of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__delete__filamentChange": {
+          url: urlBase + "/customers/:id/filamentChange",
+          method: "DELETE",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__get__machinesOwned
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesOwned() instead.
+         *
+         * @description
+         *
+         * Queries machinesOwned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__get__machinesOwned": {
+          url: urlBase + "/customers/:id/machinesOwned",
+          method: "GET",
+          isArray: true,
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__create__machinesOwned
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesOwned.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in machinesOwned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__create__machinesOwned": {
+          url: urlBase + "/customers/:id/machinesOwned",
+          method: "POST",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__delete__machinesOwned
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesOwned.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all machinesOwned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__delete__machinesOwned": {
+          url: urlBase + "/customers/:id/machinesOwned",
+          method: "DELETE",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__get__machinesReturned
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesReturned() instead.
+         *
+         * @description
+         *
+         * Queries machinesReturned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__get__machinesReturned": {
+          url: urlBase + "/customers/:id/machinesReturned",
+          method: "GET",
+          isArray: true,
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__create__machinesReturned
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesReturned.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in machinesReturned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__create__machinesReturned": {
+          url: urlBase + "/customers/:id/machinesReturned",
+          method: "POST",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__delete__machinesReturned
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesReturned.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all machinesReturned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__delete__machinesReturned": {
+          url: urlBase + "/customers/:id/machinesReturned",
+          method: "DELETE",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__get__order
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.order() instead.
+         *
+         * @description
+         *
+         * Queries order of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__get__order": {
+          url: urlBase + "/customers/:id/order",
+          method: "GET",
+          isArray: true,
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__create__order
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.order.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in order of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__create__order": {
+          url: urlBase + "/customers/:id/order",
+          method: "POST",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__delete__order
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.order.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all order of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__delete__order": {
+          url: urlBase + "/customers/:id/order",
+          method: "DELETE",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__get__subscription
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.subscription() instead.
+         *
+         * @description
+         *
+         * Queries subscription of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__get__subscription": {
+          url: urlBase + "/customers/:id/subscription",
+          method: "GET",
+          isArray: true,
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__create__subscription
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.subscription.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in subscription of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__create__subscription": {
+          url: urlBase + "/customers/:id/subscription",
+          method: "POST",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__delete__subscription
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.subscription.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all subscription of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__delete__subscription": {
+          url: urlBase + "/customers/:id/subscription",
+          method: "DELETE",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__get__machineSwap
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machineSwap() instead.
+         *
+         * @description
+         *
+         * Queries machineSwap of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__get__machineSwap": {
+          url: urlBase + "/customers/:id/machineSwap",
+          method: "GET",
+          isArray: true,
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__create__machineSwap
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machineSwap.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in machineSwap of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__create__machineSwap": {
+          url: urlBase + "/customers/:id/machineSwap",
+          method: "POST",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#prototype$__delete__machineSwap
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machineSwap.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all machineSwap of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        "prototype$__delete__machineSwap": {
+          url: urlBase + "/customers/:id/machineSwap",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use cartridgeReturn.customer() instead.
+        "::get::cartridgeReturn::customer": {
+          url: urlBase + "/cartridgeReturns/:id/customer",
+          method: "GET",
+        },
+
+        // INTERNAL. Use filamentChange.customer() instead.
+        "::get::filamentChange::customer": {
+          url: urlBase + "/filamentChanges/:id/customer",
+          method: "GET",
         },
 
         // INTERNAL. Use order.customer() instead.
@@ -2442,13 +3616,457 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Customer#orders
+         * @name lbServices.Customer#cartridgeReturn
          * @methodOf lbServices.Customer
-         * @deprecated Use customer.orders() instead.
+         * @deprecated Use customer.cartridgeReturn() instead.
          *
          * @description
          *
-         * Queries orders of this model.
+         * Queries cartridgeReturn of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        R.cartridgeReturn = function() {
+          var TargetResource = $injector.get("CartridgeReturn");
+          var action = TargetResource["::get::customer::cartridgeReturn"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#cartridgeReturn.create
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.cartridgeReturn.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in cartridgeReturn of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        R.cartridgeReturn.create = function() {
+          var TargetResource = $injector.get("CartridgeReturn");
+          var action = TargetResource["::create::customer::cartridgeReturn"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#cartridgeReturn.destroyAll
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.cartridgeReturn.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all cartridgeReturn of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `CartridgeReturn` object.)
+         * </em>
+         */
+        R.cartridgeReturn.destroyAll = function() {
+          var TargetResource = $injector.get("CartridgeReturn");
+          var action = TargetResource["::delete::customer::cartridgeReturn"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#filamentChange
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.filamentChange() instead.
+         *
+         * @description
+         *
+         * Queries filamentChange of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FilamentChange` object.)
+         * </em>
+         */
+        R.filamentChange = function() {
+          var TargetResource = $injector.get("FilamentChange");
+          var action = TargetResource["::get::customer::filamentChange"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#filamentChange.create
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.filamentChange.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in filamentChange of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FilamentChange` object.)
+         * </em>
+         */
+        R.filamentChange.create = function() {
+          var TargetResource = $injector.get("FilamentChange");
+          var action = TargetResource["::create::customer::filamentChange"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#filamentChange.destroyAll
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.filamentChange.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all filamentChange of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FilamentChange` object.)
+         * </em>
+         */
+        R.filamentChange.destroyAll = function() {
+          var TargetResource = $injector.get("FilamentChange");
+          var action = TargetResource["::delete::customer::filamentChange"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#machinesOwned
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesOwned() instead.
+         *
+         * @description
+         *
+         * Queries machinesOwned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Machine` object.)
+         * </em>
+         */
+        R.machinesOwned = function() {
+          var TargetResource = $injector.get("Machine");
+          var action = TargetResource["::get::customer::machinesOwned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#machinesOwned.create
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesOwned.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in machinesOwned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Machine` object.)
+         * </em>
+         */
+        R.machinesOwned.create = function() {
+          var TargetResource = $injector.get("Machine");
+          var action = TargetResource["::create::customer::machinesOwned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#machinesOwned.destroyAll
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesOwned.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all machinesOwned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Machine` object.)
+         * </em>
+         */
+        R.machinesOwned.destroyAll = function() {
+          var TargetResource = $injector.get("Machine");
+          var action = TargetResource["::delete::customer::machinesOwned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#machinesReturned
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesReturned() instead.
+         *
+         * @description
+         *
+         * Queries machinesReturned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Machine` object.)
+         * </em>
+         */
+        R.machinesReturned = function() {
+          var TargetResource = $injector.get("Machine");
+          var action = TargetResource["::get::customer::machinesReturned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#machinesReturned.create
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesReturned.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in machinesReturned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Machine` object.)
+         * </em>
+         */
+        R.machinesReturned.create = function() {
+          var TargetResource = $injector.get("Machine");
+          var action = TargetResource["::create::customer::machinesReturned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#machinesReturned.destroyAll
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machinesReturned.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all machinesReturned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Machine` object.)
+         * </em>
+         */
+        R.machinesReturned.destroyAll = function() {
+          var TargetResource = $injector.get("Machine");
+          var action = TargetResource["::delete::customer::machinesReturned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#order
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.order() instead.
+         *
+         * @description
+         *
+         * Queries order of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -2471,21 +4089,21 @@ module.factory(
          * This usually means the response is a `Order` object.)
          * </em>
          */
-        R.orders = function() {
+        R.order = function() {
           var TargetResource = $injector.get("Order");
-          var action = TargetResource["::get::customer::orders"];
+          var action = TargetResource["::get::customer::order"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Customer#orders.create
+         * @name lbServices.Customer#order.create
          * @methodOf lbServices.Customer
-         * @deprecated Use customer.orders.create() instead.
+         * @deprecated Use customer.order.create() instead.
          *
          * @description
          *
-         * Creates a new instance in orders of this model.
+         * Creates a new instance in order of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -2510,21 +4128,21 @@ module.factory(
          * This usually means the response is a `Order` object.)
          * </em>
          */
-        R.orders.create = function() {
+        R.order.create = function() {
           var TargetResource = $injector.get("Order");
-          var action = TargetResource["::create::customer::orders"];
+          var action = TargetResource["::create::customer::order"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Customer#orders.destroyAll
+         * @name lbServices.Customer#order.destroyAll
          * @methodOf lbServices.Customer
-         * @deprecated Use customer.orders.destroyAll() instead.
+         * @deprecated Use customer.order.destroyAll() instead.
          *
          * @description
          *
-         * Deletes all orders of this model.
+         * Deletes all order of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -2545,9 +4163,231 @@ module.factory(
          * This usually means the response is a `Order` object.)
          * </em>
          */
-        R.orders.destroyAll = function() {
+        R.order.destroyAll = function() {
           var TargetResource = $injector.get("Order");
-          var action = TargetResource["::delete::customer::orders"];
+          var action = TargetResource["::delete::customer::order"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#subscription
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.subscription() instead.
+         *
+         * @description
+         *
+         * Queries subscription of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        R.subscription = function() {
+          var TargetResource = $injector.get("Subscription");
+          var action = TargetResource["::get::customer::subscription"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#subscription.create
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.subscription.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in subscription of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        R.subscription.create = function() {
+          var TargetResource = $injector.get("Subscription");
+          var action = TargetResource["::create::customer::subscription"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#subscription.destroyAll
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.subscription.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all subscription of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        R.subscription.destroyAll = function() {
+          var TargetResource = $injector.get("Subscription");
+          var action = TargetResource["::delete::customer::subscription"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#machineSwap
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machineSwap() instead.
+         *
+         * @description
+         *
+         * Queries machineSwap of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Swap` object.)
+         * </em>
+         */
+        R.machineSwap = function() {
+          var TargetResource = $injector.get("Swap");
+          var action = TargetResource["::get::customer::machineSwap"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#machineSwap.create
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machineSwap.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in machineSwap of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Swap` object.)
+         * </em>
+         */
+        R.machineSwap.create = function() {
+          var TargetResource = $injector.get("Swap");
+          var action = TargetResource["::create::customer::machineSwap"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#machineSwap.destroyAll
+         * @methodOf lbServices.Customer
+         * @deprecated Use customer.machineSwap.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all machineSwap of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Swap` object.)
+         * </em>
+         */
+        R.machineSwap.destroyAll = function() {
+          var TargetResource = $injector.get("Swap");
+          var action = TargetResource["::delete::customer::machineSwap"];
           return action.apply(R, arguments);
         };
 
@@ -3484,6 +5324,61 @@ module.factory(
           method: "GET",
         },
 
+        /**
+         * @ngdoc method
+         * @name lbServices.FilamentChange#prototype$__get__customer
+         * @methodOf lbServices.FilamentChange
+         * @deprecated Use filamentChange.customer() instead.
+         *
+         * @description
+         *
+         * Fetches belongsTo relation customer
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - filamentChange id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `FilamentChange` object.)
+         * </em>
+         */
+        "prototype$__get__customer": {
+          url: urlBase + "/filamentChanges/:id/customer",
+          method: "GET",
+        },
+
+        // INTERNAL. Use customer.filamentChange() instead.
+        "::get::customer::filamentChange": {
+          url: urlBase + "/customers/:id/filamentChange",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use customer.filamentChange.create() instead.
+        "::create::customer::filamentChange": {
+          url: urlBase + "/customers/:id/filamentChange",
+          method: "POST",
+        },
+
+        // INTERNAL. Use customer.filamentChange.destroyAll() instead.
+        "::delete::customer::filamentChange": {
+          url: urlBase + "/customers/:id/filamentChange",
+          method: "DELETE",
+        },
+
         // INTERNAL. Use filament.filamentChanges() instead.
         "::get::filament::filamentChanges": {
           url: urlBase + "/filaments/:id/filamentChanges",
@@ -3540,6 +5435,43 @@ module.factory(
         R.filament = function() {
           var TargetResource = $injector.get("Filament");
           var action = TargetResource["::get::filamentChange::filament"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.FilamentChange#customer
+         * @methodOf lbServices.FilamentChange
+         * @deprecated Use filamentChange.customer() instead.
+         *
+         * @description
+         *
+         * Fetches belongsTo relation customer
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - filamentChange id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        R.customer = function() {
+          var TargetResource = $injector.get("Customer");
+          var action = TargetResource["::get::filamentChange::customer"];
           return action.apply(R, arguments);
         };
 
@@ -3875,6 +5807,44 @@ module.factory(
         "prototype$updateAttributes": {
           url: urlBase + "/machines/:id",
           method: "PUT",
+        },
+
+        // INTERNAL. Use customer.machinesOwned() instead.
+        "::get::customer::machinesOwned": {
+          url: urlBase + "/customers/:id/machinesOwned",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use customer.machinesOwned.create() instead.
+        "::create::customer::machinesOwned": {
+          url: urlBase + "/customers/:id/machinesOwned",
+          method: "POST",
+        },
+
+        // INTERNAL. Use customer.machinesOwned.destroyAll() instead.
+        "::delete::customer::machinesOwned": {
+          url: urlBase + "/customers/:id/machinesOwned",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use customer.machinesReturned() instead.
+        "::get::customer::machinesReturned": {
+          url: urlBase + "/customers/:id/machinesReturned",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use customer.machinesReturned.create() instead.
+        "::create::customer::machinesReturned": {
+          url: urlBase + "/customers/:id/machinesReturned",
+          method: "POST",
+        },
+
+        // INTERNAL. Use customer.machinesReturned.destroyAll() instead.
+        "::delete::customer::machinesReturned": {
+          url: urlBase + "/customers/:id/machinesReturned",
+          method: "DELETE",
         },
 
         // INTERNAL. Use swap.oldMachine() instead.
@@ -4262,22 +6232,22 @@ module.factory(
           method: "GET",
         },
 
-        // INTERNAL. Use customer.orders() instead.
-        "::get::customer::orders": {
-          url: urlBase + "/customers/:id/orders",
+        // INTERNAL. Use customer.order() instead.
+        "::get::customer::order": {
+          url: urlBase + "/customers/:id/order",
           method: "GET",
           isArray: true,
         },
 
-        // INTERNAL. Use customer.orders.create() instead.
-        "::create::customer::orders": {
-          url: urlBase + "/customers/:id/orders",
+        // INTERNAL. Use customer.order.create() instead.
+        "::create::customer::order": {
+          url: urlBase + "/customers/:id/order",
           method: "POST",
         },
 
-        // INTERNAL. Use customer.orders.destroyAll() instead.
-        "::delete::customer::orders": {
-          url: urlBase + "/customers/:id/orders",
+        // INTERNAL. Use customer.order.destroyAll() instead.
+        "::delete::customer::order": {
+          url: urlBase + "/customers/:id/order",
           method: "DELETE",
         },
       }
@@ -4657,13 +6627,13 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Part#prototype$__get__part
+         * @name lbServices.Part#prototype$__get__vendorOrder
          * @methodOf lbServices.Part
-         * @deprecated Use part.part() instead.
+         * @deprecated Use part.vendorOrder() instead.
          *
          * @description
          *
-         * Queries part of this model.
+         * Queries vendorOrder of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -4686,21 +6656,21 @@ module.factory(
          * This usually means the response is a `Part` object.)
          * </em>
          */
-        "prototype$__get__part": {
-          url: urlBase + "/parts/:id/part",
+        "prototype$__get__vendorOrder": {
+          url: urlBase + "/parts/:id/vendorOrder",
           method: "GET",
           isArray: true,
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Part#prototype$__create__part
+         * @name lbServices.Part#prototype$__create__vendorOrder
          * @methodOf lbServices.Part
-         * @deprecated Use part.part.create() instead.
+         * @deprecated Use part.vendorOrder.create() instead.
          *
          * @description
          *
-         * Creates a new instance in part of this model.
+         * Creates a new instance in vendorOrder of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -4725,20 +6695,20 @@ module.factory(
          * This usually means the response is a `Part` object.)
          * </em>
          */
-        "prototype$__create__part": {
-          url: urlBase + "/parts/:id/part",
+        "prototype$__create__vendorOrder": {
+          url: urlBase + "/parts/:id/vendorOrder",
           method: "POST",
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Part#prototype$__delete__part
+         * @name lbServices.Part#prototype$__delete__vendorOrder
          * @methodOf lbServices.Part
-         * @deprecated Use part.part.destroyAll() instead.
+         * @deprecated Use part.vendorOrder.destroyAll() instead.
          *
          * @description
          *
-         * Deletes all part of this model.
+         * Deletes all vendorOrder of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -4759,27 +6729,27 @@ module.factory(
          * This usually means the response is a `Part` object.)
          * </em>
          */
-        "prototype$__delete__part": {
-          url: urlBase + "/parts/:id/part",
+        "prototype$__delete__vendorOrder": {
+          url: urlBase + "/parts/:id/vendorOrder",
           method: "DELETE",
         },
 
-        // INTERNAL. Use part.part() instead.
-        "::get::part::part": {
-          url: urlBase + "/parts/:id/part",
+        // INTERNAL. Use vendorOrder.part() instead.
+        "::get::vendorOrder::part": {
+          url: urlBase + "/vendorOrders/:id/part",
           method: "GET",
           isArray: true,
         },
 
-        // INTERNAL. Use part.part.create() instead.
-        "::create::part::part": {
-          url: urlBase + "/parts/:id/part",
+        // INTERNAL. Use vendorOrder.part.create() instead.
+        "::create::vendorOrder::part": {
+          url: urlBase + "/vendorOrders/:id/part",
           method: "POST",
         },
 
-        // INTERNAL. Use part.part.destroyAll() instead.
-        "::delete::part::part": {
-          url: urlBase + "/parts/:id/part",
+        // INTERNAL. Use vendorOrder.part.destroyAll() instead.
+        "::delete::vendorOrder::part": {
+          url: urlBase + "/vendorOrders/:id/part",
           method: "DELETE",
         },
       }
@@ -4788,13 +6758,13 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Part#part
+         * @name lbServices.Part#vendorOrder
          * @methodOf lbServices.Part
-         * @deprecated Use part.part() instead.
+         * @deprecated Use part.vendorOrder() instead.
          *
          * @description
          *
-         * Queries part of this model.
+         * Queries vendorOrder of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -4814,24 +6784,24 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Part` object.)
+         * This usually means the response is a `Vendororder` object.)
          * </em>
          */
-        R.part = function() {
-          var TargetResource = $injector.get("Part");
-          var action = TargetResource["::get::part::part"];
+        R.vendorOrder = function() {
+          var TargetResource = $injector.get("Vendororder");
+          var action = TargetResource["::get::part::vendorOrder"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Part#part.create
+         * @name lbServices.Part#vendorOrder.create
          * @methodOf lbServices.Part
-         * @deprecated Use part.part.create() instead.
+         * @deprecated Use part.vendorOrder.create() instead.
          *
          * @description
          *
-         * Creates a new instance in part of this model.
+         * Creates a new instance in vendorOrder of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -4853,24 +6823,24 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Part` object.)
+         * This usually means the response is a `Vendororder` object.)
          * </em>
          */
-        R.part.create = function() {
-          var TargetResource = $injector.get("Part");
-          var action = TargetResource["::create::part::part"];
+        R.vendorOrder.create = function() {
+          var TargetResource = $injector.get("Vendororder");
+          var action = TargetResource["::create::part::vendorOrder"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Part#part.destroyAll
+         * @name lbServices.Part#vendorOrder.destroyAll
          * @methodOf lbServices.Part
-         * @deprecated Use part.part.destroyAll() instead.
+         * @deprecated Use part.vendorOrder.destroyAll() instead.
          *
          * @description
          *
-         * Deletes all part of this model.
+         * Deletes all vendorOrder of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -4888,12 +6858,12 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Part` object.)
+         * This usually means the response is a `Vendororder` object.)
          * </em>
          */
-        R.part.destroyAll = function() {
-          var TargetResource = $injector.get("Part");
-          var action = TargetResource["::delete::part::part"];
+        R.vendorOrder.destroyAll = function() {
+          var TargetResource = $injector.get("Vendororder");
+          var action = TargetResource["::delete::part::vendorOrder"];
           return action.apply(R, arguments);
         };
 
@@ -6283,6 +8253,134 @@ module.factory(
           url: urlBase + "/subscriptions/:id/customer",
           method: "GET",
         },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subscription#prototype$__get__plans
+         * @methodOf lbServices.Subscription
+         * @deprecated Use subscription.plans() instead.
+         *
+         * @description
+         *
+         * Queries plans of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscription id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        "prototype$__get__plans": {
+          url: urlBase + "/subscriptions/:id/plans",
+          method: "GET",
+          isArray: true,
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subscription#prototype$__create__plans
+         * @methodOf lbServices.Subscription
+         * @deprecated Use subscription.plans.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in plans of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscription id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        "prototype$__create__plans": {
+          url: urlBase + "/subscriptions/:id/plans",
+          method: "POST",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subscription#prototype$__delete__plans
+         * @methodOf lbServices.Subscription
+         * @deprecated Use subscription.plans.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all plans of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscription id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        "prototype$__delete__plans": {
+          url: urlBase + "/subscriptions/:id/plans",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use customer.subscription() instead.
+        "::get::customer::subscription": {
+          url: urlBase + "/customers/:id/subscription",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use customer.subscription.create() instead.
+        "::create::customer::subscription": {
+          url: urlBase + "/customers/:id/subscription",
+          method: "POST",
+        },
+
+        // INTERNAL. Use customer.subscription.destroyAll() instead.
+        "::delete::customer::subscription": {
+          url: urlBase + "/customers/:id/subscription",
+          method: "DELETE",
+        },
       }
     );
 
@@ -6321,6 +8419,117 @@ module.factory(
         R.customer = function() {
           var TargetResource = $injector.get("Customer");
           var action = TargetResource["::get::subscription::customer"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subscription#plans
+         * @methodOf lbServices.Subscription
+         * @deprecated Use subscription.plans() instead.
+         *
+         * @description
+         *
+         * Queries plans of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscription id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `SubscriptionPlan` object.)
+         * </em>
+         */
+        R.plans = function() {
+          var TargetResource = $injector.get("SubscriptionPlan");
+          var action = TargetResource["::get::subscription::plans"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subscription#plans.create
+         * @methodOf lbServices.Subscription
+         * @deprecated Use subscription.plans.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in plans of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscription id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `SubscriptionPlan` object.)
+         * </em>
+         */
+        R.plans.create = function() {
+          var TargetResource = $injector.get("SubscriptionPlan");
+          var action = TargetResource["::create::subscription::plans"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Subscription#plans.destroyAll
+         * @methodOf lbServices.Subscription
+         * @deprecated Use subscription.plans.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all plans of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscription id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `SubscriptionPlan` object.)
+         * </em>
+         */
+        R.plans.destroyAll = function() {
+          var TargetResource = $injector.get("SubscriptionPlan");
+          var action = TargetResource["::delete::subscription::plans"];
           return action.apply(R, arguments);
         };
 
@@ -6764,6 +8973,25 @@ module.factory(
          */
         "prototype$__delete__customer": {
           url: urlBase + "/subscriptionPlans/:id/customer",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use subscription.plans() instead.
+        "::get::subscription::plans": {
+          url: urlBase + "/subscriptions/:id/plans",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use subscription.plans.create() instead.
+        "::create::subscription::plans": {
+          url: urlBase + "/subscriptions/:id/plans",
+          method: "POST",
+        },
+
+        // INTERNAL. Use subscription.plans.destroyAll() instead.
+        "::delete::subscription::plans": {
+          url: urlBase + "/subscriptions/:id/plans",
           method: "DELETE",
         },
       }
@@ -7358,6 +9586,25 @@ module.factory(
           url: urlBase + "/swaps/:id/newMachine",
           method: "GET",
         },
+
+        // INTERNAL. Use customer.machineSwap() instead.
+        "::get::customer::machineSwap": {
+          url: urlBase + "/customers/:id/machineSwap",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use customer.machineSwap.create() instead.
+        "::create::customer::machineSwap": {
+          url: urlBase + "/customers/:id/machineSwap",
+          method: "POST",
+        },
+
+        // INTERNAL. Use customer.machineSwap.destroyAll() instead.
+        "::delete::customer::machineSwap": {
+          url: urlBase + "/customers/:id/machineSwap",
+          method: "DELETE",
+        },
       }
     );
 
@@ -7844,6 +10091,115 @@ module.factory(
           method: "PUT",
         },
 
+        /**
+         * @ngdoc method
+         * @name lbServices.Vendor#prototype$__get__vendorOrders
+         * @methodOf lbServices.Vendor
+         * @deprecated Use vendor.vendorOrders() instead.
+         *
+         * @description
+         *
+         * Queries vendorOrders of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendor id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Vendor` object.)
+         * </em>
+         */
+        "prototype$__get__vendorOrders": {
+          url: urlBase + "/vendors/:id/vendorOrders",
+          method: "GET",
+          isArray: true,
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Vendor#prototype$__create__vendorOrders
+         * @methodOf lbServices.Vendor
+         * @deprecated Use vendor.vendorOrders.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in vendorOrders of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendor id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Vendor` object.)
+         * </em>
+         */
+        "prototype$__create__vendorOrders": {
+          url: urlBase + "/vendors/:id/vendorOrders",
+          method: "POST",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Vendor#prototype$__delete__vendorOrders
+         * @methodOf lbServices.Vendor
+         * @deprecated Use vendor.vendorOrders.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all vendorOrders of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendor id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Vendor` object.)
+         * </em>
+         */
+        "prototype$__delete__vendorOrders": {
+          url: urlBase + "/vendors/:id/vendorOrders",
+          method: "DELETE",
+        },
+
         // INTERNAL. Use vendorOrder.vendor() instead.
         "::get::vendorOrder::vendor": {
           url: urlBase + "/vendorOrders/:id/vendor",
@@ -7852,6 +10208,117 @@ module.factory(
       }
     );
 
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Vendor#vendorOrders
+         * @methodOf lbServices.Vendor
+         * @deprecated Use vendor.vendorOrders() instead.
+         *
+         * @description
+         *
+         * Queries vendorOrders of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendor id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `VendorOrder` object.)
+         * </em>
+         */
+        R.vendorOrders = function() {
+          var TargetResource = $injector.get("VendorOrder");
+          var action = TargetResource["::get::vendor::vendorOrders"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Vendor#vendorOrders.create
+         * @methodOf lbServices.Vendor
+         * @deprecated Use vendor.vendorOrders.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in vendorOrders of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendor id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `VendorOrder` object.)
+         * </em>
+         */
+        R.vendorOrders.create = function() {
+          var TargetResource = $injector.get("VendorOrder");
+          var action = TargetResource["::create::vendor::vendorOrders"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Vendor#vendorOrders.destroyAll
+         * @methodOf lbServices.Vendor
+         * @deprecated Use vendor.vendorOrders.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all vendorOrders of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendor id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `VendorOrder` object.)
+         * </em>
+         */
+        R.vendorOrders.destroyAll = function() {
+          var TargetResource = $injector.get("VendorOrder");
+          var action = TargetResource["::delete::vendor::vendorOrders"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
@@ -8222,6 +10689,153 @@ module.factory(
           url: urlBase + "/vendorOrders/:id/vendor",
           method: "GET",
         },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.VendorOrder#prototype$__get__part
+         * @methodOf lbServices.VendorOrder
+         * @deprecated Use vendorOrder.part() instead.
+         *
+         * @description
+         *
+         * Queries part of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendorOrder id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `VendorOrder` object.)
+         * </em>
+         */
+        "prototype$__get__part": {
+          url: urlBase + "/vendorOrders/:id/part",
+          method: "GET",
+          isArray: true,
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.VendorOrder#prototype$__create__part
+         * @methodOf lbServices.VendorOrder
+         * @deprecated Use vendorOrder.part.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in part of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendorOrder id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `VendorOrder` object.)
+         * </em>
+         */
+        "prototype$__create__part": {
+          url: urlBase + "/vendorOrders/:id/part",
+          method: "POST",
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.VendorOrder#prototype$__delete__part
+         * @methodOf lbServices.VendorOrder
+         * @deprecated Use vendorOrder.part.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all part of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendorOrder id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `VendorOrder` object.)
+         * </em>
+         */
+        "prototype$__delete__part": {
+          url: urlBase + "/vendorOrders/:id/part",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use part.vendorOrder() instead.
+        "::get::part::vendorOrder": {
+          url: urlBase + "/parts/:id/vendorOrder",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use part.vendorOrder.create() instead.
+        "::create::part::vendorOrder": {
+          url: urlBase + "/parts/:id/vendorOrder",
+          method: "POST",
+        },
+
+        // INTERNAL. Use part.vendorOrder.destroyAll() instead.
+        "::delete::part::vendorOrder": {
+          url: urlBase + "/parts/:id/vendorOrder",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use vendor.vendorOrders() instead.
+        "::get::vendor::vendorOrders": {
+          url: urlBase + "/vendors/:id/vendorOrders",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use vendor.vendorOrders.create() instead.
+        "::create::vendor::vendorOrders": {
+          url: urlBase + "/vendors/:id/vendorOrders",
+          method: "POST",
+        },
+
+        // INTERNAL. Use vendor.vendorOrders.destroyAll() instead.
+        "::delete::vendor::vendorOrders": {
+          url: urlBase + "/vendors/:id/vendorOrders",
+          method: "DELETE",
+        },
       }
     );
 
@@ -8260,6 +10874,117 @@ module.factory(
         R.vendor = function() {
           var TargetResource = $injector.get("Vendor");
           var action = TargetResource["::get::vendorOrder::vendor"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.VendorOrder#part
+         * @methodOf lbServices.VendorOrder
+         * @deprecated Use vendorOrder.part() instead.
+         *
+         * @description
+         *
+         * Queries part of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendorOrder id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Part` object.)
+         * </em>
+         */
+        R.part = function() {
+          var TargetResource = $injector.get("Part");
+          var action = TargetResource["::get::vendorOrder::part"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.VendorOrder#part.create
+         * @methodOf lbServices.VendorOrder
+         * @deprecated Use vendorOrder.part.create() instead.
+         *
+         * @description
+         *
+         * Creates a new instance in part of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendorOrder id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Part` object.)
+         * </em>
+         */
+        R.part.create = function() {
+          var TargetResource = $injector.get("Part");
+          var action = TargetResource["::create::vendorOrder::part"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.VendorOrder#part.destroyAll
+         * @methodOf lbServices.VendorOrder
+         * @deprecated Use vendorOrder.part.destroyAll() instead.
+         *
+         * @description
+         *
+         * Deletes all part of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - vendorOrder id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Part` object.)
+         * </em>
+         */
+        R.part.destroyAll = function() {
+          var TargetResource = $injector.get("Part");
+          var action = TargetResource["::delete::vendorOrder::part"];
           return action.apply(R, arguments);
         };
 

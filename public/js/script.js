@@ -4,7 +4,8 @@ angular.module('app',[
   'lbServices',
   'mm.foundation.modal',
   'mm.foundation.tpls',
-  'mm.foundation.accordion'
+  'mm.foundation.accordion',
+  'angular-lodash'
 ]).config(function($logProvider){
   $logProvider.debugEnabled(true);
   })
@@ -44,14 +45,36 @@ angular.module('app',[
       ;
     };
   })
-  .controller('compInventory', function ($scope) {
+  .controller('compInventory', function ($scope, $log, Part) {
+    Part.find().$promise
+      .then(function (partsArr) {
+        $log.debug(partsArr);
+        $scope.parts = partsArr;
+      })
+      .catch(function (err) {
+        $log.debug(err);
+      })
+    ;
   })
-  .controller('compOrdering', function ($scope, $log, Part) {
-    $scope.vendors = [
-      'smith&Wessen',
-      'coke'
-    ];
+  .controller('compOrdering', function ($scope, $log, $filter, Vendor, VendorOrder, Part) {
+    $scope.vendorOrder = {};
+    Vendor.query().$promise.then(function (vendors) {
+      $log.debug(vendors);
+      $scope.vendors = vendors;
+    });
+    $scope.vendorOrder.dateCreated = $filter('date')(new Date(), 'yyyy-MM-dd');
+    $scope.placeOrder = function (selectedVendor) {
+      $scope.vendorOrder.vendor = selectedVendor.name;
+      VendorOrder.create($scope.vendorOrder).$promise
+        .then(function (instantceOf) {
+          $log.debug(instantceOf);
+          //setTimeout(function () {window.location.href = '/';}, 500);
+        })
+        .catch($log.error)
+      ;
+    };
     $scope.addItem = function () {
+      $scope.parts.push({});
     };
     $scope.parts = Part.query()//returns array of parts
         .$promise
@@ -264,11 +287,114 @@ angular.module('app',[
   .controller('orderFullfill', function ($scope) {
 
   })
-  .controller('custDetails', function ($scope) {
-
+  .controller('custDetails', function ($scope, $log, Customer, Order) {
+    $scope.searchCust = function (custId) {
+      if (custId && custId.length > 2) {
+        $log.debug(custId);
+        var id = {id: custId};
+        Customer.findById(id).$promise.catch($log.debug)
+          .then(function (customer) {
+            $log.debug(customer);
+            $scope.cust = customer;
+          })
+        ;
+        Customer.subscription(id).$promise.catch($log.debug)
+          .then(function (subscription) {
+            $log.debug(subscription);
+            $scope.subscription = subscription;
+          })
+        ;
+        Customer.order(id).$promise.catch($log.debug)
+          .then(function (orders) {
+            $log.debug(orders);
+            $scope.orders = orders;
+          })
+        ;
+        Customer.filamentChange(id).$promise.catch($log.debug)
+          .then(function (filamentChanges) {
+            $log.debug(filamentChanges);
+            $scope.filamentChange = filamentChanges;
+          })
+        ;
+        Customer.machineSwap(id).$promise.catch($log.debug)
+          .then(function (swaps) {
+            $log.debug(swaps);
+            $scope.swaps = swaps;
+          })
+        ;
+     }
+   };
+   $scope.searchOrd = function (orderId) {
+     $log.debug(orderId);
+     if (orderId && orderId.length > 2) {
+       $log.debug(orderId);
+       Order.customer({orderId: orderId}).$promise.catch($log.error)
+         .then(function (customer) {
+           $log.debug(customer);
+         })
+       ;
+     }
+   };
   })
-  .controller('custSupport', function ($scope) {
-
+  .directive('updateCustomer', function ($log, Customer) {
+    return {
+      restrict: 'A',
+      scope: {
+        cust: '=cust'
+      },
+      link: function (scope, el) {
+        el.bind('blur', function () {
+          $log.debug(scope.cust);
+          scope.cust.$updateOrCreate().catch($log.error)
+            .then(function () {
+              $log.debug('success');
+            })
+          ;
+        });
+      }
+    };
+  })
+  .controller('custSupport', function ($scope, $log, Customer) {
+    $scope.findMachineError = {};
+    $scope.findCust = function () {
+      var id = {id: $scope.custId};
+      var machines = Customer.machinesOwned(id).$promise;
+      Customer.findById({id: $scope.custId}).$promise
+        .then(function (cust) {
+          $log.debug(cust);
+          $scope.customer = cust;
+          $scope.swapCustError = false;
+          machines.then(function (machines) {
+            $log.debug(machines);
+            $scope.machines = machines;
+          });
+        })
+        .catch(function (err) {
+          $log.debug(err);
+          $scope.swapCustError = true;
+        })
+      ;
+    };
+    $scope.findMachine = function findMachine() {
+      $log.debug('find machine');
+      if ($scope.customer && $scope.machines) {
+        $scope.machineReturn = _.find($scope.machines, function (machine) {
+          return machine.machineNum === $scope.swapId;
+        }, this);
+      } else {
+        $log.debug('No customer or machinelist');
+        $scope.findMachineError.message = 'Customer not found yet';
+      }
+      if (!$scope.machineReturn) {
+        $scope.findMachineError.message = 'Customer has no such machine';
+      }
+    };
+    $scope.clearCustError = function () {
+      $scope.swapCustError = false;
+    };
+    $scope.clearSwapSwapErr = function () {
+      $scope.findMachineError.message = null;
+    };
   })
   .controller('globerView', function ($scope) {
     $scope.dateSelected = false;
@@ -294,6 +420,7 @@ angular.module('app',[
       return !angular.equals(machine, $scope.master);
     };
     $scope.findMachine = function (machineNum) {
+      $log.debug('find machine');
       if (machineNum) {
         Machine.findById({id: machineNum}).$promise
            .then(function (machineIns) {

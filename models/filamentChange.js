@@ -1,10 +1,13 @@
 "use strict";
 var filamentChange = {
-  custId: Number,
-  machineNum: Number,
+  custId: {
+    type: String,
+    required: true
+  },
+  machineNum: String,
   time: Number,
-  filamentId: {
-    type: Number,
+  filamentNum: {
+    type: String,
     required: true
   },
   volumeUsed: Number
@@ -19,6 +22,11 @@ module.exports = {
       type: 'belongsTo',
       model: 'filament',
       foreignKeys: 'filamentNum'
+    },
+    customer: {
+      type: 'belongsTo',
+      model: 'customer',
+      foreignKey: 'custId'
     }
   }
 };

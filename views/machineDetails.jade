@@ -4,33 +4,36 @@ block body
     form.small-10.column.small-centered(ng-controller="machineDetails")
         .row.collapse
             .small-3.column
-                span.prefix Serial Number
-            .small-6.column
-                input(type="text" required)
-            .small-3.column
-                .button.postfix Search
+                .alert-box.prefix Machine Number
+            .small-9.column
+                input(type="text" ng-model="machineNum"
+                    on-blur ui-blur="findMachine(machineNum);"
+                    ng-change="clearErr()" required)
+        .row
+            .small-6.column.small-centered(ng-show="machineNumErr")
+                .alert-box.alert {{machineNumErrMessage}}
         .row.collapse
             .small-3.column
-                span.prefix Type
+                .alert-box Type
             .small-9.column
-                input(type="text" ng-model="machine.type" placeholder="Machine Type" disabled)
+                span.alert-box.secondary {{machine.machineType || "Machine Type"}}
         .row.collapse
             .small-3.column
-                span.prefix Status
+                .alert-box Status
             .small-9.column
-                input(type="text" ng-model="machine.status" placeholder="Machine Status" disabled)
+                span.alert-box.secondary {{machine.machineStatus ||  "Machine Status" }}
         .row.collapse
             .small-3.column
-                span.prefix Date Created
+                span.alert-box Manufacture Date
             .small-9.column
-                input(type="text" ng-model="machine.dateCreated" placeholder="Date Created" disabled)
+                span.alert-box.secondary {{machine.dateManufactured? (machine.dateManufactured | date:'short'):'Date'}}
         .row
             .small-12.column.button(ng-click="isValid? 'updateMachine()':'';") Update This Machine
         .row
             .small-12.column
                 h3.text-left Service Logs
-        .row(ng-hide="isLog") No logs loaded
-        .row(ng-repeat="log in logs" ng-show="isLog")
+        .row(ng-hide="machine.logs[0]") No logs loaded
+        .row(ng-repeat="log in machine.logs" ng-show="machine.logs[0]")
             .small-12.column.border
                 .row.collapse
                     .small-3.column
@@ -55,6 +58,3 @@ block body
                         span.prefix Comments
                     .small-9.column
                         textarea(rows="3")
-
-
-

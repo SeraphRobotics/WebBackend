@@ -1,27 +1,31 @@
-"use strict";
+'use strict';
 var customer = {
   custId: {
-    type: 'string',
-    index: {
-      unique: true
-    },
+    type: String,
     id: true
   },
+  name: {
+    type: String
+  },
   address: {
-    street: 'string',
-    city: 'string',
-    state: 'string',
+    street: String,
+    city: String,
+    state: String,
     zip: Number
   },
-  email: [
-    'string'
-  ],
+  primaryEmail: {
+    type: String
+  },
   phoneNum: [
     Number
   ],
   faxNum: [
     Number
-  ]
+  ],
+  isMulti: {
+    type: Boolean,
+    default: false
+  }
 };
 
 module.exports = {
@@ -29,10 +33,38 @@ module.exports = {
   dataSource: 'db',
   public: true,
   relations: {
-    orders: {
-      type: "hasMany",
-      model: "order",
+    order: {
+      type: 'hasMany',
+      model: 'order',
       foreignKey: 'custId'
+    },
+    subscription: {
+      type: 'hasMany',
+      model: 'subscription',
+      foreignKey: 'subscriptionId'
+    },
+    filamentChange: {
+      type: 'hasMany',
+      model: 'filamentChange',
+      foreignKey: 'filamentId'
+    },
+    machineSwap: {
+      type: 'hasMany',
+      model: 'swap'
+    },
+    machinesOwned: {
+      type: 'hasMany',
+      model: 'machine',
+      foreignKey: 'machinesOwned'
+    },
+    machinesReturned: {
+      type: 'hasMany',
+      model: 'machine',
+      foreignKey: 'machinesReturned'
+    },
+    cartridgeReturn: {
+      type: 'hasMany',
+      model: 'cartridgeReturn'
     }
   }
 };

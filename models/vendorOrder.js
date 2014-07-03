@@ -1,18 +1,16 @@
 'use strict';
 var VendorOrder = {
-  name: {
+  orderNum: {
     type: String,
-    required: true,
-    unique: true
+    id: true
   },
-  date: {
+  vendor: {
+    type: String,
+    required: true
+  },
+  dateCreated: {
     type: Date,
     default: Date.now()
-  },
-  orderNum: {
-    type: Number,
-    required: true,
-    unique: true
   },
   partsOrdered: [
     {
@@ -20,7 +18,7 @@ var VendorOrder = {
       quantity: Number
     }
   ],
-  CompReceived: [
+  partsReceived: [
     {
       partNum: Number,
       dateReceived: Date
@@ -33,9 +31,14 @@ module.exports = {
   public: true,
   relations: {
     vendor: {
-      model: 'vendor',
       type: 'belongsTo',
-      foreignKey: 'vendorName'
+      model: 'vendor',
+      foreignKey: 'vendor'
+    },
+    part: {
+      type: 'hasAndBelongsToMany',
+      model: 'part',
+      foreignKey: 'partNum'
     }
   }
 };

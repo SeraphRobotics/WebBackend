@@ -8,14 +8,14 @@ block body
             .small-6.column
                 input(type="text" ng-model="custId" placeholder="Search with Customer ID")
             .small-3.column
-                .postfix.button Search
+                .postfix.button(ng-click="searchCust(custId)") Search
         .row.collapse
             .small-3.column
                 span.prefix Order ID
             .small-6.column
                 input(type="text" ng-model="orderId" placeholder="Seach with Order ID")
             .small-3.column
-                .postfix.button Search
+                .postfix.button(ng-click="searchOrd(orderId)" ng-required="!custId") Search
         .row
             .divider
             .medium-4.column
@@ -23,41 +23,41 @@ block body
                     .small-3.column
                         span.prefix Name
                     .small-9.column
-                        input(type="text" ng-model="cust.name" placeholder="No Data")
+                        input(type="text" ng-model="cust.name" placeholder="No Data" update-customer cust="cust")
                 .row.collapse
                     .small-3.column
                         span.prefix Street Address
                     .small-9.column
-                        input(type="text" ng-model="cust.address.street" placeholder="No Data")
+                        input(type="text" ng-model="cust.address.street" placeholder="No Data" update-customer cust="cust")
                 .row.collapse
                     .small-3.column
                         span.prefix City
                     .small-9.column
-                        input(type="text" ng-model="cust.address.city" placeholder="No Data")
+                        input(type="text" ng-model="cust.address.city" placeholder="No Data" update-customer cust="cust")
                 .row.collapse
                     .small-3.column
                         span.prefix State
                     .small-9.column
-                        input(type="text" ng-model="cust.address.state" placeholder="No Data")
+                        input(type="text" ng-model="cust.address.state" placeholder="No Data" update-customer cust="cust")
                 .row.collapse
                     .small-3.column
                         span.prefix Zip
                     .small-9.column
-                        input(type="text" ng-model="cust.address.zip" placeholder="No Data")
+                        input(type="number" ng-model="cust.address.zip" placeholder="No Data" update-customer cust="cust")
                 .row.collapse
                     .small-3.column
                         span.prefix Email
                     .small-9.column
-                        input(type="text" ng-model="cust.email" placeholder="No Data")
+                        input(type="email" ng-model="cust.primaryEmail" placeholder="No Data" update-customer cust="cust")
                 .row.collapse
                     .small-3.column
                         span.prefix Fax
                     .small-9.column
-                        input(type="text" ng-model="cust.fax" placeholder="No Data")
-                .row(ng-show="isAccount")
+                        input(type="text" ng-model="cust.fax" placeholder="No Data" update-customer cust="cust")
+                .row(ng-show="cust")
                     span.label Multi-Customer Account?
-                    span.label.secondary {{isMulti? "Yes": "No"}}
-                .row(ng-hide="isAccount")
+                    span.label.secondary {{cust.isMulti? "Yes": "No"}}
+                .row(ng-hide="cust")
                     span.label MultiCustomer Account?
                     span.label.secondary No cust loaded.
             .medium-8.column
@@ -66,13 +66,16 @@ block body
                         tbody
                             tr
                                 td Subscription
-                                td {{cust.subscription || "20"}}
-                            tr
-                                td Num of Cartridge Returns
-                                td {{cust.cartReturns || "3"}}
+                                td {{subscription.length || "null"}}
                             tr
                                 td Num of Mach. Swaps
-                                td {{cust.numOfSwaps || "1"}}
+                                td {{swaps.length || "null"}}
+                            tr
+                                td Num of filament Changes
+                                td {{filamentChanges.length || "null"}}
+                            tr
+                                td Num of Cartridge Returns
+                                td {{cartReturns.length || "null"}}
                 .row.collapse
                     .small-2.column
                         span.prefix Date Range
@@ -84,7 +87,7 @@ block body
                     table
                         tr
                             td Num of Cartridges Used
-                            td {{numOfCartridges || "Mock Data"}}
+                            td {{numOfCartridges || "no Data"}}
         .row
             h3.text-left Machines
             .divider

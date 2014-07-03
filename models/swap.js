@@ -1,20 +1,23 @@
-"use strict";
+'use strict';
 var swap = {
-  custId: Number,
+  custId: {
+    type: String,
+    id: true
+  },
   date: {
     type: Date,
     default: new Date()
   },
   oldMachineNum: {
-    type: Number,
+    type: String,
     required: true
   },
   newMachineNum: {
-    type: Number,
+    type: String,
     required: true
   },
   shipmentNum: {
-    type: Number,
+    type: String,
     required: true
   }
 };
@@ -37,12 +40,12 @@ module.exports = {
     oldMachine: {
       type: 'belongsTo',
       model: 'machine',
-      foreignKey: 'machineNum'
+      foreignKey: 'oldMachineNum'
     },
     newMachine: {
       type: 'belongsTo',
       model: 'machine',
-      foreignKey: 'machineNum'
+      foreignKey: 'newMachineNum'
     }
   }
 };

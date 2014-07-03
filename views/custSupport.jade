@@ -1,31 +1,39 @@
 extends layout
 block body
     h2.text-center Customer Support
-    form.small-10.column.small-centered(ng-controller="custSupport")
-        h3.text-center Machine Swap and Return
-        .row.collapse
-            .small-6.column
-                span.prefix Customer ID
-            .small-6.column
-                input(type="text" ng-model="custerId" placeholder="ID")
-        .row.collapse
-            .small-6.column
-                span.prefix Returned Serial Number
-            .small-6.column
-                input(type="text" ng-model="returnedId" placeholder="Serial Number")
-        .row.collapse
-            .small-6.column
-                span.prefix Tracking Number
-            .small-6.column
-                input(type="text" ng-model="trackingNum" placeholder="Tracking Number" disabled)
-        .row
-            .small-12.column.button Submit Swap
+    .small-10.column.small-centered(ng-controller="custSupport")
+        .h3.text-center Machine Swap and Return
+        form(name="swap" novalidate)
+            .row.collapse
+                .small-6.column
+                    .alert-box.prefix Customer ID
+                .small-6.column
+                    input(type="text" name="custId"
+                        ng-model="custId" placeholder="ID" ng-minlength="6"
+                        ng-class="swap.custId.$valid && !swap.custId.$pristine? 'error': ''"
+                        on-blur ui-blur="swap.custId.$valid? findCust(): ''" ng-change="clearCustError()" required)
+                small.error(ng-show="swapCustError && !swap.custId.$pristine") No Customer Found
+            .row.collapse
+                .small-6.column
+                    .alert-box.prefix Return Machine Serial Number
+                .small-6.column
+                    input(type="text" name="swapId" ng-model="swapId" placeholder="Serial Number"
+                        ng-minlength="3" ng-min="6" ng-class="swap.swapId.$valid && swap.swapId.$dirty? 'error': ''"
+                        on-blur ui-blur="swap.swapId.$valid? findMachine(): ''" ng-change="clearSwapSwapError()" required)
+                    small.error(ng-show="findMachineError.message && !swap.swapId.$pristine") {{findMachineError.message}}
+            .row.collapse
+                .small-6.column
+                    .alert-box Tracking Number
+                .small-6.column
+                    .alert-box.secondary {{ trackingNum || 'Auto Generated'}}
+            .row
+                button.small-12.column.button(ng-disabled="swap.$isValid" ng-click="createSwap()") Submit Swap
         h3.text-center Cartridge Return
         .row.collapse
             .small-6.column
                 span.prefix Customer ID
             .small-6.column
-                input(type="text" ng-model="custerId" placeholder="ID")
+                input(type="text" ng-model="custId" placeholder="ID")
         .row.collapse
             .small-6.column
                 span.prefix Returned Serial Number
@@ -43,7 +51,7 @@ block body
             .small-6.column
                 span.prefix Customer ID
             .small-6.column
-                input(type="text" ng-model="custerId" placeholder="ID")
+                input(type="text" ng-model="custId" placeholder="ID")
         .row.collapse
             .small-6.column
                 span.prefix Subscription plan

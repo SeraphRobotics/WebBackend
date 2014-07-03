@@ -1,9 +1,8 @@
-"use strict";
+'use strict';
 var Vendor = {
   name: {
     type: String,
-    required: true,
-    unique: true
+    id: true
   },
   date: {
     type: Date,
@@ -15,5 +14,11 @@ module.exports = {
   properties: Vendor,
   dataSource: 'db',
   public: true,
-  relations: {}
+  relations: {
+    vendorOrders: {
+      type: 'hasMany',
+      model: 'vendorOrder',
+      foreignKey: 'orderNum'
+    }
+  }
 };

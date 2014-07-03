@@ -6,19 +6,20 @@ block body
             .small-9.column.small-centered
                 .row.collapse
                     .small-2.column
-                        span.prefix Date
+                        .alert-box.prefix Date
                     .small-10.column
-                        input(type="date")
+                        input(ng-model="vendorOrder.dateCreated" type="date")
                 .row.collapse
                     .small-2.column
-                        span.prefix(for="vendorSelect") Vendor
+                        .alert-box.prefix(for="vendorSelect") Vendor
                     .small-10.column
-                        select(ng-model="mySelect" ng-options="vendor as vendor for vendor in vendors")
+                        select(ng-model="selectedVendor"
+                            ng-options="vendor as vendor.name for vendor in vendors")
                 .row.collapse
                     .small-2.column(style="height: 100%")
-                        span.prefix Order Num
+                        .alert-box.prefix Order Num
                     .small-10.column
-                        input(type="text" required)
+                        input(type="text" ng-model="vendorOrder.orderNum" required)
                 .row
                     .button.expand(ng-click="addItem()") Add Item to order
                 .row
@@ -36,6 +37,6 @@ block body
                                 td {{part.numOfBatches}}
                                 td {{part.numPerBatch}}
                 .row
-                    .button.expand(ng-click="placeOrder()") Place Order
+                    .button.expand(ng-click="placeOrder(selectedVendor)") Place Order
 
 

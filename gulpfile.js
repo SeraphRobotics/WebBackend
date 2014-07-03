@@ -19,7 +19,7 @@ gulp.task('test', function () {
     .pipe(mocha({
       ignoreLeaks: false,
       reporter: 'nyan'
-    }));   
+    }));
 });
 
 //stylus to css
@@ -72,7 +72,8 @@ gulp.task('mockDataDev', function () {
 
 gulp.task('lbServices', function generateLoopBackServices(callback) {
   try {
-    var content = lbng.services('app.js', 'lbServices', 'http://myapp.com/api');
+    var app = require('./app.js');
+    var content = lbng.services(app, 'lbServices', '/api');
     fs.writeFile('public/js/lbServices.js', content, 'utf-8', callback);
   } catch(err) {
     callback(err);
