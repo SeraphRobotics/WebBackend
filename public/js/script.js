@@ -10,13 +10,16 @@ angular.module('app',[
   $logProvider.debugEnabled(true);
   })
   .controller('masterList', function ($scope, $log, $modal, Part) {
-    Part.query().$promise
-      .then(function (partsList) {
-        $log.debug(partsList);
-        $scope.parts = partsList;
-      })
-      .catch($log.error)
-    ;
+    function queryParts() {
+      Part.query().$promise
+        .then(function (partsList) {
+          $log.debug(partsList);
+          $scope.parts = partsList;
+        })
+        .catch($log.error)
+      ;
+    }
+    queryParts();
     $scope.editPart = function (part) {
       $log.debug('edit Part');
       $log.debug(part);
@@ -29,31 +32,72 @@ angular.module('app',[
           }
         }
       });
+      modalInstance.result.then(function () {
+        queryParts();
+      });
+    };
+    $scope.addNew = function () {
+      $scope.editPart('new');
     };
   })
-  .controller('editPartModalController', function ($scope, $log, $modalInstance, part) {
-    $scope.part = part;
+  .controller('editPartModalController', function ($scope, $log, $modalInstance, part, Part) {
+    function setForMachine() {
+      if ($scope.part.forMachine) {
+        $scope.forMachine = 'Machine';
+      } else {
+        $scope.forMachine = 'Cartridge';
+      }
+    }
+    $scope.partType = function () {
+      $scope.part.forMachine = !$scope.part.forMachine;
+      setForMachine();
+    };
+    var isNew = false;
+    if (part == 'new') {
+      $scope.part = {};
+      $scope.partType();
+      isNew = true;
+    } else {
+      $scope.part = part;
+      setForMachine();
+    }
     $scope.save = function () {
-      $scope.part.$updateOrCreate()
-        .then(function (success) {
-          $log.debug(success);
+      if (isNew) {
+        Part.create({}, $scope.part).$promise.then(function () {
+          isNew = false;
           $modalInstance.close();
-        })
-        .catch(function (err) {
-          $log.error(err);
-        })
-      ;
+        }).catch($log.debug);
+      } else {
+        $scope.part.$updateOrCreate()
+          .then(function (success) {
+            $log.debug(success);
+            $modalInstance.dismiss();
+          }).catch($log.debug);
+      }
+    };
+    $scope.deleteThis = function () {
+      if (isNew) {
+        $modalInstance.dismiss();
+      } else {
+        Part.destroyById({id: $scope.part.partNum}).$promise.then(function () {
+          $modalInstance.close();
+        }).catch($log.debug);
+      }
+    };
+    $scope.cancel = function () {
+      $modalInstance.dismiss();
     };
   })
   .controller('compInventory', function ($scope, $log, Part) {
-    Part.find().$promise
-      .then(function (partsArr) {
-        $log.debug(partsArr);
-        $scope.parts = partsArr;
+    Part.query().$promise
+      .then(function (parts) {
+        $log.debug(parts);
+        $scope.mParts = _.remove(parts, function (part) {
+          return part.forMachine;
+        });
+        $scope.cParts = parts;
       })
-      .catch(function (err) {
-        $log.debug(err);
-      })
+      .catch($log.debug)
     ;
   })
   .controller('compOrdering', function ($scope, $log, $filter, Vendor, VendorOrder, Part) {

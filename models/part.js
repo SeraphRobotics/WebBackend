@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var Part= {
   partNum: {
     type: String,
@@ -16,6 +16,10 @@ var Part= {
       quantity: Number
     }
   ],
+  forMachine: {
+    type: Boolean,
+    default: true
+  },
   costPer: Number,
   batchSize: Number,
   expectedLeadTime: Number

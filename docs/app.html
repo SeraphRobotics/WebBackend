@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>app.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>app.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>;
+<span class="hljs-keyword">var</span> q             = <span class="hljs-built_in">require</span>(<span class="hljs-string">'q'</span>),
+    fs            = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>),
+    path          = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>),
+    config        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'config'</span>),
+    logger        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'morgan'</span>),
+    Bunyan        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bunyan'</span>),
+    loopback      = <span class="hljs-built_in">require</span>(<span class="hljs-string">'loopback'</span>),
+    body          = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>),
+    debug         = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'app'</span>),
+    errorHandler  = <span class="hljs-built_in">require</span>(<span class="hljs-string">'errorhandler'</span>),
+    models        = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./models.json'</span>),
+    mo            = <span class="hljs-built_in">require</span>(<span class="hljs-string">'method-override'</span>),</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>DataSource    = require(‘loopback-datasource-juggler’).DataSource,</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    dataSources   = config.dataSources
+;
+
+<span class="hljs-keyword">var</span> log = Bunyan.createLogger({name: <span class="hljs-string">'app.js'</span>});
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debugIt</span><span class="hljs-params">(arg)</span> {</span>
+  log.debug(arg);
+  debug(arg);
+}
+
+<span class="hljs-keyword">var</span> app = module.exports = exports.app = loopback();
+
+app.locals.siteName = <span class="hljs-string">'Seraph'</span>;
+
+app.use(loopback.favicon(__dirname + <span class="hljs-string">'/public/favicon.ico'</span>));
+<span class="hljs-keyword">var</span> env   = process.env.NODE_ENV  || app.get(<span class="hljs-string">'env'</span>)   || <span class="hljs-string">'development'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>var port  = process.env.PORT      || app.get(‘port’)  || 9000;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">if</span> (<span class="hljs-string">'development'</span> === env) {
+  app.use(logger(<span class="hljs-string">'dev'</span>));
+  app.use(errorHandler({
+      dumpExceptions: <span class="hljs-literal">true</span>,
+      showStack: <span class="hljs-literal">true</span>
+  }));
+  app.locals.pretty = <span class="hljs-literal">true</span>;
+} <span class="hljs-keyword">else</span> {
+  app.use(logger());
+  app.use(errorHandler({
+    dumpExceptions: <span class="hljs-literal">false</span>,
+    showStack: <span class="hljs-literal">false</span>
+  }));
+}
+<span class="hljs-comment">/**
+ * Add Loopback Models and Datasource
+ */</span>
+app.boot({
+  models: models,
+  dataSources: dataSources
+});
+
+<span class="hljs-comment">/**
+ * Bootstrap ./models
+ */</span>
+<span class="hljs-keyword">var</span> modelsPath = path.join(__dirname, <span class="hljs-string">'models'</span>);
+<span class="hljs-keyword">var</span> modelName;
+<span class="hljs-keyword">try</span> {
+  fs.readdirSync(modelsPath).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(file)</span> {</span>
+    modelName = file.toString().replace(<span class="hljs-string">'.js'</span>, <span class="hljs-string">''</span>);
+    app.model(modelName, <span class="hljs-built_in">require</span>(modelsPath + <span class="hljs-string">'/'</span> + file));
+  });
+} <span class="hljs-keyword">catch</span> (e) {
+  debug(<span class="hljs-string">'Models failed to load'</span>);
+}
+
+<span class="hljs-comment">/**
+ * get a reference to the mongo database
+ */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>var db = loopback.getDefaultDataSourceForType(‘db’); //require(‘./config/db’);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> fedex = loopback.createDataSource({
+  security: {
+    type: <span class="hljs-string">'BasicAuth'</span>,
+    key: <span class="hljs-string">'TI25Dcc7s9hlsDgD'</span>,
+    password: <span class="hljs-string">'hJTaRd22bvm9J2vIvQ2jV273h'</span>
+  },
+  connector: <span class="hljs-string">'loopback-connector-soap'</span>,
+  remotingEnabled: <span class="hljs-literal">true</span>,
+  wsdl: <span class="hljs-string">'./config/fedex/ShipService_v13.wsdl'</span>,
+  operations: {
+    processShipment: {
+      service: <span class="hljs-string">'ShipService'</span>,
+      port: <span class="hljs-string">'ShipServicePort'</span>,
+      operation: <span class="hljs-string">'processShipment'</span>
+    }
+  }
+});
+
+
+fedex.on(<span class="hljs-string">'connected'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+  log.info(<span class="hljs-string">'connected to Fedex Soap.'</span>);
+  <span class="hljs-keyword">var</span> Customer      = app.models.Customer,
+      findCustById  = q.nBind(Customer.findById, Customer),
+      shipSchema    = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./config/fedex/request'</span>),
+      ShipService   = fedex.createModel(<span class="hljs-string">'ShipService'</span>, shipSchema)
+  ;
+  ShipService.makeShipment = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(custId, cb)</span> {</span>
+    <span class="hljs-keyword">var</span> customerPromise = findCustById(custId).catch(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(err)</span> {</span>
+      debugIt(err);
+    });
+    customerPromise.then(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(customer)</span> {</span>
+      <span class="hljs-keyword">var</span> data = {
+        Shipper: {
+          Contact: {
+            CompanyName: <span class="hljs-string">'Seraph Robotics'</span>,
+            PhoneNumber: <span class="hljs-string">'5551231234'</span>
+          }
+        }
+      };
+      ShipService.processShipment(data, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(err, res)</span> {</span>
+        <span class="hljs-keyword">if</span> (err) {
+          debugIt(err);
+          <span class="hljs-keyword">return</span> cb(err);
+        } <span class="hljs-keyword">else</span> {
+          debugIt(res);
+          cb(<span class="hljs-literal">null</span>, res);
+        }
+      });
+    });
+  };
+  loopback.remoteMethod(ShipService.makeShipment, {
+    accepts: {
+      arg: <span class="hljs-string">'customerId'</span>,
+      type: <span class="hljs-string">'string'</span>,
+      required: <span class="hljs-literal">true</span>
+    },
+    returns: {arg: <span class="hljs-string">'result'</span>, type: <span class="hljs-string">'Object'</span>, root: <span class="hljs-literal">true</span>},
+    http: {
+      verb: <span class="hljs-string">'PUT'</span>,
+      path: <span class="hljs-string">'/createShipment'</span>
+    }
+  });
+
+  app.model(ShipService);
+
+  app.engine(<span class="hljs-string">'jade'</span>, <span class="hljs-built_in">require</span>(<span class="hljs-string">'jade'</span>).__express);
+  app.set(<span class="hljs-string">'view engine'</span>, <span class="hljs-string">'jade'</span>);
+  app.use(loopback.cookieParser(app.get(<span class="hljs-string">'cookieSecret'</span>)));
+  app.use(loopback.token({model: app.models.accessToken}));
+  app.use(mo());
+  app.use(body());
+
+  app.use(app.get(<span class="hljs-string">'restApiRoot'</span>), loopback.rest());
+
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">var</span> explorer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'loopback-explorer'</span>)(app);
+    app.use(<span class="hljs-string">'/explorer'</span>, explorer);
+    app.once(<span class="hljs-string">'started'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(baseUrl)</span> {</span>
+      console.log(<span class="hljs-string">'Browse your REST API at %s%s'</span>, baseUrl, explorer.route);
+    });
+  } <span class="hljs-keyword">catch</span>(e) {
+    console.log(
+      <span class="hljs-string">'Run `npm install loopback-explorer` to enable the LoopBack explorer'</span>
+    );
+  }
+
+  <span class="hljs-comment">/**
+   * Load ./routes
+   */</span>
+  <span class="hljs-keyword">var</span> routesPath = path.join(__dirname, <span class="hljs-string">'routes'</span>);
+  fs.readdirSync(routesPath).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(file)</span> {</span>
+    <span class="hljs-built_in">require</span>(routesPath + <span class="hljs-string">'/'</span> + file)(app);
+  });
+
+  app.use(app.router);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Serve files</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  app.use(loopback.static(__dirname + <span class="hljs-string">'/public'</span>));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Not found</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  app.use(loopback.urlNotFound());</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Start server</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  app.set(<span class="hljs-string">'host'</span>, process.env.HOST || app.get(<span class="hljs-string">'host'</span>) || <span class="hljs-string">'localhost'</span>);
+
+  app.start = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">return</span> app.listen(process.env.PORT, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+      <span class="hljs-keyword">var</span> baseUrl = <span class="hljs-string">'http://'</span> + app.get(<span class="hljs-string">'host'</span>) + <span class="hljs-string">':'</span> + app.get(<span class="hljs-string">'port'</span>);
+      app.emit(<span class="hljs-string">'started'</span>, baseUrl);
+      console.log(<span class="hljs-string">'LoopBack server listening @ %s%s'</span>, baseUrl, <span class="hljs-string">'/'</span>);
+    });
+  };
+
+  <span class="hljs-keyword">if</span>(<span class="hljs-built_in">require</span>.main === module) {
+    app.start();
+  }
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

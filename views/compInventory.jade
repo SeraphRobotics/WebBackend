@@ -1,73 +1,76 @@
 extends layout
 block body
     h1.text-center Component Inventory
-    .row.text-left(ng-controller="compInventory")
+    .small-10.small-centered.column(ng-controller="compInventory")
         h4 Machine Components
-        table.small-10.small-centered.column
-            thead
-                tr
-                    th
-                    th
-                    th
-                    th
-                    th
-                    th
-                    th(colspan="2") Orders Placed
-                    th(colspan="2") Printers
-                    th(colspan="2") Scanners
-                tr
-                    th Name
-                    th Part Number
-                    th Vendor
-                    th Number per Batch
-                    th Number in Stock
-                    th Lead Time
-                    th Date
-                    th Num of batches
-                    th Num In Stock
-                    th Num Ordered
-                    th Num In Stock
-                    th Num Ordered
-            tbody
-                tr(ng-repeat="part in parts")
-                    td {{part.Name}}
-                    td {{part.partNumber}}
-                    td {{part.vendor}}
-                    td {{part.numberPerBatch}}
-                    td {{part.numberInStock}}
-                    td {{part.leadTime}}
-                    td {{part.orders.date}}
-                    td {{part.orders.numPerBatch}}
-                    td {{part.printers.inStock}}
-                    td {{part.printers.ordered}}
-                    td {{part.scanners.inStock}}
-                    td {{part.scanners.ordered}}
-    .row
-        h4 Cartridge Components
-        table.small-10.small-centered.column
-            thead
-                tr
-                    th
-                    th
-                    th
-                    th
-                    th
-                    th
-                    th(colspan="2") Orders Placed
-                tr
-                    th Name
-                    th Part Number
-                    th Vendor
-                    th Number per Batch
-                    th Number in Stock
-                    th Lead Time
-                    th Date
-                    th Number of
-            tbody
-                tr
-                    td {{cartridge.Name}}
-                    td {{cartridge.cartridgeNumber}}
-                    td {{cartridge.vendor}}
-                    td {{cartridge.numberPerBatch}}
-                    td {{cartridge.numberInStock}}
-                    td {{cartridge.leadTime}}
+        .row
+            table
+                thead
+                    tr
+                        th
+                        th
+                        th
+                        th
+                        th
+                        th
+                        th(colspan="2") Orders Placed
+                        th(colspan="2") Printers
+                        th(colspan="2") Scanners
+                    tr
+                        th Name
+                        th Part Number
+                        th Vendor
+                        th Number per Batch
+                        th Number in Stock
+                        th Lead Time
+                        th Date
+                        th Num of batches
+                        th Num In Stock
+                        th Num Ordered
+                        th Num In Stock
+                        th Num Ordered
+                tbody
+                    tr(ng-repeat="mPart in mParts")
+                        td {{mPart.name}}
+                        td {{mPart.partNum}}
+                        td {{mPart.vendor}}
+                        td {{mPart.numPerBatch}}
+                        td {{mPart.numInStock}}
+                        td {{mPart.leadTime}}
+                        td {{mPart.orders.date}}
+                        td {{mPart.orders.numPerBatch}}
+                        td {{mPart.printers.inStock}}
+                        td {{mPart.printers.ordered}}
+                        td {{mPart.scanners.inStock}}
+                        td {{mPart.scanners.ordered}}
+        .row
+            h4 Cartridge Components
+            table
+                thead
+                    tr
+                        th
+                        th
+                        th
+                        th
+                        th
+                        th
+                        th(colspan="2") Orders Placed
+                    tr
+                        th Name
+                        th Part Number
+                        th Vendor
+                        th Number per Batch
+                        th Number in Stock
+                        th Lead Time
+                        th Date
+                        th Number of
+                tbody
+                    tr(ng-repeat="cPart in cParts")
+                        td {{cPart.name}}
+                        td {{cPart.partNum}}
+                        td {{cPart.vendor}}
+                        td {{cPart.numPerBatch}}
+                        td {{cPart.numInStock}}
+                        td {{cPart.leadTime}}
+                        td
+                        td
