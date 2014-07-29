@@ -43,7 +43,7 @@ block body
                     .small-3.column
                         span.prefix Date
                     .small-3.column
-                        input(type="date" ng-model="log.date" disabled)
+                        input(type="text" value="{{log.date | date: 'MM/dd/yyyy'}}" disabled)
                 .row.collapse
                     .small-3.column
                         span.prefix Cust. Id
@@ -57,4 +57,4 @@ block body
                     .small-3.column
                         span.prefix Comments
                     .small-9.column
-                        textarea(rows="3")
+                        textarea(rows="3" ng-model="log.comments" disabled)

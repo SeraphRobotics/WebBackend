@@ -12,15 +12,29 @@ var machine = {
     type: Date,
     default: new Date()
   },
-  logs: {
-    type: [],
-    default: []
-  }
+  logs: [
+    {
+      date: {
+        default: new Date(),
+        type: Date,
+      },
+      status: String,
+      custId: String,
+      custName: String,
+      comments: String
+    }
+  ]
 };
 
 module.exports = {
   properties: machine,
   dataSource: 'db',
   public: true,
-  relations: {}
+  relations: {
+    customer: {
+      type: 'hasMany',
+      model: 'customer',
+      foreignkey: 'cutomerId'
+    }
+  }
 };

@@ -1,6 +1,7 @@
 'use strict';
 
-var fs      = require('fs'),
+var
+  fs        = require('fs'),
   gulp      = require('gulp'),
   wait      = require('gulp-wait'),
   mocha     = require('gulp-mocha'),
@@ -9,7 +10,7 @@ var fs      = require('fs'),
   concat    = require('gulp-concat'),
   nodemon   = require('gulp-nodemon'),
   reload    = require('gulp-livereload'),
-  lbng      = require('loopback-angular')
+  lbng      = require('loopback-sdk-angular')
 ;
 
 
