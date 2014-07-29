@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 module.exports = function (app) {
   var mNO = {};
 
@@ -7,6 +7,10 @@ module.exports = function (app) {
   };
   mNO.updateMachine = function (req, res) {
     res.render('updateMachine');
+  };
+  mNO.updateMachineWithData = function (req, res) {
+    var data = {id: req.params.id};
+    res.render('updateMachine', data);
   };
   mNO.orderQueue = function (req, res) {
     res.render('orderQueue');
@@ -19,6 +23,7 @@ module.exports = function (app) {
   };
 
   app.get('/productGeneration', mNO.productGeneration);
+  app.get('/updateMachine/:id', mNO.updateMachineWithData);
   app.get('/updateMachine', mNO.updateMachine);
   app.get('/orderQueue', mNO.orderQueue);
   app.get('/orderFulfill', mNO.orderFulfill);

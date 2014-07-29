@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 module.exports = function (app) {
   var comp = {};
   comp.inventory = function (req, res) {

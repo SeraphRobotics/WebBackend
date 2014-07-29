@@ -43,6 +43,12 @@ angular.module('updateMachine', [
         $scope.machineNumErrMessage = 'Serial Number Empty';
       }
     };
+    $scope.initId = function (id) {
+      if (id) {
+        $scope.machineNum = id;
+        $scope.findMachine(id);
+      }
+    };
     $scope.save = function () {
       Machine.customer({ id: $scope.machine.machineNum})
         .$promise

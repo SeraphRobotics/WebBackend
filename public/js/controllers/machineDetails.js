@@ -3,7 +3,7 @@
 angular.module('machineDetails', [
   'lbServices'
 ])
-  .controller('machineDetails', function ($scope, $log, Machine) {
+  .controller('machineDetails', function ($scope, $window, $log, Machine) {
     $scope.updateSuccess = false;
     $scope.machine = {};
     $scope.master = {};
@@ -57,6 +57,9 @@ angular.module('machineDetails', [
         })
         .catch($log.debug)
       ;
+    };
+    $scope.updateMachine = function (id) {
+      $window.location.href = '/updateMachine/' + id;
     };
   })
 ;

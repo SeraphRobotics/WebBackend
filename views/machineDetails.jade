@@ -28,7 +28,7 @@ block body
             .small-9.column
                 span.alert-box.secondary {{machine.dateManufactured? (machine.dateManufactured | date:'short'):'Date'}}
         .row
-            .small-12.column.button(ng-click="isValid? 'updateMachine()':'';") Update This Machine
+            .small-12.column.button(ng-click="machineNumErr? '':updateMachine(machineNum)") Update This Machine
         .row
             .small-12.column
                 h3.text-left Service Logs
