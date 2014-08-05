@@ -187,7 +187,8 @@ fedex.on('connected', function () {
   app.use(loopback.cookieParser(app.get('cookieSecret')));
   app.use(loopback.token({model: app.models.accessToken}));
   app.use(mo());
-  app.use(body());
+  app.use(body.urlencoded({extended: true}));
+  app.use(body.json());
 
   app.use(app.get('restApiRoot'), loopback.rest());
 
