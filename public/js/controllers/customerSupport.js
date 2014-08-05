@@ -1,9 +1,11 @@
 /* globals angular, _  */
 'use strict';
 angular.module('customerSupport', [
-  'lbServices'
+  'lbServices',
+  'helpers'
 ])
-  .controller('customerSupport', function ($scope, $log, Customer, Machine, Shipment, Swap) {
+  .controller('customerSupport', function ($scope, $log, Customer, Machine, Shipment, Swap, machineTypes) {
+    $log.debug(machineTypes);
 
     $scope.findCust = function () {
       var id = {id: $scope.custId};
@@ -82,9 +84,10 @@ angular.module('customerSupport', [
     $scope.submitSwap = function() {
       var swapData = {
         custId: $scope.customer.custId,
-        oldMachineNum: $scope.ownedMachine.id,
-        newMachineNum: $scope.newMachine.id,
+        oldMachineNum: $scope.ownedMachine.id
       };
+
+      // A shipment with fedex needs to be made here
       Shipment.create({}, {trackingNum: 'test' + Math.floor((Math.random() * 100))})
         .$promise
         .then(function (shipment) {
@@ -95,18 +98,17 @@ angular.module('customerSupport', [
         })
         .then(function (swap) {
           $log.debug(swap);
-          delete $scope.ownedMachine.ownedBy;
+          machineTypes.forEach(function (type) {
+            if (/(?=.*transit)(?=.*warehouse)/.exec(type.toLowerCase())) {
+              $log.debug(type);
+              $scope.ownedMachine.machineStatus = type;
+            }
+          });
           return $scope.ownedMachine.$save();
         })
         .then(function (ownedMachine) {
           $log.debug('oMachine updated');
           $log.debug(ownedMachine);
-          $scope.newMachine.ownedBy = $scope.customer.custId;
-          return $scope.newMachine.$save();
-        })
-        .then(function (newMachine) {
-          $log.debug('nMachine updated');
-          $log.debug(newMachine);
         })
         .catch($log.debug)
       ;

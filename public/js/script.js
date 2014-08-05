@@ -1,7 +1,7 @@
 /* globals _  */
 'use strict';
 angular.module('app',[
-  'services',
+  'helpers',
   'lbServices',
   'customerDetails',
   'customerSupport',
@@ -13,8 +13,9 @@ angular.module('app',[
   'mm.foundation.tpls',
   'mm.foundation.accordion',
   'angular-lodash'
-]).config(function($logProvider){
-  $logProvider.debugEnabled(true);
+])
+  .config(function($logProvider){
+    $logProvider.debugEnabled(true);
   })
   .controller('compInventory', function ($scope, $log, Part) {
     Part.query().$promise

@@ -12,8 +12,7 @@ var swap = {
     required: true
   },
   newMachineNum: {
-    type: String,
-    required: true
+    type: String
   },
   shipmentNum: {
     type: String,
