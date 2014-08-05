@@ -1,42 +1,42 @@
 extends layout
 block body
-    h1.text-center Component Ordering
-    form(ng-controller="compOrdering")
+  h1.text-center Component Ordering
+  form(ng-controller="compOrdering")
+    .row
+      .small-9.column.small-centered
+        .row.collapse
+          .small-2.column
+            .alert-box.prefix Date
+          .small-10.column
+            input(ng-model="vendorOrder.dateCreated" type="date")
+        .row.collapse
+          .small-2.column
+            .alert-box.prefix(for="vendorSelect") Vendor
+          .small-10.column
+            select(ng-model="selectedVendor"
+              ng-options="vendor as vendor.name for vendor in vendors")
+        .row.collapse
+          .small-2.column(style="height: 100%")
+            .alert-box.prefix Order Num
+          .small-10.column
+            input(type="text" ng-model="vendorOrder.orderNum" required)
         .row
-            .small-9.column.small-centered
-                .row.collapse
-                    .small-2.column
-                        .alert-box.prefix Date
-                    .small-10.column
-                        input(ng-model="vendorOrder.dateCreated" type="date")
-                .row.collapse
-                    .small-2.column
-                        .alert-box.prefix(for="vendorSelect") Vendor
-                    .small-10.column
-                        select(ng-model="selectedVendor"
-                            ng-options="vendor as vendor.name for vendor in vendors")
-                .row.collapse
-                    .small-2.column(style="height: 100%")
-                        .alert-box.prefix Order Num
-                    .small-10.column
-                        input(type="text" ng-model="vendorOrder.orderNum" required)
-                .row
-                    .button.expand(ng-click="addItem()") Add Item to order
-                .row
-                    table.small-12.column
-                        thead
-                            tr
-                                th Part Number
-                                th Name
-                                th Number of Batches
-                                th Number per Batch
-                        tbody
-                            tr(ng-repeat="part in thisOrder")
-                                td {{part.partNum}}
-                                td {{part.name}}
-                                td {{part.numOfBatches}}
-                                td {{part.numPerBatch}}
-                .row
-                    .button.expand(ng-click="placeOrder(selectedVendor)") Place Order
+          .button.expand(ng-click="addItem()") Add Item to order
+        .row
+          table.small-12.column
+            thead
+              tr
+                th Part Number
+                th Name
+                th Number of Batches
+                th Number per Batch
+            tbody
+              tr(ng-repeat="part in thisOrder")
+                td {{part.partNum}}
+                td {{part.name}}
+                td {{part.numOfBatches}}
+                td {{part.numPerBatch}}
+        .row
+          .button.expand(ng-click="placeOrder(selectedVendor)") Place Order
 
 

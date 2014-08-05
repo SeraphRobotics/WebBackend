@@ -1,56 +1,56 @@
 form(name='cuPart')
-    .row.collapse
-        .small-3.column
-            .prefix Name
-        .small-3.column
-            input(type="text" name="name" ng-model="part.name"
-                ng-class="cupart.name.$invalid && cupart.name.$dirty? 'error': ''" required)
-            small.error(ng-show="cuPart.name.$invalid && cuPart.name.$dirty") Name Required
-        .small-3.column
-            .prefix Vendor
-        .small-3.column
-            input(type="text" name="vendor" ng-model="part.vendor"
-                ng-class="cupart.vendor.$invalid && cupart.vendor.$dirty? 'error': ''" required)
-    .row.collapse
-        .small-3.column
-            .prefix lead Time
-        .small-3.column
-            input(type="number" ng-model="part.leadTime")
-        .small-3.column
-            .prefix Machine or Cartridge Component
-        .small-3.column(ng-click="partType()")
-            input(type="text" ng-model="forMachine" disabled)
-    .row.collapse
-        .small-3.column
-            .prefix Num In Stock
-        .small-3.column
-            input(type="number" ng-model="part.numInStock")
-        .small-3.column
-            .prefix Num Per Batch
-        .small-3.column
-            input(type="number" ng-model="part.numPerBatch")
-    .row.collapse
-        .small-3.column
-            .prefix Num Per Scanner
-        .small-3.column
-            input(type="number" ng-model="part.numPerScanner")
-        .small-3.column
-            .prefix Num Per Printer
-        .small-3.column
-            input(type="number" ng-model="part.numPerPrinter")
-    .row.collapse
-        .small-3.column
-            .prefix Num Per Filament
-        .small-3.column.end
-            input(type="number" ng-model="part.numPerFilament")
-        .small-3.column
-            .prefix Num Per Cartridge
-        .small-3.column
-            input(type="number" ng-model="part.numPerCartridge")
-    .row
-        .small-6.column
-            button.button.expand(type="submit" ng-click="save()" ng-disabled="cuPart.$invalid") Save Changes
-        .small-6.column
-            .button.expand(ng-click="cancel()") Cancel
-    .row
-        .small-3.column.left.alert.button.tiny(type="button" ng-click="deleteThis()") Delete Component
+  .row.collapse
+    .small-3.column
+      .prefix Name
+    .small-3.column
+      input(type="text" name="name" ng-model="part.name"
+        ng-class="cupart.name.$invalid && cupart.name.$dirty? 'error': ''" required)
+      small.error(ng-show="cuPart.name.$invalid && cuPart.name.$dirty") Name Required
+    .small-3.column
+      .prefix Vendor
+    .small-3.column
+      input(type="text" name="vendor" ng-model="part.vendor"
+        ng-class="cupart.vendor.$invalid && cupart.vendor.$dirty? 'error': ''" required)
+  .row.collapse
+    .small-3.column
+      .prefix lead Time
+    .small-3.column
+      input(type="number" ng-model="part.leadTime")
+    .small-3.column
+      .prefix Machine or Cartridge Component
+    .small-3.column(ng-click="partType()")
+      input(type="text" ng-model="forMachine" disabled)
+  .row.collapse
+    .small-3.column
+      .prefix Num In Stock
+    .small-3.column
+      input(type="number" ng-model="part.numInStock")
+    .small-3.column
+      .prefix Num Per Batch
+    .small-3.column
+      input(type="number" ng-model="part.numPerBatch")
+  .row.collapse
+    .small-3.column
+      .prefix Num Per Scanner
+    .small-3.column
+      input(type="number" ng-model="part.numPerScanner")
+    .small-3.column
+      .prefix Num Per Printer
+    .small-3.column
+      input(type="number" ng-model="part.numPerPrinter")
+  .row.collapse
+    .small-3.column
+      .prefix Num Per Filament
+    .small-3.column.end
+      input(type="number" ng-model="part.numPerFilament")
+    .small-3.column
+      .prefix Num Per Cartridge
+    .small-3.column
+      input(type="number" ng-model="part.numPerCartridge")
+  .row
+    .small-6.column
+      button.button.expand(type="submit" ng-click="save()" ng-disabled="cuPart.$invalid") Save Changes
+    .small-6.column
+      .button.expand(ng-click="cancel()") Cancel
+  .row
+    .small-3.column.left.alert.button.tiny(type="button" ng-click="deleteThis()") Delete Component

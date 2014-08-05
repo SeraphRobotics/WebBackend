@@ -1,28 +1,28 @@
 extends layout
 block body
-    h1.text-center Component Recieving
-    h3.text-center and Vendor Orders
-    form(ng-controller="compReceiving")
+  h1.text-center Component Recieving
+  h3.text-center and Vendor Orders
+  form(ng-controller="compReceiving")
+    .row
+      .small-9.column.small-centered
+        .row.collapse
+          .small-2.column
+            span.prefix Vendor
+          .small-10.column
+            select(ng-model="mySelect" ng-options="vendor as vendor for vendor in vendors")
         .row
-            .small-9.column.small-centered
-                .row.collapse
-                    .small-2.column
-                        span.prefix Vendor
-                    .small-10.column
-                        select(ng-model="mySelect" ng-options="vendor as vendor for vendor in vendors")
-                .row
-                    table.small-12.column
-                        thead
-                            tr
-                                th Order Num
-                                th Received in Full
-                                th Received in Part
-                                th Modify or Delete
-                        tbody
-                            tr(ng-repeat="order in mockData")
-                                td {{order.orderNum}}
-                                td {{order.recievedInFull? '': 'x'}}
-                                td {{order.recievedInFull? 'x': ''}}
-                                td(ng-click="editOrder(order)") Edit
-    script(type="text/ng-template" id="editOrderModal.html")
-        include editOrderModal
+          table.small-12.column
+            thead
+              tr
+                th Order Num
+                th Received in Full
+                th Received in Part
+                th Modify or Delete
+            tbody
+              tr(ng-repeat="order in mockData")
+                td {{order.orderNum}}
+                td {{order.recievedInFull? '': 'x'}}
+                td {{order.recievedInFull? 'x': ''}}
+                td(ng-click="editOrder(order)") Edit
+  script(type="text/ng-template" id="editOrderModal.html")
+    include editOrderModal

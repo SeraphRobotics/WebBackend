@@ -1,37 +1,37 @@
 extends layout
 block body
-    h1.text-center Product Generation
-    form.row(name="form" ng-controller="productGeneration")
-        .small-10.column.small-centered
-            .row.collapse
-                .small-3.column
-                    span.prefix Product Type
-                .small-9.column
-                    select(ng-model="type" ng-change='clearSerial()')
-                        option Filament
-                        option Cartridge
-                        option Tablet
-                        option Scanner
-                        option Printer
-            //- Serial number from server
-            .row.collapse(ng-hide="type === 'Tablet'")
-                .small-3.column
-                    span.prefix Serial Number
-                .small-9.column
-                    input(type="text" disabled ng-model="serialNumber")
-            //- Set Serial Number
-            .row.collapse(ng-show="type === 'Tablet'")
-                .small-3.column
-                    span.prefix Set Serial Number
-                .small-9.column
-                    input(type="text" name="setSerial" ng-model="setSerialNumber" ng-required="type === 'Tablet'")
-            .row
-                .small-6.column.small-centered
-                    .button.expand(ng-click="form.$invalid? '': submit(type)" ng-disabled="form.$invalid") Save
-            .row.collapse(ng-repeat="model in newProducts")
-                .small-2.column
-                    .alert-box New
-                .small-4.column
-                    .alert-box {{model.machineType || (model.filamentNum? 'Filament': 'Cartridge')}}
-                .small-6.column
-                    .alert-box {{model.id || model.filamentNum || model.cartridgeNum}}
+  h1.text-center Product Generation
+  form.row(name="form" ng-controller="productGeneration")
+    .small-10.column.small-centered
+      .row.collapse
+        .small-3.column
+          span.prefix Product Type
+        .small-9.column
+          select(ng-model="type" ng-change='clearSerial()')
+            option Filament
+            option Cartridge
+            option Tablet
+            option Scanner
+            option Printer
+      //- Serial number from server
+      .row.collapse(ng-hide="type === 'Tablet'")
+        .small-3.column
+          span.prefix Serial Number
+        .small-9.column
+          input(type="text" disabled ng-model="serialNumber")
+      //- Set Serial Number
+      .row.collapse(ng-show="type === 'Tablet'")
+        .small-3.column
+          span.prefix Set Serial Number
+        .small-9.column
+          input(type="text" name="setSerial" ng-model="setSerialNumber" ng-required="type === 'Tablet'")
+      .row
+        .small-6.column.small-centered
+          .button.expand(ng-click="form.$invalid? '': submit(type)" ng-disabled="form.$invalid") Save
+      .row.collapse(ng-repeat="model in newProducts")
+        .small-2.column
+          .alert-box New
+        .small-4.column
+          .alert-box {{model.machineType || (model.filamentNum? 'Filament': 'Cartridge')}}
+        .small-6.column
+          .alert-box {{model.id || model.filamentNum || model.cartridgeNum}}

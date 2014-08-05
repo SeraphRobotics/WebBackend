@@ -1,85 +1,85 @@
 extends layout
 block body
-    h2.text-center Product and Pricing Master
-    form.small-10.column.small-centered(ng-controller="subscriptionSettings")
-        .row
-            h3.text-left Material Shipping Units
-            .divider
-            table.small-12.column
-                thead
-                    tr
-                        th Name
-                        th Unit ID Code
-                        th Num of Cartridge Cartons
-                        th Cartridges/Carton
-                        th Number of Filaments
-                        th Kg Material/per Reel
-                tbody
-                    tr(ng-repeat="unit in Units")
-                        th {{unit.name}}
-                        th {{unit.numOfCartridgeCartons}}
-                        th {{unit.cartridges/carton}}
-                        th {{unit.numOfFilaments}}
-                        th {{unit.kgMaterialPerReel}}
-        .row
-            .small-12.column.tiny.button(ng-click="addUnit()") Add Unit
-        .row.scrollable
-            h3.text-center Pricing Plan A
-            table
-                thead
-                    tr
-                        th Name
-                        th Cartridges/ Month
-                        th Price/ Including Subscription Cartridge
-                        th kg of Filament/ Month
-                        th Price/ Including Subscription Filament
-                        th Price/ additional Filament
-                        th Price/ Additional Cartridge
-                        th Replenish Cartridge Inventory At
-                        th Replenish Filament Inventory At
-                        th Replenish Cartirdge with
-                        th Replenish Filaments with
-                tbody
-                    tr(ng-repeat="plan in subA")
-                        td {{plan.name}}
-                        td {{plan.cartridgesPerMonth}}
-                        td {{plan.pricePerIncludingSubscriptionCartridge}}
-                        td {{plan.kgFilamentPerMonth}}
-                        td {{plan.pricePerIncludingSubscriptionFilament}}
-                        td {{plan.pricePerAdditionalFilament}}
-                        td {{plan.pricePerAdditionalCartridge}}
-                        td {{plan.replenishCartridgeInventoryAt}}
-                        td {{plan.replenishFilamentInventoryAt}}
-                        td {{plan.replenishCartirdgeWith}}
-                        td {{plan.replenishFilamentsWith}}
-        .row
-            .small-12.column.tiny.button(ng-click="addSubA()") Add New Subscription Plan
-        .row.scrollable
-            h3.text-center Pricing Plan B
-            table
-                thead
-                    tr
-                        th Name
-                        th Prints/ Month
-                        th Cost/ Print
-                        th Cost/ AdditionalPrint
-                        th Replenish Cartridge Inventory At
-                        th Replenish Filament Inventory At
-                        th Replenish Cartirdge with
-                        th Replenish Filaments with
-                tbody
-                    tr(ng-repeat="plan in subB")
-                        td {{plan.name}}
-                        td {{plan.printsPerMonth}}
-                        td {{plan.costPerMonth}}
-                        td {{plan.costPerAddPrint}}
-                        td {{plan.replenishCartridgeInventoryAt}}
-                        td {{plan.replenishFilamentInventoryAt}}
-                        td {{plan.replenishCartirdgeWith}}
-                        td {{plan.replenishFilamentsWith}}
-        .row
-            .small-12.column.tiny.button(ng-click="addSubB()") Add New Subscription Plan
-            .divider
-        .row
-            .small-12.column.tiny.button(ng-click="saveChanges") Save Changes
+  h2.text-center Product and Pricing Master
+  form.small-10.column.small-centered(ng-controller="subscriptionSettings")
+    .row
+      h3.text-left Material Shipping Units
+      .divider
+      table.small-12.column
+        thead
+          tr
+            th Name
+            th Unit ID Code
+            th Num of Cartridge Cartons
+            th Cartridges/Carton
+            th Number of Filaments
+            th Kg Material/per Reel
+        tbody
+          tr(ng-repeat="unit in Units")
+            th {{unit.name}}
+            th {{unit.numOfCartridgeCartons}}
+            th {{unit.cartridges/carton}}
+            th {{unit.numOfFilaments}}
+            th {{unit.kgMaterialPerReel}}
+    .row
+      .small-12.column.tiny.button(ng-click="addUnit()") Add Unit
+    .row.scrollable
+      h3.text-center Pricing Plan A
+      table
+        thead
+          tr
+            th Name
+            th Cartridges/ Month
+            th Price/ Including Subscription Cartridge
+            th kg of Filament/ Month
+            th Price/ Including Subscription Filament
+            th Price/ additional Filament
+            th Price/ Additional Cartridge
+            th Replenish Cartridge Inventory At
+            th Replenish Filament Inventory At
+            th Replenish Cartirdge with
+            th Replenish Filaments with
+        tbody
+          tr(ng-repeat="plan in subA")
+            td {{plan.name}}
+            td {{plan.cartridgesPerMonth}}
+            td {{plan.pricePerIncludingSubscriptionCartridge}}
+            td {{plan.kgFilamentPerMonth}}
+            td {{plan.pricePerIncludingSubscriptionFilament}}
+            td {{plan.pricePerAdditionalFilament}}
+            td {{plan.pricePerAdditionalCartridge}}
+            td {{plan.replenishCartridgeInventoryAt}}
+            td {{plan.replenishFilamentInventoryAt}}
+            td {{plan.replenishCartirdgeWith}}
+            td {{plan.replenishFilamentsWith}}
+    .row
+      .small-12.column.tiny.button(ng-click="addSubA()") Add New Subscription Plan
+    .row.scrollable
+      h3.text-center Pricing Plan B
+      table
+        thead
+          tr
+            th Name
+            th Prints/ Month
+            th Cost/ Print
+            th Cost/ AdditionalPrint
+            th Replenish Cartridge Inventory At
+            th Replenish Filament Inventory At
+            th Replenish Cartirdge with
+            th Replenish Filaments with
+        tbody
+          tr(ng-repeat="plan in subB")
+            td {{plan.name}}
+            td {{plan.printsPerMonth}}
+            td {{plan.costPerMonth}}
+            td {{plan.costPerAddPrint}}
+            td {{plan.replenishCartridgeInventoryAt}}
+            td {{plan.replenishFilamentInventoryAt}}
+            td {{plan.replenishCartirdgeWith}}
+            td {{plan.replenishFilamentsWith}}
+    .row
+      .small-12.column.tiny.button(ng-click="addSubB()") Add New Subscription Plan
+      .divider
+    .row
+      .small-12.column.tiny.button(ng-click="saveChanges") Save Changes
 

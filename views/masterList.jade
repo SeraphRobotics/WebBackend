@@ -1,33 +1,33 @@
 extends layout
 block body
-    h1.text-center Master List
-    .large-10.column.large-centered(ng-controller="masterList")
-        .row
-            table
-                thead
-                    tr
-                        th Name
-                        th Part Number
-                        th Vendor
-                        th Lead Time
-                        th Number in Stock
-                        th Number Per Batch
-                        th Number Per Printer
-                        th Number Per Scanner
-                        th Number Per Cartridge
-                        th Number Per Filament
-                tbody
-                    tr(ng-repeat="part in parts" ng-click="editPart(part)")
-                        td {{part.name}}
-                        td {{part.partNumber}}
-                        td {{part.vendor}}
-                        td {{part.leadTime}}
-                        td {{part.numInStock}}
-                        td {{part.numPerBatch}}
-                        td {{part.numPerPrinter}}
-                        td {{part.numPerScanner}}
-                        td {{part.numPerCartridge}}
-                        td {{part.numPerFilament}}
-            .button.small.expand(ng-click="addNew()") Create Component
-    script(type="text/ng-template" id="editPartModal.html")
-        include editPartModal
+  h1.text-center Master List
+  .large-10.column.large-centered(ng-controller="masterList")
+    .row
+      table
+        thead
+          tr
+            th Name
+            th Part Number
+            th Vendor
+            th Lead Time
+            th Number in Stock
+            th Number Per Batch
+            th Number Per Printer
+            th Number Per Scanner
+            th Number Per Cartridge
+            th Number Per Filament
+        tbody
+          tr(ng-repeat="part in parts" ng-click="editPart(part)")
+            td {{part.name}}
+            td {{part.partNumber}}
+            td {{part.vendor}}
+            td {{part.leadTime}}
+            td {{part.numInStock}}
+            td {{part.numPerBatch}}
+            td {{part.numPerPrinter}}
+            td {{part.numPerScanner}}
+            td {{part.numPerCartridge}}
+            td {{part.numPerFilament}}
+      .button.small.expand(ng-click="addNew()") Create Component
+  script(type="text/ng-template" id="editPartModal.html")
+    include editPartModal

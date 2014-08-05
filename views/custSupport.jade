@@ -28,20 +28,21 @@ block body
             ng-change="clearOwnedMachineErr()"
             required)
           small.error(ng-show="findOwnedMachineError && !swap.oldMachId.$pristine") {{findOwnedMachineError}}
-      .row.collapse
-        .small-6.column
-          .alert-box.prefix New Machine Serial Number
-        .small-6.column
-          input(type="text"
-            name="newMachId"
-            ng-model="newMachId"
-            placeholder="Serial Number"
-            ng-minlength="3"
-            ng-class="swap.newMachId.$valid && swap.newMachId.$dirty? 'error': ''"
-            on-blur
-            ui-blur="newMachId.length>3? findNewMachine(): ''"
-            ng-change="clearNewMachineErr()")
-          small.error(ng-show="findNewMachineErr && !swap.newMachId.$pristine") {{findNewMachineErr}}
+      //- not need but will keep just in case
+        .row.collapse
+          .small-6.column
+            .alert-box.prefix New Machine Serial Number
+          .small-6.column
+            input(type="text"
+              name="newMachId"
+              ng-model="newMachId"
+              placeholder="Serial Number"
+              ng-minlength="3"
+              ng-class="swap.newMachId.$valid && swap.newMachId.$dirty? 'error': ''"
+              on-blur
+              ui-blur="newMachId.length>3? findNewMachine(): ''"
+              ng-change="clearNewMachineErr()")
+            small.error(ng-show="findNewMachineErr && !swap.newMachId.$pristine") {{findNewMachineErr}}
       .row.collapse
         .small-6.column
           .alert-box Tracking Number

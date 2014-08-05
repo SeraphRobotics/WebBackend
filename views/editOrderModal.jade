@@ -1,21 +1,21 @@
 .row
-    .small-10.column.border.margin.small-centered
-        h5 Date Placed: {{order.datePlaced | date: 'dd/MM/yyyy'}}
+  .small-10.column.border.margin.small-centered
+    h5 Date Placed: {{order.datePlaced | date: 'dd/MM/yyyy'}}
 .row
-    table.small-10.column.small-centered
-        thead
-            tr
-                th Part Num
-                th Name
-                th Batches Ordered
-                th Batches Recieved
-        tbody
-            tr(ng-repeat="part in order.partsOrdered")
-                td {{part.partNum}}
-                td {{part.name}}
-                td {{part.batchesOrdered}}
-                td: input(type="number" ng-model="part.batchesReceived"
-                    max="{{part.batchesOrdered}}" min="0")
+  table.small-10.column.small-centered
+    thead
+      tr
+        th Part Num
+        th Name
+        th Batches Ordered
+        th Batches Recieved
+    tbody
+      tr(ng-repeat="part in order.partsOrdered")
+        td {{part.partNum}}
+        td {{part.name}}
+        td {{part.batchesOrdered}}
+        td: input(type="number" ng-model="part.batchesReceived"
+          max="{{part.batchesOrdered}}" min="0")
 .row
-    .small-10.column.small-centered
-        .button.expand(ng-click='saveChanges()') Save Changes
+  .small-10.column.small-centered
+    .button.expand(ng-click='saveChanges()') Save Changes

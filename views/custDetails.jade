@@ -1,126 +1,126 @@
 extends layout
 block body
-    h2.text-center Customer Details
-    form(ng-controller="customerDetails").small-10.column.small-centered
+  h2.text-center Customer Details
+  form(ng-controller="customerDetails").small-10.column.small-centered
+    .row.collapse
+      .small-3.column
+        span.prefix Customer ID
+      .small-6.column
+        input(type="text" ng-model="custId" placeholder="Search with Customer ID")
+      .small-3.column
+        .postfix.button(ng-click="searchCust(custId)") Search
+    .row.collapse
+      .small-3.column
+        span.prefix Order ID
+      .small-6.column
+        input(type="text" ng-model="orderId" placeholder="Seach with Order ID")
+      .small-3.column
+        .postfix.button(ng-click="searchOrd(orderId)" ng-required="!custId") Search
+    .row
+      .divider
+      .medium-4.column
         .row.collapse
-            .small-3.column
-                span.prefix Customer ID
-            .small-6.column
-                input(type="text" ng-model="custId" placeholder="Search with Customer ID")
-            .small-3.column
-                .postfix.button(ng-click="searchCust(custId)") Search
+          .small-3.column
+            span.prefix Name
+          .small-9.column
+            input(type="text" ng-model="cust.name" placeholder="No Data" update-customer cust="cust")
         .row.collapse
-            .small-3.column
-                span.prefix Order ID
-            .small-6.column
-                input(type="text" ng-model="orderId" placeholder="Seach with Order ID")
-            .small-3.column
-                .postfix.button(ng-click="searchOrd(orderId)" ng-required="!custId") Search
+          .small-3.column
+            span.prefix Street Address
+          .small-9.column
+            input(type="text" ng-model="cust.address.street" placeholder="No Data" update-customer cust="cust")
+        .row.collapse
+          .small-3.column
+            span.prefix City
+          .small-9.column
+            input(type="text" ng-model="cust.address.city" placeholder="No Data" update-customer cust="cust")
+        .row.collapse
+          .small-3.column
+            span.prefix State
+          .small-9.column
+            input(type="text" ng-model="cust.address.state" placeholder="No Data" update-customer cust="cust")
+        .row.collapse
+          .small-3.column
+            span.prefix Zip
+          .small-9.column
+            input(type="number" ng-model="cust.address.zip" placeholder="No Data" update-customer cust="cust")
+        .row.collapse
+          .small-3.column
+            span.prefix Email
+          .small-9.column
+            input(type="email" ng-model="cust.primaryEmail" placeholder="No Data" update-customer cust="cust")
+        .row.collapse
+          .small-3.column
+            span.prefix Phone
+          .small-9.column
+            input(type="text" ng-model="cust.phoneNum[0]" placeholder="No Data" update-customer cust="cust")
+        .row.collapse
+          .small-3.column
+            span.prefix Fax
+          .small-9.column
+            input(type="text" ng-model="cust.faxNum[0]" placeholder="No Data" update-customer cust="cust")
+        .row(ng-show="cust")
+          span.label Multi-Customer Account?
+          span.label.secondary {{cust.isMulti? "Yes": "No"}}
+        .row(ng-hide="cust")
+          span.label MultiCustomer Account?
+          span.label.secondary No cust loaded.
+      .medium-8.column
         .row
-            .divider
-            .medium-4.column
-                .row.collapse
-                    .small-3.column
-                        span.prefix Name
-                    .small-9.column
-                        input(type="text" ng-model="cust.name" placeholder="No Data" update-customer cust="cust")
-                .row.collapse
-                    .small-3.column
-                        span.prefix Street Address
-                    .small-9.column
-                        input(type="text" ng-model="cust.address.street" placeholder="No Data" update-customer cust="cust")
-                .row.collapse
-                    .small-3.column
-                        span.prefix City
-                    .small-9.column
-                        input(type="text" ng-model="cust.address.city" placeholder="No Data" update-customer cust="cust")
-                .row.collapse
-                    .small-3.column
-                        span.prefix State
-                    .small-9.column
-                        input(type="text" ng-model="cust.address.state" placeholder="No Data" update-customer cust="cust")
-                .row.collapse
-                    .small-3.column
-                        span.prefix Zip
-                    .small-9.column
-                        input(type="number" ng-model="cust.address.zip" placeholder="No Data" update-customer cust="cust")
-                .row.collapse
-                    .small-3.column
-                        span.prefix Email
-                    .small-9.column
-                        input(type="email" ng-model="cust.primaryEmail" placeholder="No Data" update-customer cust="cust")
-                .row.collapse
-                    .small-3.column
-                        span.prefix Phone
-                    .small-9.column
-                        input(type="text" ng-model="cust.phoneNum[0]" placeholder="No Data" update-customer cust="cust")
-                .row.collapse
-                    .small-3.column
-                        span.prefix Fax
-                    .small-9.column
-                        input(type="text" ng-model="cust.faxNum[0]" placeholder="No Data" update-customer cust="cust")
-                .row(ng-show="cust")
-                    span.label Multi-Customer Account?
-                    span.label.secondary {{cust.isMulti? "Yes": "No"}}
-                .row(ng-hide="cust")
-                    span.label MultiCustomer Account?
-                    span.label.secondary No cust loaded.
-            .medium-8.column
-                .row
-                    table.small-8.column.small-centered
-                        tbody
-                            tr
-                                td Subscription
-                                td {{subscription.length || "null"}}
-                            tr
-                                td Num of Mach. Swaps
-                                td {{swaps.length || "null"}}
-                            tr
-                                td Num of filament Changes
-                                td {{filamentChanges.length || "null"}}
-                            tr
-                                td Num of Cartridge Returns
-                                td {{cartReturns.length || "null"}}
-                .row.collapse
-                    .small-2.column
-                        span.prefix Date Range
-                    .small-5.column
-                        input(type="date" ng-model="dateStart" required)
-                    .small-5.column
-                        input(type="date" ng-model="dateEnd" required)
-                .row
-                    table
-                        tr
-                            td Num of Cartridges Used
-                            td {{numOfCartridges || "no Data"}}
+          table.small-8.column.small-centered
+            tbody
+              tr
+                td Subscription
+                td {{subscription.length || "null"}}
+              tr
+                td Num of Mach. Swaps
+                td {{swaps.length || "null"}}
+              tr
+                td Num of filament Changes
+                td {{filamentChanges.length || "null"}}
+              tr
+                td Num of Cartridge Returns
+                td {{cartReturns.length || "null"}}
+        .row.collapse
+          .small-2.column
+            span.prefix Date Range
+          .small-5.column
+            input(type="date" ng-model="dateStart" required)
+          .small-5.column
+            input(type="date" ng-model="dateEnd" required)
         .row
-            h3.text-left Machines
-            .divider
-            .label(ng-hide="isAccount") No Data
-            table.small-9.column.small-centered(ng-show="isAccount")
-                thead
-                    tr
-                        th Serial Numbers
-                        th Type
-                        th Status
-                tbody
-                    tr(ng-repeat="machine in machines" ng-show="isAccount")
-                        td {{machine.id}}
-                        td {{machine.type}}
-                        td {{machine.status}}
-        .row
-            h3.text-center Records
-        .divider
-        .row
-            h4.text-left Orders
-            .label(ng-hide="isAccount") No Data
-            accordion(close-others="true")
-                accordion-group(ng-repeat="order in Orders" heading="{{order.id}}-{{order.date}}")
-        .row
-            h4.text-left Returns
-            .label(ng-hide="isAccount") No Data
-            accordion(close-others="true")
-                accordion-group(ng-repeat="swaps in swaps" heading="{{swap.id}}-{{swap.date}}")
-                accordion-group(ng-repeat="return in returns" heading="{{return.id}}-{{return.date}}")
+          table
+            tr
+              td Num of Cartridges Used
+              td {{numOfCartridges || "no Data"}}
+    .row
+      h3.text-left Machines
+      .divider
+      .label(ng-hide="isAccount") No Data
+      table.small-9.column.small-centered(ng-show="isAccount")
+        thead
+          tr
+            th Serial Numbers
+            th Type
+            th Status
+        tbody
+          tr(ng-repeat="machine in machines" ng-show="isAccount")
+            td {{machine.id}}
+            td {{machine.type}}
+            td {{machine.status}}
+    .row
+      h3.text-center Records
+    .divider
+    .row
+      h4.text-left Orders
+      .label(ng-hide="isAccount") No Data
+      accordion(close-others="true")
+        accordion-group(ng-repeat="order in Orders" heading="{{order.id}}-{{order.date}}")
+    .row
+      h4.text-left Returns
+      .label(ng-hide="isAccount") No Data
+      accordion(close-others="true")
+        accordion-group(ng-repeat="swaps in swaps" heading="{{swap.id}}-{{swap.date}}")
+        accordion-group(ng-repeat="return in returns" heading="{{return.id}}-{{return.date}}")
 
 

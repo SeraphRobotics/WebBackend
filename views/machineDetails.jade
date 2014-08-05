@@ -1,60 +1,60 @@
 extends layout
 block body
-    h2.text-center Machine Details
-    form.small-10.column.small-centered(ng-controller="machineDetails")
+  h2.text-center Machine Details
+  form.small-10.column.small-centered(ng-controller="machineDetails")
+    .row.collapse
+      .small-3.column
+        .alert-box.prefix Machine Number
+      .small-9.column
+        input(type="text" ng-model="machineNum"
+          on-blur ui-blur="findMachine(machineNum);"
+          ng-change="clearErr()" required)
+    .row
+      .small-6.column.small-centered(ng-show="machineNumErr")
+        .alert-box.alert {{machineNumErrMessage}}
+    .row.collapse
+      .small-3.column
+        .alert-box Type
+      .small-9.column
+        span.alert-box.secondary {{machine.machineType || "Machine Type"}}
+    .row.collapse
+      .small-3.column
+        .alert-box Status
+      .small-9.column
+        span.alert-box.secondary {{machine.machineStatus ||  "Machine Status" }}
+    .row.collapse
+      .small-3.column
+        span.alert-box Manufacture Date
+      .small-9.column
+        span.alert-box.secondary {{machine.dateManufactured? (machine.dateManufactured | date:'short'):'Date'}}
+    .row
+      .small-12.column.button(ng-click="machineNumErr? '':updateMachine(machineNum)") Update This Machine
+    .row
+      .small-12.column
+        h3.text-left Service Logs
+    .row(ng-hide="machine.logs[0]") No logs loaded
+    .row(ng-repeat="log in machine.logs" ng-show="machine.logs[0]")
+      .small-12.column.border
         .row.collapse
-            .small-3.column
-                .alert-box.prefix Machine Number
-            .small-9.column
-                input(type="text" ng-model="machineNum"
-                    on-blur ui-blur="findMachine(machineNum);"
-                    ng-change="clearErr()" required)
-        .row
-            .small-6.column.small-centered(ng-show="machineNumErr")
-                .alert-box.alert {{machineNumErrMessage}}
+          .small-3.column
+            span.prefix Status
+          .small-3.column
+            input(type="text" ng-model="log.status" disabled)
+          .small-3.column
+            span.prefix Date
+          .small-3.column
+            input(type="text" value="{{log.date | date: 'MM/dd/yyyy'}}" disabled)
         .row.collapse
-            .small-3.column
-                .alert-box Type
-            .small-9.column
-                span.alert-box.secondary {{machine.machineType || "Machine Type"}}
+          .small-3.column
+            span.prefix Cust. Id
+          .small-3.column
+            input(type="text" ng-model="log.custId" disabled)
+          .small-3.column
+            span.prefix Cust. Name
+          .small-3.column
+            input(type="text" ng-model="log.custName" disabled)
         .row.collapse
-            .small-3.column
-                .alert-box Status
-            .small-9.column
-                span.alert-box.secondary {{machine.machineStatus ||  "Machine Status" }}
-        .row.collapse
-            .small-3.column
-                span.alert-box Manufacture Date
-            .small-9.column
-                span.alert-box.secondary {{machine.dateManufactured? (machine.dateManufactured | date:'short'):'Date'}}
-        .row
-            .small-12.column.button(ng-click="machineNumErr? '':updateMachine(machineNum)") Update This Machine
-        .row
-            .small-12.column
-                h3.text-left Service Logs
-        .row(ng-hide="machine.logs[0]") No logs loaded
-        .row(ng-repeat="log in machine.logs" ng-show="machine.logs[0]")
-            .small-12.column.border
-                .row.collapse
-                    .small-3.column
-                        span.prefix Status
-                    .small-3.column
-                        input(type="text" ng-model="log.status" disabled)
-                    .small-3.column
-                        span.prefix Date
-                    .small-3.column
-                        input(type="text" value="{{log.date | date: 'MM/dd/yyyy'}}" disabled)
-                .row.collapse
-                    .small-3.column
-                        span.prefix Cust. Id
-                    .small-3.column
-                        input(type="text" ng-model="log.custId" disabled)
-                    .small-3.column
-                        span.prefix Cust. Name
-                    .small-3.column
-                        input(type="text" ng-model="log.custName" disabled)
-                .row.collapse
-                    .small-3.column
-                        span.prefix Comments
-                    .small-9.column
-                        textarea(rows="3" ng-model="log.comments" disabled)
+          .small-3.column
+            span.prefix Comments
+          .small-9.column
+            textarea(rows="3" ng-model="log.comments" disabled)
