@@ -2,39 +2,39 @@ extends layout
 block body
   h1.text-center Update Machine Status
   form.row(name="form" ng-controller="updateMachine" ng-init="initId('#{id}')")
-  .small-10.column.small-centered
-    .row.collapse
-    .small-3.column
-      span.prefix Machine Number
-    .small-9.column
-      input(type="text" name="machineNum" ng-model="machineNum"
-      ng-class="machineNumErr? 'error':''" on-blur
-      ui-blur="findMachine(machineNum)" ng-change="clearErr()")
-    .row
-    .small-6.column.small-centered(ng-show="machineNumErr")
-      .alert-box.alert {{machineNumErrMessage}}
-    .row.collapse
-    .small-3.column
-      span.prefix Status
-    .small-9.column
-      select(ng-model="machine.machineStatus" name="status")
-      option Operational in warehouse
-      option In transit to warehouse
-      option In transit to Customer
-      option Broken in warehouse
-      option Broken at customer
-      option Operational at Customer
-      option Decommissioned
-    .row.collapse
-    .small-3.column.panel
-      label.text-center.inline Comments
-    .small-9.column
-      textarea(ng-model="comment" rows="5" name="comments")
-    .row
-    .small-6.column.small-centered
-      button.button.expand(ng-click='isChanged(machine)? save():""'
-      ng-class="isChanged(machine)? '': 'disabled'"
-      name="update") Update Machine
-    .row(ng-show="updateSuccess")
-    .small-6.column.small-centered
-      .alert-box.success Machine Updated
+    .small-10.column.small-centered
+      .row.collapse
+        .small-3.column
+          span.prefix Machine Number
+        .small-9.column
+          input(type="text" name="machineNum" ng-model="machineNum"
+            ng-class="machineNumErr? 'error':''" on-blur
+            ui-blur="findMachine(machineNum)" ng-change="clearErr()")
+      .row
+        .small-6.column.small-centered(ng-show="machineNumErr")
+          .alert-box.alert {{machineNumErrMessage}}
+      .row.collapse
+        .small-3.column
+          span.prefix Status
+        .small-9.column
+          select(ng-model="machine.machineStatus" name="status")
+            option Operational in warehouse
+            option In transit to warehouse
+            option In transit to Customer
+            option Broken in warehouse
+            option Broken at customer
+            option Operational at Customer
+            option Decommissioned
+      .row.collapse
+        .small-3.column.panel
+          label.text-center.inline Comments
+        .small-9.column
+          textarea(ng-model="comment" rows="5" name="comments")
+      .row
+        .small-6.column.small-centered
+          button.button.expand(ng-click='isChanged(machine)? save():""'
+            ng-class="isChanged(machine)? '': 'disabled'"
+            name="update") Update Machine
+      .row(ng-show="updateSuccess")
+        .small-6.column.small-centered
+          .alert-box.success Machine Updated
