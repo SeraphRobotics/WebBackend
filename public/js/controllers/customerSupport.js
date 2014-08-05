@@ -83,7 +83,7 @@ angular.module('customerSupport', [
 
     $scope.submitSwap = function() {
       var swapData = {
-        custId: $scope.customer.custId,
+        customerId: $scope.customer.id,
         oldMachineNum: $scope.ownedMachine.id
       };
 

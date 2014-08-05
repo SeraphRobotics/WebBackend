@@ -1,8 +1,5 @@
 'use strict';
 var swap = {
-  custId: {
-    type: String
-  },
   date: {
     type: Date,
     default: new Date()
@@ -28,7 +25,6 @@ module.exports = {
     customer: {
       type: 'belongsTo',
       model: 'customer',
-      foreignKey: 'custId'
     },
     shipment: {
       type: 'belongsTo',
