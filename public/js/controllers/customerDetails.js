@@ -4,6 +4,7 @@ angular.module('customerDetails', [
   'lbServices'
 ])
   .controller('customerDetails', function ($scope, $log, Customer, Order) {
+
     $scope.searchCust = function (custId) {
       if (custId && custId.length > 2) {
         $log.debug(custId);
@@ -40,6 +41,7 @@ angular.module('customerDetails', [
         ;
      }
    };
+
    $scope.searchOrd = function (orderId) {
      $log.debug(orderId);
      if (orderId && orderId.length > 2) {
@@ -56,12 +58,12 @@ angular.module('customerDetails', [
     return {
       restrict: 'A',
       scope: {
-        cust: '=cust'
+        customer: '=cust'
       },
       link: function (scope, el) {
         el.bind('blur', function () {
-          $log.debug(scope.cust);
-          scope.cust.$updateOrCreate().catch($log.error)
+          $log.debug(scope.customer);
+          scope.customer.$save().catch($log.error)
             .then(function () {
               $log.debug('success');
             })

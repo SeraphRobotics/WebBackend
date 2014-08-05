@@ -3,6 +3,7 @@ angular.module('masterList', [
   'lbServices'
 ])
   .controller('masterList', function ($scope, $log, $modal, Part) {
+
     function queryParts() {
       Part.query().$promise
         .then(function (partsList) {
@@ -13,6 +14,7 @@ angular.module('masterList', [
       ;
     }
     queryParts();
+
     $scope.editPart = function (part) {
       $log.debug('edit Part');
       $log.debug(part);
@@ -25,15 +27,20 @@ angular.module('masterList', [
           }
         }
       });
-      modalInstance.result.then(function () {
-        queryParts();
-      });
+      modalInstance
+        .result
+        .then(function () {
+          queryParts();
+        })
+      ;
     };
+
     $scope.addNew = function () {
       $scope.editPart('new');
     };
   })
   .controller('editPartModalController', function ($scope, $log, $modalInstance, part, Part) {
+
     function setForMachine() {
       if ($scope.part.forMachine) {
         $scope.forMachine = 'Machine';
@@ -41,10 +48,12 @@ angular.module('masterList', [
         $scope.forMachine = 'Cartridge';
       }
     }
+
     $scope.partType = function () {
       $scope.part.forMachine = !$scope.part.forMachine;
       setForMachine();
     };
+
     var isNew = false;
     if (part === 'new') {
       $scope.part = {};
@@ -54,6 +63,7 @@ angular.module('masterList', [
       $scope.part = part;
       setForMachine();
     }
+
     $scope.save = function () {
       if (isNew) {
         Part.create({}, $scope.part).$promise.then(function () {
@@ -65,18 +75,26 @@ angular.module('masterList', [
           .then(function (success) {
             $log.debug(success);
             $modalInstance.dismiss();
-          }).catch($log.debug);
+          })
+          .catch($log.debug)
+        ;
       }
     };
+
     $scope.deleteThis = function () {
       if (isNew) {
         $modalInstance.dismiss();
       } else {
-        Part.destroyById({id: $scope.part.id}).$promise.then(function () {
-          $modalInstance.close();
-        }).catch($log.debug);
+        Part.destroyById({id: $scope.part.id})
+          .$promise
+          .then(function () {
+            $modalInstance.close();
+          })
+          .catch($log.debug)
+        ;
       }
     };
+
     $scope.cancel = function () {
       $modalInstance.dismiss();
     };

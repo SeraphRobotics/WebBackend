@@ -8,6 +8,7 @@ angular.module('machineDetails', [
     $scope.machine = {};
     $scope.master = {};
     $scope.machine.machineStatus = '';
+
     $scope.clearErr = function () {
       $scope.reset();
       $scope.machineNumErr = false;
@@ -17,12 +18,15 @@ angular.module('machineDetails', [
       $scope.machine = {};
       $scope.comment = '';
     };
+
     $scope.reset = function () {
       $scope.master = angular.copy($scope.machine);
     };
+
     $scope.isChanged = function (machine) {
       return !angular.equals(machine, $scope.master);
     };
+
     $scope.findMachine = function (machineNum) {
       $log.debug('find machine');
       if (machineNum) {
@@ -43,21 +47,7 @@ angular.module('machineDetails', [
         $scope.machineNumErrMessage = 'Serial Number Empty';
       }
     };
-    $scope.save = function () {
-      if ($scope.comment.length > 2 ) {
-        var date = new Date();
-        var log = date.toLocaleDateString() + ':' +
-          date.toLocaleTimeString() + ': ' + $scope.comment.trim();
-        $scope.machine.logs.push(log);
-      }
-      $scope.machine.$updateOrCreate()
-        .then(function () {
-          $log.info('success');
-          $scope.updateSuccess = true;
-        })
-        .catch($log.debug)
-      ;
-    };
+
     $scope.updateMachine = function (id) {
       $window.location.href = '/updateMachine/' + id;
     };

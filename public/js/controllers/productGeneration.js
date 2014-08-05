@@ -33,12 +33,8 @@ angular.module('productGeneration', [
     }
 
     var createProduct = {
-      Printer: function () {
-        createMachine();
-      },
-      Scanner: function () {
-        createMachine();
-      },
+      Printer: function () { createMachine(); },
+      Scanner: function () { createMachine(); },
       Tablet: function () {
         createMachine($scope.setSerialNumber);
       },
@@ -59,7 +55,8 @@ angular.module('productGeneration', [
         var data = {
           machineType: $scope.productType
         };
-        Filament.create({}, data).$promise
+        Filament.create({}, data)
+          .$promise
           .then(function (filamentInstance) {
             $log.debug(filamentInstance);
             $scope.newProducts.push(filamentInstance);
@@ -71,6 +68,7 @@ angular.module('productGeneration', [
         ;
       }
     };
+
     $scope.clearSerial = function() {
       $scope.serialNumber =  '';
     };
