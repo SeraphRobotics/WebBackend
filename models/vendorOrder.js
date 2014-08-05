@@ -1,9 +1,5 @@
 'use strict';
 var VendorOrder = {
-  orderNum: {
-    type: String,
-    id: true
-  },
   vendor: {
     type: String,
     required: true

@@ -2,7 +2,7 @@
 var Vendor = {
   name: {
     type: String,
-    id: true
+    unique: true
   },
   date: {
     type: Date,

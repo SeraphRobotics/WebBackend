@@ -1,8 +1,7 @@
 'use strict';
 var swap = {
   custId: {
-    type: String,
-    id: true
+    type: String
   },
   date: {
     type: Date,

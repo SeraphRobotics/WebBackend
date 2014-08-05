@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var Scanner = {
   custId: Number,
   machineNum: Number,

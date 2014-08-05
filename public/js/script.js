@@ -3,7 +3,10 @@
 angular.module('app',[
   'services',
   'lbServices',
+  'customerDetails',
+  'customerSupport',
   'machineDetails',
+  'productGeneration',
   'updateMachine',
   'mm.foundation.modal',
   'mm.foundation.tpls',
@@ -12,7 +15,7 @@ angular.module('app',[
 ]).config(function($logProvider){
   $logProvider.debugEnabled(true);
   })
-  .controller('masterList', function ($scope, $log, $modal, Part) {
+.controller('masterList', function ($scope, $log, $modal, Part) {
     function queryParts() {
       Part.query().$promise
         .then(function (partsList) {
@@ -82,7 +85,7 @@ angular.module('app',[
       if (isNew) {
         $modalInstance.dismiss();
       } else {
-        Part.destroyById({id: $scope.part.partNum}).$promise.then(function () {
+        Part.destroyById({id: $scope.part.id}).$promise.then(function () {
           $modalInstance.close();
         }).catch($log.debug);
       }
@@ -189,135 +192,7 @@ angular.module('app',[
       cartridge: {},
       filament: {}
     };
-
   })
-  .controller('productGeneration', function ($scope, $log, Machine, Filament, Cartridge) {
-    $scope.hasSerialNumber = false;
-    $scope.newProducts = [];
-    function createMachine(id) {
-      $log.debug('creating machine');
-      var data = {
-        machineType: $scope.type
-      };
-      if ($scope.type === 'Tablet') {
-          if (!id) {
-            $log.error('tablet and no id');
-            return 1;
-          } else {
-            data.machineNum = id;
-          }
-      }
-      Machine.create({}, data).$promise
-        .then(function (machineInstance) {
-          $scope.newProducts.push(machineInstance);
-          $scope.serialNumber = machineInstance.machineNum;
-          $log.debug(machineInstance);
-        })
-        .catch(function (err) {
-          $log.error(err);
-        })
-      ;
-    }
-    var createProduct = {
-      Printer: function () {
-        createMachine();
-      },
-      Scanner: function () {
-        createMachine();
-      },
-      Tablet: function () {
-        createMachine($scope.setSerialNumber);
-      },
-      Cartridge: function () {
-        var data = {
-          machineType: $scope.productType
-        };
-        Cartridge.create({}, data).$promise
-          .then(function (cartrideInstance) {
-            $log.debug(cartrideInstance);
-            $scope.newProducts.push(cartrideInstance);
-            $scope.serialNumber = cartrideInstance.cartridgeNum;
-          })
-          .catch($log.debug)
-        ;
-      },
-      Filament: function () {
-        var data = {
-          machineType: $scope.productType
-        };
-        Filament.create({}, data).$promise
-          .then(function (filamentInstance) {
-            $log.debug(filamentInstance);
-            $scope.newProducts.push(filamentInstance);
-            $scope.serialNumber = filamentInstance.filamentNum;
-          })
-          .catch(function (err) {
-            $log.error(err);
-          })
-        ;
-      }
-    };
-    $scope.submit = function (type) {
-      if (createProduct[type]) {
-        createProduct[type]();
-      }
-    };
-  })
-  /*.controller('updateMachine', function ($scope, $log, Machine) {
-    $scope.updateSuccess = false;
-    $scope.machine = {};
-    $scope.master = {};
-    $scope.machine.machineStatus = '';
-    $scope.clearErr = function () {
-      $scope.reset();
-      $scope.machineNumErr = false;
-      $scope.machineNumErrMessage = '';
-      $scope.updateSuccess = false;
-      $scope.machine.machineStatus = '';
-      $scope.machine = {};
-      $scope.comment = '';
-    };
-    $scope.reset = function () {
-      $scope.master = angular.copy($scope.machine);
-    };
-    $scope.isChanged = function (machine) {
-      return !angular.equals(machine, $scope.master);
-    };
-    $scope.findMachine = function (machineNum) {
-      if (machineNum) {
-        Machine.findById({id: machineNum}).$promise
-           .then(function (machineIns) {
-             $scope.clearErr();
-             $log.debug(machineIns);
-             $scope.machine = machineIns;
-           })
-           .catch(function (err) {
-             $log.error(err);
-             $scope.machineNumErr = true;
-             $scope.machineNumErrMessage = err.statusText;
-           })
-        ;
-      } else {
-        $scope.machineNumErr = true;
-        $scope.machineNumErrMessage = 'Serial Number Empty';
-      }
-    };
-    $scope.save = function () {
-      if ($scope.comment.length > 2 ) {
-        var date = new Date();
-        var log = date.toLocaleDateString() + ':' +
-          date.toLocaleTimeString() + ': ' + $scope.comment.trim();
-        $scope.machine.logs.push(log);
-      }
-      $scope.machine.$updateOrCreate()
-        .then(function () {
-          $log.info('success');
-          $scope.updateSuccess = true;
-        })
-        .catch($log.error)
-      ;
-    };
-  })*/
   .directive('onBlur', function () {
     return {
       restrict: 'A',
@@ -333,115 +208,6 @@ angular.module('app',[
   })
   .controller('orderFullfill', function () {
 
-  })
-  .controller('custDetails', function ($scope, $log, Customer, Order) {
-    $scope.searchCust = function (custId) {
-      if (custId && custId.length > 2) {
-        $log.debug(custId);
-        var id = {id: custId};
-        Customer.findById(id).$promise.catch($log.debug)
-          .then(function (customer) {
-            $log.debug(customer);
-            $scope.cust = customer;
-          })
-        ;
-        Customer.subscription(id).$promise.catch($log.debug)
-          .then(function (subscription) {
-            $log.debug(subscription);
-            $scope.subscription = subscription;
-          })
-        ;
-        Customer.order(id).$promise.catch($log.debug)
-          .then(function (orders) {
-            $log.debug(orders);
-            $scope.orders = orders;
-          })
-        ;
-        Customer.filamentChange(id).$promise.catch($log.debug)
-          .then(function (filamentChanges) {
-            $log.debug(filamentChanges);
-            $scope.filamentChange = filamentChanges;
-          })
-        ;
-        Customer.machineSwap(id).$promise.catch($log.debug)
-          .then(function (swaps) {
-            $log.debug(swaps);
-            $scope.swaps = swaps;
-          })
-        ;
-     }
-   };
-   $scope.searchOrd = function (orderId) {
-     $log.debug(orderId);
-     if (orderId && orderId.length > 2) {
-       $log.debug(orderId);
-       Order.customer({orderId: orderId}).$promise.catch($log.error)
-         .then(function (customer) {
-           $log.debug(customer);
-         })
-       ;
-     }
-   };
-  })
-  .directive('updateCustomer', function ($log) {
-    return {
-      restrict: 'A',
-      scope: {
-        cust: '=cust'
-      },
-      link: function (scope, el) {
-        el.bind('blur', function () {
-          $log.debug(scope.cust);
-          scope.cust.$updateOrCreate().catch($log.error)
-            .then(function () {
-              $log.debug('success');
-            })
-          ;
-        });
-      }
-    };
-  })
-  .controller('custSupport', function ($scope, $log, Customer) {
-    $scope.findMachineError = {};
-    $scope.findCust = function () {
-      var id = {id: $scope.custId};
-      var machines = Customer.machinesOwned(id).$promise;
-      Customer.findById({id: $scope.custId}).$promise
-        .then(function (cust) {
-          $log.debug(cust);
-          $scope.customer = cust;
-          $scope.swapCustError = false;
-          machines.then(function (machines) {
-            $log.debug(machines);
-            $scope.machines = machines;
-          });
-        })
-        .catch(function (err) {
-          $log.debug(err);
-          $scope.swapCustError = true;
-        })
-      ;
-    };
-    $scope.findMachine = function findMachine() {
-      $log.debug('find machine');
-      if ($scope.customer && $scope.machines) {
-        $scope.machineReturn = _.find($scope.machines, function (machine) {
-          return machine.machineNum === $scope.swapId;
-        }, this);
-      } else {
-        $log.debug('No customer or machinelist');
-        $scope.findMachineError.message = 'Customer not found yet';
-      }
-      if (!$scope.machineReturn) {
-        $scope.findMachineError.message = 'Customer has no such machine';
-      }
-    };
-    $scope.clearCustError = function () {
-      $scope.swapCustError = false;
-    };
-    $scope.clearSwapSwapErr = function () {
-      $scope.findMachineError.message = null;
-    };
   })
   .controller('globerView', function ($scope) {
     $scope.dateSelected = false;

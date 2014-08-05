@@ -1,9 +1,5 @@
 'use strict';
 var customer = {
-  custId: {
-    type: String,
-    id: true
-  },
   name: {
     type: String
   },
@@ -16,12 +12,14 @@ var customer = {
   primaryEmail: {
     type: String
   },
-  phoneNum: [
-    Number
-  ],
-  faxNum: [
-    Number
-  ],
+  phoneNum: {
+    type: [String],
+    default: []
+  },
+  faxNum: {
+    type: [String],
+    default: []
+  },
   isMulti: {
     type: Boolean,
     default: false
@@ -36,34 +34,30 @@ module.exports = {
     order: {
       type: 'hasMany',
       model: 'order',
-      foreignKey: 'custId'
     },
     subscription: {
       type: 'hasMany',
       model: 'subscription',
-      foreignKey: 'subscriptionId'
     },
     filamentChange: {
       type: 'hasMany',
       model: 'filamentChange',
-      foreignKey: 'filamentId'
     },
     machineSwap: {
       type: 'hasMany',
-      model: 'swap'
+      model: 'swap',
     },
-    machinesOwned: {
+    hasMachines: {
       type: 'hasMany',
       model: 'machine',
-      foreignKey: 'machinesOwned'
+      foreignKey: 'ownedBy' //This key added to machine instance
     },
     machinesReturned: {
-      type: 'hasMany',
-      model: 'machine',
-      foreignKey: 'machinesReturned'
+      type: 'hasAndBelongsToMany',
+      model: 'machine'
     },
-    cartridgeReturn: {
-      type: 'hasMany',
+    cartridgesReturn: {
+      type: 'hasAndBelongsToMany',
       model: 'cartridgeReturn'
     }
   }

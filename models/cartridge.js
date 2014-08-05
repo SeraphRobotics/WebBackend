@@ -1,9 +1,5 @@
-"use strict";
+'use strict';
 var cartridge = {
-  cartridgeNum: {
-    type: Number,
-    id: true
-  },
   numOfCarts: Number,
   manufactureDate: {
     type: Date,

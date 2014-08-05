@@ -1,9 +1,5 @@
 'use strict';
 var Part= {
-  partNum: {
-    type: String,
-    id: true
-  },
   name: {
     type: String,
     required: true

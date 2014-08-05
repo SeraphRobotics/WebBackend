@@ -1,9 +1,5 @@
-"use strict";
+'use strict';
 var subscriptionPlan = {//This is an open model
-  planId: {
-    id: true,
-    type: Number
-  },
   name: {
     required: true,
     index: {

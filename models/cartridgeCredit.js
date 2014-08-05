@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var cartridgeCredit = {
   custId: {
     type: Number,
@@ -6,7 +6,7 @@ var cartridgeCredit = {
   },
   date: {
     type: Date,
-    default: new Date
+    default: new Date()
   },
   batchId: {
     type: Number

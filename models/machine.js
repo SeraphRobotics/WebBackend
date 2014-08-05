@@ -1,9 +1,5 @@
 'use strict';
 var machine = {
-  machineNum: {
-    type: Number,
-    id: true
-  },
   machineType: {
     type: String,
     required: true
@@ -11,6 +7,10 @@ var machine = {
   dateManufactured: {
     type: Date,
     default: new Date()
+  },
+  machineStatus: {
+    type: String,
+    default: 'Operational in warehouse'
   },
   logs: [
     {
@@ -32,9 +32,8 @@ module.exports = {
   public: true,
   relations: {
     customer: {
-      type: 'hasMany',
-      model: 'customer',
-      foreignkey: 'cutomerId'
+      type: 'hasAndBelongsToMany',
+      model: 'customer'
     }
   }
 };

@@ -1,7 +1,7 @@
 extends layout
 block body
     h2.text-center Customer Details
-    form(ng-controller="custDetails").small-10.column.small-centered
+    form(ng-controller="customerDetails").small-10.column.small-centered
         .row.collapse
             .small-3.column
                 span.prefix Customer ID
@@ -51,9 +51,14 @@ block body
                         input(type="email" ng-model="cust.primaryEmail" placeholder="No Data" update-customer cust="cust")
                 .row.collapse
                     .small-3.column
+                        span.prefix Phone
+                    .small-9.column
+                        input(type="text" ng-model="cust.phoneNum[0]" placeholder="No Data" update-customer cust="cust")
+                .row.collapse
+                    .small-3.column
                         span.prefix Fax
                     .small-9.column
-                        input(type="text" ng-model="cust.fax" placeholder="No Data" update-customer cust="cust")
+                        input(type="text" ng-model="cust.faxNum[0]" placeholder="No Data" update-customer cust="cust")
                 .row(ng-show="cust")
                     span.label Multi-Customer Account?
                     span.label.secondary {{cust.isMulti? "Yes": "No"}}

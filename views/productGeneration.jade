@@ -7,7 +7,7 @@ block body
                 .small-3.column
                     span.prefix Product Type
                 .small-9.column
-                    select(ng-model="type")
+                    select(ng-model="type" ng-change='clearSerial()')
                         option Filament
                         option Cartridge
                         option Tablet
@@ -24,7 +24,7 @@ block body
                 .small-3.column
                     span.prefix Set Serial Number
                 .small-9.column
-                    input(type="number" name="setSerial" ng-model="setSerialNumber" ng-required="type === 'Tablet'")
+                    input(type="text" name="setSerial" ng-model="setSerialNumber" ng-required="type === 'Tablet'")
             .row
                 .small-6.column.small-centered
                     .button.expand(ng-click="form.$invalid? '': submit(type)" ng-disabled="form.$invalid") Save
@@ -34,4 +34,4 @@ block body
                 .small-4.column
                     .alert-box {{model.machineType || (model.filamentNum? 'Filament': 'Cartridge')}}
                 .small-6.column
-                    .alert-box {{model.machineNum || model.filamentNum || model.cartridgeNum}}
+                    .alert-box {{model.id || model.filamentNum || model.cartridgeNum}}

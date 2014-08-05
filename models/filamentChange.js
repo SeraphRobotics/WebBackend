@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var filamentChange = {
   custId: {
     type: String,
@@ -26,7 +26,6 @@ module.exports = {
     customer: {
       type: 'belongsTo',
       model: 'customer',
-      foreignKey: 'custId'
     }
   }
 };

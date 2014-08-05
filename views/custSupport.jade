@@ -1,66 +1,89 @@
 extends layout
 block body
-    h2.text-center Customer Support
-    .small-10.column.small-centered(ng-controller="custSupport")
-        .h3.text-center Machine Swap and Return
-        form(name="swap" novalidate)
-            .row.collapse
-                .small-6.column
-                    .alert-box.prefix Customer ID
-                .small-6.column
-                    input(type="text" name="custId"
-                        ng-model="custId" placeholder="ID" ng-minlength="6"
-                        ng-class="swap.custId.$valid && !swap.custId.$pristine? 'error': ''"
-                        on-blur ui-blur="swap.custId.$valid? findCust(): ''" ng-change="clearCustError()" required)
-                small.error(ng-show="swapCustError && !swap.custId.$pristine") No Customer Found
-            .row.collapse
-                .small-6.column
-                    .alert-box.prefix Return Machine Serial Number
-                .small-6.column
-                    input(type="text" name="swapId" ng-model="swapId" placeholder="Serial Number"
-                        ng-minlength="3" ng-min="6" ng-class="swap.swapId.$valid && swap.swapId.$dirty? 'error': ''"
-                        on-blur ui-blur="swap.swapId.$valid? findMachine(): ''" ng-change="clearSwapSwapError()" required)
-                    small.error(ng-show="findMachineError.message && !swap.swapId.$pristine") {{findMachineError.message}}
-            .row.collapse
-                .small-6.column
-                    .alert-box Tracking Number
-                .small-6.column
-                    .alert-box.secondary {{ trackingNum || 'Auto Generated'}}
-            .row
-                button.small-12.column.button(ng-disabled="swap.$isValid" ng-click="createSwap()") Submit Swap
-        h3.text-center Cartridge Return
-        .row.collapse
-            .small-6.column
-                span.prefix Customer ID
-            .small-6.column
-                input(type="text" ng-model="custId" placeholder="ID")
-        .row.collapse
-            .small-6.column
-                span.prefix Returned Serial Number
-            .small-6.column
-                input(type="text" ng-model="returnedId" placeholder="Serial Number")
-        .row.collapse
-            .small-6.column
-                span.prefix Number of Cartridges
-            .small-6.column
-                input(type="text" ng-model="numOfCartrigdes" placeholder="Number of Cartridges" disabled)
-        .row
-            .small-12.column.button Submit Swap
-        .row.collapse
-            h3.text-center Change Subscription Rate
-            .small-6.column
-                span.prefix Customer ID
-            .small-6.column
-                input(type="text" ng-model="custId" placeholder="ID")
-        .row.collapse
-            .small-6.column
-                span.prefix Subscription plan
-            .small-6.column
-                select(ng-model="custSubsciption")
-                    option 10
-                    option 20
-                    option 30
-                    option 40
-                    option 50
-        .row
-            .small-12.column.button Submit Subsription Change
+  h2.text-center Customer Support
+  .small-10.column.small-centered(ng-controller="customerSupport")
+    .h3.text-center Machine Swap and Return
+    form(name="swap" novalidate)
+      .row.collapse
+        .small-6.column
+          .alert-box.prefix Customer ID
+        .small-6.column
+          input(type="text" name="custId"
+            ng-model="custId" placeholder="ID" ng-minlength="6"
+            ng-class="swap.custId.$valid && !swap.custId.$pristine? 'error': ''"
+            on-blur ui-blur="swap.custId.$valid? findCust(): ''" ng-change="clearCustErr()" required)
+        small.error(ng-show="swapCustError && !swap.custId.$pristine") No Customer Found
+      .row.collapse
+        .small-6.column
+          .alert-box.prefix Return Machine Serial Number
+        .small-6.column
+          input(type="text"
+            name="oldMachId"
+            ng-model="oldMachId"
+            placeholder="Serial Number"
+            ng-minlength="3"
+            ng-class="swap.oldMachId.$valid && swap.oldMachId.$dirty? 'error': ''"
+            on-blur
+            ui-blur="swap.oldMachId.$valid? findOwnedMachine(): ''"
+            ng-change="clearOwnedMachineErr()"
+            required)
+          small.error(ng-show="findOwnedMachineError && !swap.oldMachId.$pristine") {{findOwnedMachineError}}
+      .row.collapse
+        .small-6.column
+          .alert-box.prefix New Machine Serial Number
+        .small-6.column
+          input(type="text"
+            name="newMachId"
+            ng-model="newMachId"
+            placeholder="Serial Number"
+            ng-minlength="3"
+            ng-class="swap.newMachId.$valid && swap.newMachId.$dirty? 'error': ''"
+            on-blur
+            ui-blur="newMachId.length>3? findNewMachine(): ''"
+            ng-change="clearNewMachineErr()")
+          small.error(ng-show="findNewMachineErr && !swap.newMachId.$pristine") {{findNewMachineErr}}
+      .row.collapse
+        .small-6.column
+          .alert-box Tracking Number
+        .small-6.column
+          .alert-box.secondary {{ trackingNum || 'Auto Generated'}}
+      .row
+        button.small-12.column.button(ng-disabled="swap.$isValid" ng-click="submitSwap()") Submit Swap
+    h3.text-center Cartridge Return
+    form(name="cart" novalidate)
+      .row.collapse
+        .small-6.column
+          span.prefix Customer ID
+        .small-6.column
+          input(type="text" ng-model="custId" placeholder="ID")
+      .row.collapse
+        .small-6.column
+          span.prefix Returned Serial Number
+        .small-6.column
+          input(type="text" ng-model="returnedId" placeholder="Serial Number")
+      .row.collapse
+        .small-6.column
+          span.prefix Number of Cartridges
+        .small-6.column
+          input(type="text" ng-model="numOfCartrigdes" placeholder="Number of Cartridges" disabled)
+      .row
+        .small-12.column.button Submit Swap
+    form(name="subs" novalidate)
+      .row.collapse
+        h3.text-center Change Subscription Rate
+        .small-6.column
+          span.prefix Customer ID
+        .small-6.column
+          input(type="text" ng-model="custId" placeholder="ID")
+      .row.collapse
+        .small-6.column
+          span.prefix Subscription plan
+        .small-6.column
+          select(ng-model="custSubsciption")
+            option 10
+            option 20
+            option 30
+            option 40
+            option 50
+      .row
+        .small-12.column.button Submit Subsription Change

@@ -1,9 +1,5 @@
 'use strict';
 var subscriptions = {
-  subscriptionId: {
-    type: Number,
-    id: true
-  },
   dateStart: {
     type: Date,
     default: new Date()

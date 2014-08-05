@@ -1,19 +1,14 @@
-"use strict";
+'use strict';
 var shipment = {
-  shipmentNum: {
-    id: true,
-    type: Number
-  },
   dateCreated: {
     type: Date,
     default: new Date()
   },
   trackingNum: {
-    type: String
+    type: String,
+    required: true
   },
-  parts: [
-    Number
-  ]
+  parts: []
 };
 
 module.exports = {

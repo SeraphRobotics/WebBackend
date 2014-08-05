@@ -13,6 +13,8 @@ var
   lbng      = require('loopback-sdk-angular')
 ;
 
+// The default task (called when you run `gulp` from cli)
+gulp.task('default', ['stylus', 'nodemon', 'watch']);
 
 // Copy all static images
 gulp.task('test', function () {
@@ -81,6 +83,22 @@ gulp.task('lbServices', function generateLoopBackServices(callback) {
   }
 });
 
+gulp.task('test', function () {
+  gulp.src('test/**/*.spec.js', { read: false })
+    .pipe(watch({ emit: 'all' }, function(files) {
+      files
+        .pipe(mocha({ reporter: 'spec' }))
+        .on('error', function(err) {
+          if (err && err.stack && !/tests? failed/.test(err.stack)) {
+            console.log(true);
+            console.log(err.stack);
+          }
+          console.log('----------Done-----------');
+        })
+      ;
+    }))
+  ;
+});
 
-// The default task (called when you run `gulp` from cli)
-gulp.task('default', ['stylus', 'nodemon', 'watch']);
+gulp.task('watchTest', function () {
+});

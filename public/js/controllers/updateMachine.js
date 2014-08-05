@@ -44,7 +44,8 @@ angular.module('updateMachine', [
       }
     };
     $scope.initId = function (id) {
-      if (id) {
+      if (id !== 'undefined') {
+        $log.debug(typeof id);
         $scope.machineNum = id;
         $scope.findMachine(id);
       }

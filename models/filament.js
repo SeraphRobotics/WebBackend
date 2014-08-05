@@ -1,9 +1,5 @@
-"use strict";
+'use strict';
 var filament = {
-  filamentNum: {
-    type: Number,
-    id: true
-  },
   vol: Number,
   importDate: {
     type: Date,
