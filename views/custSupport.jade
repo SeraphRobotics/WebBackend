@@ -9,9 +9,13 @@ block body
           .alert-box.prefix Customer ID
         .small-6.column
           input(type="text" name="custId"
-            ng-model="custId" placeholder="ID" ng-minlength="6"
+            ng-model="custId"
+            placeholder="ID" ng-minlength="6"
             ng-class="swap.custId.$valid && !swap.custId.$pristine? 'error': ''"
-            on-blur ui-blur="swap.custId.$valid? findCust(): ''" ng-change="clearCustErr()" required)
+            on-blur
+            ui-blur="swap.custId.$valid? findCust(): ''"
+            ng-change="clearCustErr()"
+            required)
         small.error(ng-show="swapCustError && !swap.custId.$pristine") No Customer Found
       .row.collapse
         .small-6.column
@@ -50,25 +54,46 @@ block body
           .alert-box.secondary {{ trackingNum || 'Auto Generated'}}
       .row
         button.small-12.column.button(ng-disabled="swap.$isValid" ng-click="submitSwap()") Submit Swap
-    h3.text-center Cartridge Return
+    h3.text-center Cartridge Credit
     form(name="cart" novalidate)
       .row.collapse
         .small-6.column
           span.prefix Customer ID
         .small-6.column
-          input(type="text" ng-model="custId" placeholder="ID")
+          input(type="text" name="custId"
+            ng-model="custId"
+            placeholder="ID" ng-minlength="6"
+            ng-class="swapCustError && !cart.custId.$pristine? 'error': ''"
+            on-blur
+            ui-blur="cart.custId.$valid? findCust(): ''"
+            ng-change="clearCustErr()"
+            required)
+          small.error(ng-show="swapCustError && !cart.custId.$pristine") No Customer Found
       .row.collapse
         .small-6.column
-          span.prefix Returned Serial Number
+          span.prefix Cartridge Serial Number
         .small-6.column
-          input(type="text" ng-model="returnedId" placeholder="Serial Number")
+          input(type="text"
+            name="cartridgeId"
+            ng-model="cartridgeId"
+            placeholder="Serial Number(optional)"
+            on-blur
+            ui-blur="cartridgeId.length > 3? findCartridge(cartridgeId): ''"
+            ng-change="clearCartridge()")
+          small.error(ng-show="cartridgeErr && !cart.cartridgeId.$pristine") No Cartridge with that serial number
       .row.collapse
         .small-6.column
           span.prefix Number of Cartridges
         .small-6.column
-          input(type="text" ng-model="numOfCartrigdes" placeholder="Number of Cartridges" disabled)
+          input(type="text"
+          ng-model="numOfCartridges"
+          placeholder="Number of Cartridges"
+          required)
       .row
-        .small-12.column.button Submit Swap
+        .small-12.column.button(
+          ng-dissabled="cart.$isValid"
+          ng-click="submitCartridgeCredit(cartridgeId)") Submit Swap
+        // -small.error(ng-show="submitCartridgeErr") {{ submitCartridgeErr }}
     form(name="subs" novalidate)
       .row.collapse
         h3.text-center Change Subscription Rate
@@ -87,4 +112,4 @@ block body
             option 40
             option 50
       .row
-        .small-12.column.button Submit Subsription Change
+        .small-12.column.button Submit Subscription Change

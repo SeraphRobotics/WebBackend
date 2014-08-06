@@ -4,9 +4,7 @@ angular.module('customerSupport', [
   'lbServices',
   'helpers'
 ])
-  .controller('customerSupport', function ($scope, $log, Customer, Machine, Shipment, Swap, machineTypes) {
-    $log.debug(machineTypes);
-
+  .controller('customerSupport', function ($scope, $log, Customer, Machine, Shipment, Swap, machineTypes, Cartridge, CartridgeCredit) {
     $scope.findCust = function () {
       var id = {id: $scope.custId};
       Customer.findById({id: $scope.custId}).$promise
@@ -112,6 +110,52 @@ angular.module('customerSupport', [
         })
         .catch($log.debug)
       ;
+    };
+
+    $scope.findCartridge = function(id) {
+      $log.debug('find cart');
+      Cartridge.findById({ id: id})
+        .$promise
+        .then(function (cartridge) {
+          $log.debug('Success');
+          $log.debug(cartridge);
+          $scope.cartridge = cartridge;
+        })
+        .catch(function (err) {
+          $log.debug(err);
+          $scope.cartridgeErr = 'No Cartridge Found';
+        })
+      ;
+    };
+
+    $scope.clearCartridge = function() {
+      $scope.cartridge = null;
+      $scope.cartridgeErr = null;
+    };
+
+    $scope.submitCartridgeCredit = function(id) {
+      id = id || null;
+      $log.debug(id);
+      var data = {
+        customerId: $scope.customer.id,
+        numOfCartridges: $scope.numOfCartridges,
+        cartridgeId: id
+      };
+      CartridgeCredit.create(data)
+        .$promise
+        .then(function (credit) {
+          $log.debug('credit Success');
+          $scope.credit = credit;
+        })
+        .catch(function (err) {
+          $log.debug(err);
+          $scope.submitCartridgeCreditErr = 'Err';
+        })
+      ;
+    };
+
+    $scope.clearSubmitCartridgeErr = function() {
+      $scope.submitCartirdgeCreditErr = null;
     };
   })
 ;

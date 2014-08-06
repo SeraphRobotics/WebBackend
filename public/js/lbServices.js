@@ -1976,6 +1976,12 @@ module.factory(
           method: "PUT",
         },
 
+        // INTERNAL. Use CartridgeCredit.cartridge() instead.
+        "::get::cartridgeCredit::cartridge": {
+          url: urlBase + "/cartridgeCredits/:id/cartridge",
+          method: "GET",
+        },
+
         // INTERNAL. Use CartridgeReturn.cartridge() instead.
         "::get::cartridgeReturn::cartridge": {
           url: urlBase + "/cartridgeReturns/:id/cartridge",
@@ -2475,6 +2481,18 @@ module.factory(
           url: urlBase + "/cartridgeCredits/:id",
           method: "PUT",
         },
+
+        // INTERNAL. Use CartridgeCredit.cartridge() instead.
+        "prototype$__get__cartridge": {
+          url: urlBase + "/cartridgeCredits/:id/cartridge",
+          method: "GET",
+        },
+
+        // INTERNAL. Use CartridgeCredit.customer() instead.
+        "prototype$__get__customer": {
+          url: urlBase + "/cartridgeCredits/:id/customer",
+          method: "GET",
+        },
       }
     );
 
@@ -2601,6 +2619,78 @@ module.factory(
         R["update"] = R["updateAll"];
 
 
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeCredit#cartridge
+         * @methodOf lbServices.CartridgeCredit
+         *
+         * @description
+         *
+         * Fetches belongsTo relation cartridge
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - cartridgeCredit id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Cartridge` object.)
+         * </em>
+         */
+        R.cartridge = function() {
+          var TargetResource = $injector.get("Cartridge");
+          var action = TargetResource["::get::cartridgeCredit::cartridge"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.CartridgeCredit#customer
+         * @methodOf lbServices.CartridgeCredit
+         *
+         * @description
+         *
+         * Fetches belongsTo relation customer
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - cartridgeCredit id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        R.customer = function() {
+          var TargetResource = $injector.get("Customer");
+          var action = TargetResource["::get::cartridgeCredit::customer"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
@@ -3878,6 +3968,12 @@ module.factory(
         "prototype$__delete__machineSwap": {
           url: urlBase + "/customers/:id/machineSwap",
           method: "DELETE",
+        },
+
+        // INTERNAL. Use CartridgeCredit.customer() instead.
+        "::get::cartridgeCredit::customer": {
+          url: urlBase + "/cartridgeCredits/:id/customer",
+          method: "GET",
         },
 
         // INTERNAL. Use CartridgeReturn.customer() instead.
