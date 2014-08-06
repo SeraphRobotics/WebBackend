@@ -2,13 +2,15 @@
 'use strict';
 
 angular.module('updateMachine', [
-  'lbServices'
+  'lbServices',
+  'helpers'
 ])
-  .controller('updateMachine', function ($scope, $log, Machine) {
+  .controller('updateMachine', function ($scope, $log, Machine, machineTypes) {//machineTypes needs to be changed to machineStats
     $scope.updateSuccess = false;
     $scope.machine = {};
     $scope.master = {};
     $scope.machine.machineStatus = '';
+    $scope.machineTypes = machineTypes;
 
     $scope.clearErr = function () {
       $scope.reset();

@@ -20,12 +20,10 @@ module.exports = {
     customer: {
       type: 'belongsTo',
       model: 'customer',
-      foreignKey: 'custId'
     },
     plans: {
       type: 'hasMany',
       model: 'subscriptionPlan',
-      foreignKey: 'planId'
     }
   }
 };
