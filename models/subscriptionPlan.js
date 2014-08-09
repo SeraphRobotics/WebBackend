@@ -2,6 +2,7 @@
 var subscriptionPlan = {//This is an open model
   name: {
     required: true,
+    type: String,
     index: {
       unique: true
     }
@@ -13,10 +14,14 @@ module.exports = {
   dataSource: 'db',
   public: true,
   relations: {
-    customer: {
+    customers: {
       type: 'hasMany',
       model: 'customer',
       through: 'subscription'
+    },
+    subscriptions: {
+      type: 'hasMany',
+      model: 'subscription'
     }
   }
 };

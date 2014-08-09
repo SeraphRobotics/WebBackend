@@ -37,7 +37,12 @@ module.exports = {
     },
     subscription: {
       type: 'hasMany',
+      model: 'subscription'
+    },
+    currentSubscription: {
+      type: 'belongsTo',
       model: 'subscription',
+      foreignKey: 'currentSubscriptionId'
     },
     filamentChange: {
       type: 'hasMany',

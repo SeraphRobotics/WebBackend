@@ -5,11 +5,8 @@ var subscriptions = {
     default: new Date()
   },
   dateEnd: {
-    type: Date,
-    default: new Date()
-  },
-  rate: Number,
-  numOfCart: Number
+    type: Date
+  }
 };
 
 module.exports = {
@@ -19,11 +16,11 @@ module.exports = {
   relations: {
     customer: {
       type: 'belongsTo',
-      model: 'customer',
+      model: 'customer'
     },
-    plans: {
-      type: 'hasMany',
-      model: 'subscriptionPlan',
+    subscriptionPlan: {
+      type: 'belongsTo',
+      model: 'subscriptionPlan'
     }
   }
 };

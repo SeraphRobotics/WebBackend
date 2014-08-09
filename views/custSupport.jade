@@ -62,7 +62,8 @@ block body
         .small-6.column
           input(type="text" name="custId"
             ng-model="custId"
-            placeholder="ID" ng-minlength="6"
+            placeholder="ID"
+            ng-minlength="6"
             ng-class="swapCustError && !cart.custId.$pristine? 'error': ''"
             on-blur
             ui-blur="cart.custId.$valid? findCust(): ''"
@@ -100,16 +101,26 @@ block body
         .small-6.column
           span.prefix Customer ID
         .small-6.column
-          input(type="text" ng-model="custId" placeholder="ID")
+          input(
+            type="text"
+            ng-model="custId"
+            name="custId"
+            placeholder="ID"
+            ng-minlength="6"
+            ng-class="swapCustError && !subs.custId.$pristine? 'error': ''"
+            on-blur
+            ui-blur="subs.custId.$valid? findCust(): ''"
+            ng-change="clearSubsErr()")
       .row.collapse
         .small-6.column
           span.prefix Subscription plan
         .small-6.column
-          select(ng-model="custSubsciption")
-            option 10
-            option 20
-            option 30
-            option 40
-            option 50
+          select(
+            ng-model="currentSubscriptionPlan"
+            name="subscription"
+            ng-options="plan.name for plan in plans track by plan.name"
+            ng-change="clearSubsErr()")
       .row
-        .small-12.column.button Submit Subscription Change
+        .small-12.column.button(
+          ng-click="submitSubscription()") Submit Subscription Change
+        small.error(ng-hide="submitSubcriptionErr") {{ submitSubscriptionErr }}

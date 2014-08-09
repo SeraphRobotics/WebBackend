@@ -13,4 +13,10 @@ angular.module('helpers', [
       'Decommissioned'
     ]
   )
+  .service('availableSubscriptionPlans', function (SubscriptionPlan) {
+    return SubscriptionPlan
+      .query()
+      .$promise
+    ;
+  })
 ;

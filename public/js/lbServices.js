@@ -3933,6 +3933,12 @@ module.factory(
           method: "DELETE",
         },
 
+        // INTERNAL. Use Customer.currentSubscription() instead.
+        "prototype$__get__currentSubscription": {
+          url: urlBase + "/customers/:id/currentSubscription",
+          method: "GET",
+        },
+
         // INTERNAL. Use Customer.machineSwap.findById() instead.
         "prototype$__findById__machineSwap": {
           url: urlBase + "/customers/:id/machineSwap/:fk",
@@ -4049,52 +4055,52 @@ module.factory(
           method: "GET",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.findById() instead.
-        "::findById::subscriptionPlan::customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer/:fk",
+        // INTERNAL. Use SubscriptionPlan.customers.findById() instead.
+        "::findById::subscriptionPlan::customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers/:fk",
           method: "GET",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.destroyById() instead.
-        "::destroyById::subscriptionPlan::customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer/:fk",
+        // INTERNAL. Use SubscriptionPlan.customers.destroyById() instead.
+        "::destroyById::subscriptionPlan::customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.updateById() instead.
-        "::updateById::subscriptionPlan::customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer/:fk",
+        // INTERNAL. Use SubscriptionPlan.customers.updateById() instead.
+        "::updateById::subscriptionPlan::customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.link() instead.
-        "::link::subscriptionPlan::customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer/rel/:fk",
+        // INTERNAL. Use SubscriptionPlan.customers.link() instead.
+        "::link::subscriptionPlan::customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers/rel/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.unlink() instead.
-        "::unlink::subscriptionPlan::customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer/rel/:fk",
+        // INTERNAL. Use SubscriptionPlan.customers.unlink() instead.
+        "::unlink::subscriptionPlan::customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers/rel/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer() instead.
-        "::get::subscriptionPlan::customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer",
+        // INTERNAL. Use SubscriptionPlan.customers() instead.
+        "::get::subscriptionPlan::customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers",
           method: "GET",
           isArray: true,
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.create() instead.
-        "::create::subscriptionPlan::customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer",
+        // INTERNAL. Use SubscriptionPlan.customers.create() instead.
+        "::create::subscriptionPlan::customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers",
           method: "POST",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.destroyAll() instead.
-        "::delete::subscriptionPlan::customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer",
+        // INTERNAL. Use SubscriptionPlan.customers.destroyAll() instead.
+        "::delete::subscriptionPlan::customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers",
           method: "DELETE",
         },
 
@@ -5769,6 +5775,42 @@ module.factory(
         R.subscription.updateById = function() {
           var TargetResource = $injector.get("Subscription");
           var action = TargetResource["::updateById::customer::subscription"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#currentSubscription
+         * @methodOf lbServices.Customer
+         *
+         * @description
+         *
+         * Fetches belongsTo relation currentSubscription
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        R.currentSubscription = function() {
+          var TargetResource = $injector.get("Subscription");
+          var action = TargetResource["::get::customer::currentSubscription"];
           return action.apply(R, arguments);
         };
     /**
@@ -11707,41 +11749,10 @@ module.factory(
           method: "GET",
         },
 
-        // INTERNAL. Use Subscription.plans.findById() instead.
-        "prototype$__findById__plans": {
-          url: urlBase + "/subscriptions/:id/plans/:fk",
-          method: "GET",
-        },
-
-        // INTERNAL. Use Subscription.plans.destroyById() instead.
-        "prototype$__destroyById__plans": {
-          url: urlBase + "/subscriptions/:id/plans/:fk",
-          method: "DELETE",
-        },
-
-        // INTERNAL. Use Subscription.plans.updateById() instead.
-        "prototype$__updateById__plans": {
-          url: urlBase + "/subscriptions/:id/plans/:fk",
-          method: "PUT",
-        },
-
         // INTERNAL. Use Subscription.plans() instead.
         "prototype$__get__plans": {
           url: urlBase + "/subscriptions/:id/plans",
           method: "GET",
-          isArray: true,
-        },
-
-        // INTERNAL. Use Subscription.plans.create() instead.
-        "prototype$__create__plans": {
-          url: urlBase + "/subscriptions/:id/plans",
-          method: "POST",
-        },
-
-        // INTERNAL. Use Subscription.plans.destroyAll() instead.
-        "prototype$__delete__plans": {
-          url: urlBase + "/subscriptions/:id/plans",
-          method: "DELETE",
         },
 
         // INTERNAL. Use Customer.subscription.findById() instead.
@@ -11778,6 +11789,49 @@ module.factory(
         // INTERNAL. Use Customer.subscription.destroyAll() instead.
         "::delete::customer::subscription": {
           url: urlBase + "/customers/:id/subscription",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use Customer.currentSubscription() instead.
+        "::get::customer::currentSubscription": {
+          url: urlBase + "/customers/:id/currentSubscription",
+          method: "GET",
+        },
+
+        // INTERNAL. Use SubscriptionPlan.subscriptions.findById() instead.
+        "::findById::subscriptionPlan::subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions/:fk",
+          method: "GET",
+        },
+
+        // INTERNAL. Use SubscriptionPlan.subscriptions.destroyById() instead.
+        "::destroyById::subscriptionPlan::subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions/:fk",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use SubscriptionPlan.subscriptions.updateById() instead.
+        "::updateById::subscriptionPlan::subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions/:fk",
+          method: "PUT",
+        },
+
+        // INTERNAL. Use SubscriptionPlan.subscriptions() instead.
+        "::get::subscriptionPlan::subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use SubscriptionPlan.subscriptions.create() instead.
+        "::create::subscriptionPlan::subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions",
+          method: "POST",
+        },
+
+        // INTERNAL. Use SubscriptionPlan.subscriptions.destroyAll() instead.
+        "::delete::subscriptionPlan::subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions",
           method: "DELETE",
         },
       }
@@ -11942,19 +11996,6 @@ module.factory(
           var action = TargetResource["::get::subscription::customer"];
           return action.apply(R, arguments);
         };
-    /**
-     * @ngdoc object
-     * @name lbServices.Subscription.plans
-     * @object
-     * @description
-     *
-     * The object `Subscription.plans` groups methods
-     * manipulating `SubscriptionPlan` instances related to `Subscription`.
-     *
-     * Use {@link lbServices.Subscription#plans} to query
-     * all related instances.
-     */
-
 
         /**
          * @ngdoc method
@@ -11963,21 +12004,21 @@ module.factory(
          *
          * @description
          *
-         * Queries plans of this model.
+         * Fetches belongsTo relation plans
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - subscription id
          *
-         *  - `filter` – `{object=}` - 
+         *  - `refresh` – `{boolean=}` - 
          *
-         * @param {Function(Array.<Object>, Object)=} successCb
+         * @param {Function(Object, Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
          *
          * @param {Function(Object)=} errorCb Error callback with one argument:
          *   `httpResponse`.
          *
-         * @return {Array.<Object>} An empty reference that will be
+         * @return {Object} An empty reference that will be
          *   populated with the actual data once the response is returned
          *   from the server.
          *
@@ -11989,189 +12030,6 @@ module.factory(
         R.plans = function() {
           var TargetResource = $injector.get("SubscriptionPlan");
           var action = TargetResource["::get::subscription::plans"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Subscription.plans#create
-         * @methodOf lbServices.Subscription.plans
-         *
-         * @description
-         *
-         * Creates a new instance in plans of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - subscription id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {Function(Object, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `SubscriptionPlan` object.)
-         * </em>
-         */
-        R.plans.create = function() {
-          var TargetResource = $injector.get("SubscriptionPlan");
-          var action = TargetResource["::create::subscription::plans"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Subscription.plans#destroyAll
-         * @methodOf lbServices.Subscription.plans
-         *
-         * @description
-         *
-         * Deletes all plans of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - subscription id
-         *
-         * @param {Function(Object, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `SubscriptionPlan` object.)
-         * </em>
-         */
-        R.plans.destroyAll = function() {
-          var TargetResource = $injector.get("SubscriptionPlan");
-          var action = TargetResource["::delete::subscription::plans"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Subscription.plans#destroyById
-         * @methodOf lbServices.Subscription.plans
-         *
-         * @description
-         *
-         * Delete a related item by id for plans
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - subscription id
-         *
-         *  - `fk` – `{*}` - Foreign key for plans
-         *
-         * @param {Function(Object, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `` – `{undefined=}` - 
-         */
-        R.plans.destroyById = function() {
-          var TargetResource = $injector.get("SubscriptionPlan");
-          var action = TargetResource["::destroyById::subscription::plans"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Subscription.plans#findById
-         * @methodOf lbServices.Subscription.plans
-         *
-         * @description
-         *
-         * Find a related item by id for plans
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - subscription id
-         *
-         *  - `fk` – `{*}` - Foreign key for plans
-         *
-         * @param {Function(Object, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `SubscriptionPlan` object.)
-         * </em>
-         */
-        R.plans.findById = function() {
-          var TargetResource = $injector.get("SubscriptionPlan");
-          var action = TargetResource["::findById::subscription::plans"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Subscription.plans#updateById
-         * @methodOf lbServices.Subscription.plans
-         *
-         * @description
-         *
-         * Update a related item by id for plans
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - subscription id
-         *
-         *  - `fk` – `{*}` - Foreign key for plans
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method does not accept any data. Supply an empty object.
-         *
-         * @param {Function(Object, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `SubscriptionPlan` object.)
-         * </em>
-         */
-        R.plans.updateById = function() {
-          var TargetResource = $injector.get("SubscriptionPlan");
-          var action = TargetResource["::updateById::subscription::plans"];
           return action.apply(R, arguments);
         };
 
@@ -12543,90 +12401,96 @@ module.factory(
           method: "PUT",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.findById() instead.
-        "prototype$__findById__customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer/:fk",
+        // INTERNAL. Use SubscriptionPlan.customers.findById() instead.
+        "prototype$__findById__customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers/:fk",
           method: "GET",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.destroyById() instead.
-        "prototype$__destroyById__customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer/:fk",
+        // INTERNAL. Use SubscriptionPlan.customers.destroyById() instead.
+        "prototype$__destroyById__customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.updateById() instead.
-        "prototype$__updateById__customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer/:fk",
+        // INTERNAL. Use SubscriptionPlan.customers.updateById() instead.
+        "prototype$__updateById__customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.link() instead.
-        "prototype$__link__customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer/rel/:fk",
+        // INTERNAL. Use SubscriptionPlan.customers.link() instead.
+        "prototype$__link__customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers/rel/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.unlink() instead.
-        "prototype$__unlink__customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer/rel/:fk",
+        // INTERNAL. Use SubscriptionPlan.customers.unlink() instead.
+        "prototype$__unlink__customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers/rel/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer() instead.
-        "prototype$__get__customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer",
+        // INTERNAL. Use SubscriptionPlan.customers() instead.
+        "prototype$__get__customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers",
           method: "GET",
           isArray: true,
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.create() instead.
-        "prototype$__create__customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer",
+        // INTERNAL. Use SubscriptionPlan.customers.create() instead.
+        "prototype$__create__customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers",
           method: "POST",
         },
 
-        // INTERNAL. Use SubscriptionPlan.customer.destroyAll() instead.
-        "prototype$__delete__customer": {
-          url: urlBase + "/subscriptionPlans/:id/customer",
+        // INTERNAL. Use SubscriptionPlan.customers.destroyAll() instead.
+        "prototype$__delete__customers": {
+          url: urlBase + "/subscriptionPlans/:id/customers",
           method: "DELETE",
         },
 
-        // INTERNAL. Use Subscription.plans.findById() instead.
-        "::findById::subscription::plans": {
-          url: urlBase + "/subscriptions/:id/plans/:fk",
+        // INTERNAL. Use SubscriptionPlan.subscriptions.findById() instead.
+        "prototype$__findById__subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions/:fk",
           method: "GET",
         },
 
-        // INTERNAL. Use Subscription.plans.destroyById() instead.
-        "::destroyById::subscription::plans": {
-          url: urlBase + "/subscriptions/:id/plans/:fk",
+        // INTERNAL. Use SubscriptionPlan.subscriptions.destroyById() instead.
+        "prototype$__destroyById__subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use Subscription.plans.updateById() instead.
-        "::updateById::subscription::plans": {
-          url: urlBase + "/subscriptions/:id/plans/:fk",
+        // INTERNAL. Use SubscriptionPlan.subscriptions.updateById() instead.
+        "prototype$__updateById__subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions/:fk",
           method: "PUT",
+        },
+
+        // INTERNAL. Use SubscriptionPlan.subscriptions() instead.
+        "prototype$__get__subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use SubscriptionPlan.subscriptions.create() instead.
+        "prototype$__create__subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions",
+          method: "POST",
+        },
+
+        // INTERNAL. Use SubscriptionPlan.subscriptions.destroyAll() instead.
+        "prototype$__delete__subscriptions": {
+          url: urlBase + "/subscriptionPlans/:id/subscriptions",
+          method: "DELETE",
         },
 
         // INTERNAL. Use Subscription.plans() instead.
         "::get::subscription::plans": {
           url: urlBase + "/subscriptions/:id/plans",
           method: "GET",
-          isArray: true,
-        },
-
-        // INTERNAL. Use Subscription.plans.create() instead.
-        "::create::subscription::plans": {
-          url: urlBase + "/subscriptions/:id/plans",
-          method: "POST",
-        },
-
-        // INTERNAL. Use Subscription.plans.destroyAll() instead.
-        "::delete::subscription::plans": {
-          url: urlBase + "/subscriptions/:id/plans",
-          method: "DELETE",
         },
       }
     );
@@ -12756,26 +12620,26 @@ module.factory(
 
     /**
      * @ngdoc object
-     * @name lbServices.SubscriptionPlan.customer
+     * @name lbServices.SubscriptionPlan.customers
      * @object
      * @description
      *
-     * The object `SubscriptionPlan.customer` groups methods
+     * The object `SubscriptionPlan.customers` groups methods
      * manipulating `Customer` instances related to `SubscriptionPlan`.
      *
-     * Use {@link lbServices.SubscriptionPlan#customer} to query
+     * Use {@link lbServices.SubscriptionPlan#customers} to query
      * all related instances.
      */
 
 
         /**
          * @ngdoc method
-         * @name lbServices.SubscriptionPlan#customer
+         * @name lbServices.SubscriptionPlan#customers
          * @methodOf lbServices.SubscriptionPlan
          *
          * @description
          *
-         * Queries customer of this model.
+         * Queries customers of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -12798,20 +12662,20 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer = function() {
+        R.customers = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::get::subscriptionPlan::customer"];
+          var action = TargetResource["::get::subscriptionPlan::customers"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.SubscriptionPlan.customer#create
-         * @methodOf lbServices.SubscriptionPlan.customer
+         * @name lbServices.SubscriptionPlan.customers#create
+         * @methodOf lbServices.SubscriptionPlan.customers
          *
          * @description
          *
-         * Creates a new instance in customer of this model.
+         * Creates a new instance in customers of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -12836,20 +12700,20 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer.create = function() {
+        R.customers.create = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::create::subscriptionPlan::customer"];
+          var action = TargetResource["::create::subscriptionPlan::customers"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.SubscriptionPlan.customer#destroyAll
-         * @methodOf lbServices.SubscriptionPlan.customer
+         * @name lbServices.SubscriptionPlan.customers#destroyAll
+         * @methodOf lbServices.SubscriptionPlan.customers
          *
          * @description
          *
-         * Deletes all customer of this model.
+         * Deletes all customers of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -12870,26 +12734,26 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer.destroyAll = function() {
+        R.customers.destroyAll = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::delete::subscriptionPlan::customer"];
+          var action = TargetResource["::delete::subscriptionPlan::customers"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.SubscriptionPlan.customer#destroyById
-         * @methodOf lbServices.SubscriptionPlan.customer
+         * @name lbServices.SubscriptionPlan.customers#destroyById
+         * @methodOf lbServices.SubscriptionPlan.customers
          *
          * @description
          *
-         * Delete a related item by id for customer
+         * Delete a related item by id for customers
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - subscriptionPlan id
          *
-         *  - `fk` – `{*}` - Foreign key for customer
+         *  - `fk` – `{*}` - Foreign key for customers
          *
          * @param {Function(Object, Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -12905,26 +12769,26 @@ module.factory(
          *
          *  - `` – `{undefined=}` - 
          */
-        R.customer.destroyById = function() {
+        R.customers.destroyById = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::destroyById::subscriptionPlan::customer"];
+          var action = TargetResource["::destroyById::subscriptionPlan::customers"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.SubscriptionPlan.customer#findById
-         * @methodOf lbServices.SubscriptionPlan.customer
+         * @name lbServices.SubscriptionPlan.customers#findById
+         * @methodOf lbServices.SubscriptionPlan.customers
          *
          * @description
          *
-         * Find a related item by id for customer
+         * Find a related item by id for customers
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - subscriptionPlan id
          *
-         *  - `fk` – `{*}` - Foreign key for customer
+         *  - `fk` – `{*}` - Foreign key for customers
          *
          * @param {Function(Object, Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -12941,26 +12805,26 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer.findById = function() {
+        R.customers.findById = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::findById::subscriptionPlan::customer"];
+          var action = TargetResource["::findById::subscriptionPlan::customers"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.SubscriptionPlan.customer#link
-         * @methodOf lbServices.SubscriptionPlan.customer
+         * @name lbServices.SubscriptionPlan.customers#link
+         * @methodOf lbServices.SubscriptionPlan.customers
          *
          * @description
          *
-         * Add a related item by id for customer
+         * Add a related item by id for customers
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - subscriptionPlan id
          *
-         *  - `fk` – `{*}` - Foreign key for customer
+         *  - `fk` – `{*}` - Foreign key for customers
          *
          * @param {Object} postData Request data.
          *
@@ -12981,26 +12845,26 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer.link = function() {
+        R.customers.link = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::link::subscriptionPlan::customer"];
+          var action = TargetResource["::link::subscriptionPlan::customers"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.SubscriptionPlan.customer#unlink
-         * @methodOf lbServices.SubscriptionPlan.customer
+         * @name lbServices.SubscriptionPlan.customers#unlink
+         * @methodOf lbServices.SubscriptionPlan.customers
          *
          * @description
          *
-         * Remove the customer relation to an item by id
+         * Remove the customers relation to an item by id
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - subscriptionPlan id
          *
-         *  - `fk` – `{*}` - Foreign key for customer
+         *  - `fk` – `{*}` - Foreign key for customers
          *
          * @param {Function(Object, Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -13016,26 +12880,26 @@ module.factory(
          *
          *  - `` – `{undefined=}` - 
          */
-        R.customer.unlink = function() {
+        R.customers.unlink = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::unlink::subscriptionPlan::customer"];
+          var action = TargetResource["::unlink::subscriptionPlan::customers"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.SubscriptionPlan.customer#updateById
-         * @methodOf lbServices.SubscriptionPlan.customer
+         * @name lbServices.SubscriptionPlan.customers#updateById
+         * @methodOf lbServices.SubscriptionPlan.customers
          *
          * @description
          *
-         * Update a related item by id for customer
+         * Update a related item by id for customers
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - subscriptionPlan id
          *
-         *  - `fk` – `{*}` - Foreign key for customer
+         *  - `fk` – `{*}` - Foreign key for customers
          *
          * @param {Object} postData Request data.
          *
@@ -13056,9 +12920,241 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer.updateById = function() {
+        R.customers.updateById = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::updateById::subscriptionPlan::customer"];
+          var action = TargetResource["::updateById::subscriptionPlan::customers"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.SubscriptionPlan.subscriptions
+     * @object
+     * @description
+     *
+     * The object `SubscriptionPlan.subscriptions` groups methods
+     * manipulating `Subscription` instances related to `SubscriptionPlan`.
+     *
+     * Use {@link lbServices.SubscriptionPlan#subscriptions} to query
+     * all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.SubscriptionPlan#subscriptions
+         * @methodOf lbServices.SubscriptionPlan
+         *
+         * @description
+         *
+         * Queries subscriptions of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscriptionPlan id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        R.subscriptions = function() {
+          var TargetResource = $injector.get("Subscription");
+          var action = TargetResource["::get::subscriptionPlan::subscriptions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.SubscriptionPlan.subscriptions#create
+         * @methodOf lbServices.SubscriptionPlan.subscriptions
+         *
+         * @description
+         *
+         * Creates a new instance in subscriptions of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscriptionPlan id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        R.subscriptions.create = function() {
+          var TargetResource = $injector.get("Subscription");
+          var action = TargetResource["::create::subscriptionPlan::subscriptions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.SubscriptionPlan.subscriptions#destroyAll
+         * @methodOf lbServices.SubscriptionPlan.subscriptions
+         *
+         * @description
+         *
+         * Deletes all subscriptions of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscriptionPlan id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        R.subscriptions.destroyAll = function() {
+          var TargetResource = $injector.get("Subscription");
+          var action = TargetResource["::delete::subscriptionPlan::subscriptions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.SubscriptionPlan.subscriptions#destroyById
+         * @methodOf lbServices.SubscriptionPlan.subscriptions
+         *
+         * @description
+         *
+         * Delete a related item by id for subscriptions
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscriptionPlan id
+         *
+         *  - `fk` – `{*}` - Foreign key for subscriptions
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `` – `{undefined=}` - 
+         */
+        R.subscriptions.destroyById = function() {
+          var TargetResource = $injector.get("Subscription");
+          var action = TargetResource["::destroyById::subscriptionPlan::subscriptions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.SubscriptionPlan.subscriptions#findById
+         * @methodOf lbServices.SubscriptionPlan.subscriptions
+         *
+         * @description
+         *
+         * Find a related item by id for subscriptions
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscriptionPlan id
+         *
+         *  - `fk` – `{*}` - Foreign key for subscriptions
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        R.subscriptions.findById = function() {
+          var TargetResource = $injector.get("Subscription");
+          var action = TargetResource["::findById::subscriptionPlan::subscriptions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.SubscriptionPlan.subscriptions#updateById
+         * @methodOf lbServices.SubscriptionPlan.subscriptions
+         *
+         * @description
+         *
+         * Update a related item by id for subscriptions
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - subscriptionPlan id
+         *
+         *  - `fk` – `{*}` - Foreign key for subscriptions
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method does not accept any data. Supply an empty object.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Subscription` object.)
+         * </em>
+         */
+        R.subscriptions.updateById = function() {
+          var TargetResource = $injector.get("Subscription");
+          var action = TargetResource["::updateById::subscriptionPlan::subscriptions"];
           return action.apply(R, arguments);
         };
 

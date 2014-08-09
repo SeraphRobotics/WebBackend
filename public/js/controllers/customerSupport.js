@@ -1,10 +1,33 @@
-/* globals angular, _  */
+/* globals _  */
 'use strict';
 angular.module('customerSupport', [
   'lbServices',
   'helpers'
 ])
-  .controller('customerSupport', function ($scope, $log, Customer, Machine, Shipment, Swap, machineTypes, Cartridge, CartridgeCredit) {
+  .controller('customerSupport', function
+  (
+    $q,
+    $log,
+    $scope,
+    Swap,
+    Machine,
+    Customer,
+    Shipment,
+    Subscription,
+    SubscriptionPlan,
+    Cartridge,
+    CartridgeCredit,
+    machineTypes,    //This constant needs a name change, something like MACH_STATUS
+    availableSubscriptionPlans // This is a promise
+  )
+  {
+    availableSubscriptionPlans
+      .then(function (plans) {
+        $scope.plans = plans;
+        $log.debug(plans);
+      })
+    ;
+
     $scope.findCust = function () {
       var id = {id: $scope.custId};
       Customer.findById({id: $scope.custId}).$promise
@@ -21,6 +44,26 @@ angular.module('customerSupport', [
             $scope.ownedMachine = machines[0];
           }
           $scope.machines = machines;
+          return Customer.currentSubscription(id).$promise;
+        })
+        .then(function (currentSubscription) {
+          $log.debug('=========');
+          $log.debug(currentSubscription);
+          if (currentSubscription[0] !== 'n') {
+            $scope.currentSubscription = currentSubscription;
+            return SubscriptionPlan.findById({ id: currentSubscription.subscriptionPlanId }).$promise;
+          } else {
+            return false;
+          }
+        })
+        .then(function (subscriptionPlan) {
+          $log.debug(subscriptionPlan);
+          if (subscriptionPlan) {
+            $scope.currentSubscriptionPlan = subscriptionPlan;
+            $scope.copyOfSubPlan = angular.copy(subscriptionPlan);
+          } else {
+            $scope.currentSubscriptionPlan = null;
+          }
         })
         .catch(function (err) {
           $log.debug(err);
@@ -156,6 +199,61 @@ angular.module('customerSupport', [
 
     $scope.clearSubmitCartridgeErr = function() {
       $scope.submitCartirdgeCreditErr = null;
+    };
+
+    $scope.submitSubscription = function() {
+      $scope.submitSubscriptionErr = null;
+      $q
+        .when(true)
+        .then(function () {
+          if (!$scope.customer) {
+            $log.debug('submit');
+            return $q.reject('No Customer Loaded');
+          } else if (!$scope.currentSubscriptionPlan) {
+            return $q.reject('No Subscription Selected');
+          } else if ($scope.copyOfSubPlan &&
+            ($scope.copyOfSubPlan.id === $scope.currentSubscriptionPlan.id))
+          {
+            return $q.reject('Customer is Already in Plan');
+          } else { // Create new subscription for customer
+            var data = {
+              customerId: $scope.customer.id,
+              subscriptionPlanId: $scope.currentSubscriptionPlan.id
+            };
+            return Subscription.create(data).$promise;
+          }
+        })
+        .then(function (subscription) { // Assign subscription to current customer;
+          $log.debug(subscription);
+          $scope.customer.currentSubscriptionId = subscription.id;
+          return $scope.customer.$save();
+        })
+        .then(function (customer) { // Add end date to last subscription
+          $log.debug(customer);
+          if ($scope.currentSubscription) {
+            $scope.currentSubscription.dateEnd = new Date();
+            return $scope.currentSubscription.$save();
+          } else {
+            return false;
+          }
+        })
+        .then(function (oldSubscriptionPlan) {
+          $log.debug(oldSubscriptionPlan);
+          $log.debug('Complete');
+        })
+        .catch(function (err) {
+          if (err.message) {
+            $log.debug('here');
+            $scope.submitSubscriptionErr = err.message;
+          } else {
+            $log.debug(err);
+          }
+        })
+      ;
+    };
+
+    $scope.clearSubErr = function() {
+      $log.debug('Change Sub');
     };
   })
 ;
