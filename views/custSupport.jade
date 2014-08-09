@@ -111,6 +111,7 @@ block body
             on-blur
             ui-blur="subs.custId.$valid? findCust(): ''"
             ng-change="clearSubsErr()")
+          small.error(ng-show="swapCustError && !subs.custId.$pristine") No Customer Found
       .row.collapse
         .small-6.column
           span.prefix Subscription plan
