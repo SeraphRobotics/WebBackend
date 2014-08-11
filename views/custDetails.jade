@@ -1,21 +1,39 @@
 extends layout
 block body
   h2.text-center Customer Details
-  form(ng-controller="customerDetails").small-10.column.small-centered
-    .row.collapse
+  form.small-10.column.small-centered(
+    ng-controller="customerDetails"
+    name="details"
+    novalidate)
+    .row.collapse(ng-class="custIdErr? 'error': ''")
       .small-3.column
         span.prefix Customer ID
       .small-6.column
-        input(type="text" ng-model="custId" placeholder="Search with Customer ID")
+        input(
+          type="text"
+          name="custId"
+          ng-model="custId"
+          ng-change="clearCustIdErr()"
+          placeholder="Search with Customer ID")
       .small-3.column
-        .postfix.button(ng-click="searchCust(custId)") Search
-    .row.collapse
+        .postfix.button(
+          ng-click="findCustomer(custId)") Search
+      small.error(ng-show="custIdErr") {{ custIdErr }}
+    .row.collapse(ng-class="orderIdErr? 'error': ''")
       .small-3.column
         span.prefix Order ID
       .small-6.column
-        input(type="text" ng-model="orderId" placeholder="Seach with Order ID")
+        input(
+          type="text"
+          name="orderId"
+          ng-model="orderId"
+          ng-change="clearOrderIdErr()"
+          placeholder="Seach with Order ID")
       .small-3.column
-        .postfix.button(ng-click="searchOrd(orderId)" ng-required="!custId") Search
+        .postfix.button(
+          ng-click="findCustomerThroughOrder(orderId)"
+          ng-required="!custId") Search
+      small.error(ng-show="orderIdErr") {{ orderIdErr }}
     .row
       .divider
       .medium-4.column
@@ -23,46 +41,86 @@ block body
           .small-3.column
             span.prefix Name
           .small-9.column
-            input(type="text" ng-model="cust.name" placeholder="No Data" update-customer cust="cust")
+            input(
+              type="text"
+              ng-model="customer.name"
+              placeholder="No Data"
+              update-customer
+              cust="cust")
         .row.collapse
           .small-3.column
             span.prefix Street Address
           .small-9.column
-            input(type="text" ng-model="cust.address.street" placeholder="No Data" update-customer cust="cust")
+            input(
+              type="text"
+              ng-model="customer.address.street"
+              placeholder="No Data"
+              update-customer
+              cust="customer")
         .row.collapse
           .small-3.column
             span.prefix City
           .small-9.column
-            input(type="text" ng-model="cust.address.city" placeholder="No Data" update-customer cust="cust")
+            input(
+              type="text"
+              ng-model="customer.address.city"
+              placeholder="No Data"
+              update-customer
+              cust="customer")
         .row.collapse
           .small-3.column
             span.prefix State
           .small-9.column
-            input(type="text" ng-model="cust.address.state" placeholder="No Data" update-customer cust="cust")
+            input(
+              type="text"
+              ng-model="customer.address.state"
+              placeholder="No Data"
+              update-customer
+              cust="customer")
         .row.collapse
           .small-3.column
             span.prefix Zip
           .small-9.column
-            input(type="number" ng-model="cust.address.zip" placeholder="No Data" update-customer cust="cust")
+            input(
+              type="number"
+              ng-model="customer.address.zip"
+              placeholder="No Data"
+              update-customer
+              cust="customer")
         .row.collapse
           .small-3.column
             span.prefix Email
           .small-9.column
-            input(type="email" ng-model="cust.primaryEmail" placeholder="No Data" update-customer cust="cust")
+            input(
+              type="email"
+              ng-model="customer.primaryEmail"
+              placeholder="No Data"
+              update-customer
+              cust="customer")
         .row.collapse
           .small-3.column
             span.prefix Phone
           .small-9.column
-            input(type="text" ng-model="cust.phoneNum[0]" placeholder="No Data" update-customer cust="cust")
+            input(
+              type="text"
+              ng-model="customer.phoneNum[0]"
+              placeholder="No Data"
+              update-customer
+              cust="customer")
         .row.collapse
           .small-3.column
             span.prefix Fax
           .small-9.column
-            input(type="text" ng-model="cust.faxNum[0]" placeholder="No Data" update-customer cust="cust")
-        .row(ng-show="cust")
+            input(
+              type="text"
+              ng-model="customer.faxNum[0]"
+              placeholder="No Data"
+              update-customer
+              cust="customer")
+        .row(ng-show="customer")
           span.label Multi-Customer Account?
-          span.label.secondary {{cust.isMulti? "Yes": "No"}}
-        .row(ng-hide="cust")
+          span.label.secondary {{customer.isMulti? "Yes": "No"}}
+        .row(ng-hide="customer")
           span.label MultiCustomer Account?
           span.label.secondary No cust loaded.
       .medium-8.column
@@ -70,8 +128,8 @@ block body
           table.small-8.column.small-centered
             tbody
               tr
-                td Subscription
-                td {{subscription.length || "null"}}
+                td Current Subscription
+                td {{subscriptionPlan.name || "null"}}
               tr
                 td Num of Mach. Swaps
                 td {{swaps.length || "null"}}
@@ -85,9 +143,15 @@ block body
           .small-2.column
             span.prefix Date Range
           .small-5.column
-            input(type="date" ng-model="dateStart" required)
+            input(
+              type="date"
+              ng-model="dateStart"
+              required)
           .small-5.column
-            input(type="date" ng-model="dateEnd" required)
+            input(
+              type="date"
+              ng-model="dateEnd"
+              required)
         .row
           table
             tr
@@ -96,29 +160,29 @@ block body
     .row
       h3.text-left Machines
       .divider
-      .label(ng-hide="isAccount") No Data
-      table.small-9.column.small-centered(ng-show="isAccount")
+      .label(ng-hide="customer") No Data
+      table.small-9.column.small-centered(ng-show="customer")
         thead
           tr
             th Serial Numbers
             th Type
             th Status
         tbody
-          tr(ng-repeat="machine in machines" ng-show="isAccount")
+          tr(ng-repeat="machine in machines" ng-show="customer")
             td {{machine.id}}
-            td {{machine.type}}
-            td {{machine.status}}
+            td {{machine.machineType}}
+            td {{machine.machineStatus}}
     .row
       h3.text-center Records
     .divider
     .row
       h4.text-left Orders
-      .label(ng-hide="isAccount") No Data
+      .label(ng-hide="customer") No Data
       accordion(close-others="true")
-        accordion-group(ng-repeat="order in Orders" heading="{{order.id}}-{{order.date}}")
+        accordion-group(ng-repeat="order in orders" heading="{{order.id}}-{{order.date}}")
     .row
       h4.text-left Returns
-      .label(ng-hide="isAccount") No Data
+      .label(ng-hide="swaps || returns") No Data
       accordion(close-others="true")
         accordion-group(ng-repeat="swaps in swaps" heading="{{swap.id}}-{{swap.date}}")
         accordion-group(ng-repeat="return in returns" heading="{{return.id}}-{{return.date}}")

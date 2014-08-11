@@ -31,7 +31,7 @@ module.exports = {
   dataSource: 'db',
   public: true,
   relations: {
-    customer: {
+    returnBy: {
       type: 'hasAndBelongsToMany',
       model: 'customer'
     }

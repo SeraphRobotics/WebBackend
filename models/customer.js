@@ -64,6 +64,10 @@ module.exports = {
     cartridgesReturn: {
       type: 'hasAndBelongsToMany',
       model: 'cartridgeReturn'
+    },
+    swaps: {
+      type: 'hasMany',
+      model: 'swap'
     }
   }
 };

@@ -3976,6 +3976,43 @@ module.factory(
           method: "DELETE",
         },
 
+        // INTERNAL. Use Customer.swaps.findById() instead.
+        "prototype$__findById__swaps": {
+          url: urlBase + "/customers/:id/swaps/:fk",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Customer.swaps.destroyById() instead.
+        "prototype$__destroyById__swaps": {
+          url: urlBase + "/customers/:id/swaps/:fk",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use Customer.swaps.updateById() instead.
+        "prototype$__updateById__swaps": {
+          url: urlBase + "/customers/:id/swaps/:fk",
+          method: "PUT",
+        },
+
+        // INTERNAL. Use Customer.swaps() instead.
+        "prototype$__get__swaps": {
+          url: urlBase + "/customers/:id/swaps",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use Customer.swaps.create() instead.
+        "prototype$__create__swaps": {
+          url: urlBase + "/customers/:id/swaps",
+          method: "POST",
+        },
+
+        // INTERNAL. Use Customer.swaps.destroyAll() instead.
+        "prototype$__delete__swaps": {
+          url: urlBase + "/customers/:id/swaps",
+          method: "DELETE",
+        },
+
         // INTERNAL. Use CartridgeCredit.customer() instead.
         "::get::cartridgeCredit::customer": {
           url: urlBase + "/cartridgeCredits/:id/customer",
@@ -3994,52 +4031,52 @@ module.factory(
           method: "GET",
         },
 
-        // INTERNAL. Use Machine.customer.findById() instead.
-        "::findById::machine::customer": {
-          url: urlBase + "/machines/:id/customer/:fk",
+        // INTERNAL. Use Machine.returnBy.findById() instead.
+        "::findById::machine::returnBy": {
+          url: urlBase + "/machines/:id/returnBy/:fk",
           method: "GET",
         },
 
-        // INTERNAL. Use Machine.customer.destroyById() instead.
-        "::destroyById::machine::customer": {
-          url: urlBase + "/machines/:id/customer/:fk",
+        // INTERNAL. Use Machine.returnBy.destroyById() instead.
+        "::destroyById::machine::returnBy": {
+          url: urlBase + "/machines/:id/returnBy/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use Machine.customer.updateById() instead.
-        "::updateById::machine::customer": {
-          url: urlBase + "/machines/:id/customer/:fk",
+        // INTERNAL. Use Machine.returnBy.updateById() instead.
+        "::updateById::machine::returnBy": {
+          url: urlBase + "/machines/:id/returnBy/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use Machine.customer.link() instead.
-        "::link::machine::customer": {
-          url: urlBase + "/machines/:id/customer/rel/:fk",
+        // INTERNAL. Use Machine.returnBy.link() instead.
+        "::link::machine::returnBy": {
+          url: urlBase + "/machines/:id/returnBy/rel/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use Machine.customer.unlink() instead.
-        "::unlink::machine::customer": {
-          url: urlBase + "/machines/:id/customer/rel/:fk",
+        // INTERNAL. Use Machine.returnBy.unlink() instead.
+        "::unlink::machine::returnBy": {
+          url: urlBase + "/machines/:id/returnBy/rel/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use Machine.customer() instead.
-        "::get::machine::customer": {
-          url: urlBase + "/machines/:id/customer",
+        // INTERNAL. Use Machine.returnBy() instead.
+        "::get::machine::returnBy": {
+          url: urlBase + "/machines/:id/returnBy",
           method: "GET",
           isArray: true,
         },
 
-        // INTERNAL. Use Machine.customer.create() instead.
-        "::create::machine::customer": {
-          url: urlBase + "/machines/:id/customer",
+        // INTERNAL. Use Machine.returnBy.create() instead.
+        "::create::machine::returnBy": {
+          url: urlBase + "/machines/:id/returnBy",
           method: "POST",
         },
 
-        // INTERNAL. Use Machine.customer.destroyAll() instead.
-        "::delete::machine::customer": {
-          url: urlBase + "/machines/:id/customer",
+        // INTERNAL. Use Machine.returnBy.destroyAll() instead.
+        "::delete::machine::returnBy": {
+          url: urlBase + "/machines/:id/returnBy",
           method: "DELETE",
         },
 
@@ -6045,6 +6082,238 @@ module.factory(
           var action = TargetResource["::updateById::customer::machineSwap"];
           return action.apply(R, arguments);
         };
+    /**
+     * @ngdoc object
+     * @name lbServices.Customer.swaps
+     * @object
+     * @description
+     *
+     * The object `Customer.swaps` groups methods
+     * manipulating `Swap` instances related to `Customer`.
+     *
+     * Use {@link lbServices.Customer#swaps} to query
+     * all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#swaps
+         * @methodOf lbServices.Customer
+         *
+         * @description
+         *
+         * Queries swaps of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Swap` object.)
+         * </em>
+         */
+        R.swaps = function() {
+          var TargetResource = $injector.get("Swap");
+          var action = TargetResource["::get::customer::swaps"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.swaps#create
+         * @methodOf lbServices.Customer.swaps
+         *
+         * @description
+         *
+         * Creates a new instance in swaps of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Swap` object.)
+         * </em>
+         */
+        R.swaps.create = function() {
+          var TargetResource = $injector.get("Swap");
+          var action = TargetResource["::create::customer::swaps"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.swaps#destroyAll
+         * @methodOf lbServices.Customer.swaps
+         *
+         * @description
+         *
+         * Deletes all swaps of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Swap` object.)
+         * </em>
+         */
+        R.swaps.destroyAll = function() {
+          var TargetResource = $injector.get("Swap");
+          var action = TargetResource["::delete::customer::swaps"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.swaps#destroyById
+         * @methodOf lbServices.Customer.swaps
+         *
+         * @description
+         *
+         * Delete a related item by id for swaps
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `fk` – `{*}` - Foreign key for swaps
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `` – `{undefined=}` - 
+         */
+        R.swaps.destroyById = function() {
+          var TargetResource = $injector.get("Swap");
+          var action = TargetResource["::destroyById::customer::swaps"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.swaps#findById
+         * @methodOf lbServices.Customer.swaps
+         *
+         * @description
+         *
+         * Find a related item by id for swaps
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `fk` – `{*}` - Foreign key for swaps
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Swap` object.)
+         * </em>
+         */
+        R.swaps.findById = function() {
+          var TargetResource = $injector.get("Swap");
+          var action = TargetResource["::findById::customer::swaps"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.swaps#updateById
+         * @methodOf lbServices.Customer.swaps
+         *
+         * @description
+         *
+         * Update a related item by id for swaps
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `fk` – `{*}` - Foreign key for swaps
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method does not accept any data. Supply an empty object.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Swap` object.)
+         * </em>
+         */
+        R.swaps.updateById = function() {
+          var TargetResource = $injector.get("Swap");
+          var action = TargetResource["::updateById::customer::swaps"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
@@ -7835,52 +8104,52 @@ module.factory(
           method: "PUT",
         },
 
-        // INTERNAL. Use Machine.customer.findById() instead.
-        "prototype$__findById__customer": {
-          url: urlBase + "/machines/:id/customer/:fk",
+        // INTERNAL. Use Machine.returnBy.findById() instead.
+        "prototype$__findById__returnBy": {
+          url: urlBase + "/machines/:id/returnBy/:fk",
           method: "GET",
         },
 
-        // INTERNAL. Use Machine.customer.destroyById() instead.
-        "prototype$__destroyById__customer": {
-          url: urlBase + "/machines/:id/customer/:fk",
+        // INTERNAL. Use Machine.returnBy.destroyById() instead.
+        "prototype$__destroyById__returnBy": {
+          url: urlBase + "/machines/:id/returnBy/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use Machine.customer.updateById() instead.
-        "prototype$__updateById__customer": {
-          url: urlBase + "/machines/:id/customer/:fk",
+        // INTERNAL. Use Machine.returnBy.updateById() instead.
+        "prototype$__updateById__returnBy": {
+          url: urlBase + "/machines/:id/returnBy/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use Machine.customer.link() instead.
-        "prototype$__link__customer": {
-          url: urlBase + "/machines/:id/customer/rel/:fk",
+        // INTERNAL. Use Machine.returnBy.link() instead.
+        "prototype$__link__returnBy": {
+          url: urlBase + "/machines/:id/returnBy/rel/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use Machine.customer.unlink() instead.
-        "prototype$__unlink__customer": {
-          url: urlBase + "/machines/:id/customer/rel/:fk",
+        // INTERNAL. Use Machine.returnBy.unlink() instead.
+        "prototype$__unlink__returnBy": {
+          url: urlBase + "/machines/:id/returnBy/rel/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use Machine.customer() instead.
-        "prototype$__get__customer": {
-          url: urlBase + "/machines/:id/customer",
+        // INTERNAL. Use Machine.returnBy() instead.
+        "prototype$__get__returnBy": {
+          url: urlBase + "/machines/:id/returnBy",
           method: "GET",
           isArray: true,
         },
 
-        // INTERNAL. Use Machine.customer.create() instead.
-        "prototype$__create__customer": {
-          url: urlBase + "/machines/:id/customer",
+        // INTERNAL. Use Machine.returnBy.create() instead.
+        "prototype$__create__returnBy": {
+          url: urlBase + "/machines/:id/returnBy",
           method: "POST",
         },
 
-        // INTERNAL. Use Machine.customer.destroyAll() instead.
-        "prototype$__delete__customer": {
-          url: urlBase + "/machines/:id/customer",
+        // INTERNAL. Use Machine.returnBy.destroyAll() instead.
+        "prototype$__delete__returnBy": {
+          url: urlBase + "/machines/:id/returnBy",
           method: "DELETE",
         },
 
@@ -8109,26 +8378,26 @@ module.factory(
 
     /**
      * @ngdoc object
-     * @name lbServices.Machine.customer
+     * @name lbServices.Machine.returnBy
      * @object
      * @description
      *
-     * The object `Machine.customer` groups methods
+     * The object `Machine.returnBy` groups methods
      * manipulating `Customer` instances related to `Machine`.
      *
-     * Use {@link lbServices.Machine#customer} to query
+     * Use {@link lbServices.Machine#returnBy} to query
      * all related instances.
      */
 
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine#customer
+         * @name lbServices.Machine#returnBy
          * @methodOf lbServices.Machine
          *
          * @description
          *
-         * Queries customer of this model.
+         * Queries returnBy of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -8151,20 +8420,20 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer = function() {
+        R.returnBy = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::get::machine::customer"];
+          var action = TargetResource["::get::machine::returnBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.customer#create
-         * @methodOf lbServices.Machine.customer
+         * @name lbServices.Machine.returnBy#create
+         * @methodOf lbServices.Machine.returnBy
          *
          * @description
          *
-         * Creates a new instance in customer of this model.
+         * Creates a new instance in returnBy of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -8189,20 +8458,20 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer.create = function() {
+        R.returnBy.create = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::create::machine::customer"];
+          var action = TargetResource["::create::machine::returnBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.customer#destroyAll
-         * @methodOf lbServices.Machine.customer
+         * @name lbServices.Machine.returnBy#destroyAll
+         * @methodOf lbServices.Machine.returnBy
          *
          * @description
          *
-         * Deletes all customer of this model.
+         * Deletes all returnBy of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -8223,26 +8492,26 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer.destroyAll = function() {
+        R.returnBy.destroyAll = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::delete::machine::customer"];
+          var action = TargetResource["::delete::machine::returnBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.customer#destroyById
-         * @methodOf lbServices.Machine.customer
+         * @name lbServices.Machine.returnBy#destroyById
+         * @methodOf lbServices.Machine.returnBy
          *
          * @description
          *
-         * Delete a related item by id for customer
+         * Delete a related item by id for returnBy
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - machine id
          *
-         *  - `fk` – `{*}` - Foreign key for customer
+         *  - `fk` – `{*}` - Foreign key for returnBy
          *
          * @param {Function(Object, Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -8258,26 +8527,26 @@ module.factory(
          *
          *  - `` – `{undefined=}` - 
          */
-        R.customer.destroyById = function() {
+        R.returnBy.destroyById = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::destroyById::machine::customer"];
+          var action = TargetResource["::destroyById::machine::returnBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.customer#findById
-         * @methodOf lbServices.Machine.customer
+         * @name lbServices.Machine.returnBy#findById
+         * @methodOf lbServices.Machine.returnBy
          *
          * @description
          *
-         * Find a related item by id for customer
+         * Find a related item by id for returnBy
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - machine id
          *
-         *  - `fk` – `{*}` - Foreign key for customer
+         *  - `fk` – `{*}` - Foreign key for returnBy
          *
          * @param {Function(Object, Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -8294,26 +8563,26 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer.findById = function() {
+        R.returnBy.findById = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::findById::machine::customer"];
+          var action = TargetResource["::findById::machine::returnBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.customer#link
-         * @methodOf lbServices.Machine.customer
+         * @name lbServices.Machine.returnBy#link
+         * @methodOf lbServices.Machine.returnBy
          *
          * @description
          *
-         * Add a related item by id for customer
+         * Add a related item by id for returnBy
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - machine id
          *
-         *  - `fk` – `{*}` - Foreign key for customer
+         *  - `fk` – `{*}` - Foreign key for returnBy
          *
          * @param {Object} postData Request data.
          *
@@ -8334,26 +8603,26 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer.link = function() {
+        R.returnBy.link = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::link::machine::customer"];
+          var action = TargetResource["::link::machine::returnBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.customer#unlink
-         * @methodOf lbServices.Machine.customer
+         * @name lbServices.Machine.returnBy#unlink
+         * @methodOf lbServices.Machine.returnBy
          *
          * @description
          *
-         * Remove the customer relation to an item by id
+         * Remove the returnBy relation to an item by id
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - machine id
          *
-         *  - `fk` – `{*}` - Foreign key for customer
+         *  - `fk` – `{*}` - Foreign key for returnBy
          *
          * @param {Function(Object, Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -8369,26 +8638,26 @@ module.factory(
          *
          *  - `` – `{undefined=}` - 
          */
-        R.customer.unlink = function() {
+        R.returnBy.unlink = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::unlink::machine::customer"];
+          var action = TargetResource["::unlink::machine::returnBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.customer#updateById
-         * @methodOf lbServices.Machine.customer
+         * @name lbServices.Machine.returnBy#updateById
+         * @methodOf lbServices.Machine.returnBy
          *
          * @description
          *
-         * Update a related item by id for customer
+         * Update a related item by id for returnBy
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - machine id
          *
-         *  - `fk` – `{*}` - Foreign key for customer
+         *  - `fk` – `{*}` - Foreign key for returnBy
          *
          * @param {Object} postData Request data.
          *
@@ -8409,9 +8678,9 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.customer.updateById = function() {
+        R.returnBy.updateById = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::updateById::machine::customer"];
+          var action = TargetResource["::updateById::machine::returnBy"];
           return action.apply(R, arguments);
         };
 
@@ -11749,9 +12018,9 @@ module.factory(
           method: "GET",
         },
 
-        // INTERNAL. Use Subscription.plans() instead.
-        "prototype$__get__plans": {
-          url: urlBase + "/subscriptions/:id/plans",
+        // INTERNAL. Use Subscription.subscriptionPlan() instead.
+        "prototype$__get__subscriptionPlan": {
+          url: urlBase + "/subscriptions/:id/subscriptionPlan",
           method: "GET",
         },
 
@@ -11999,12 +12268,12 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Subscription#plans
+         * @name lbServices.Subscription#subscriptionPlan
          * @methodOf lbServices.Subscription
          *
          * @description
          *
-         * Fetches belongsTo relation plans
+         * Fetches belongsTo relation subscriptionPlan
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -12027,9 +12296,9 @@ module.factory(
          * This usually means the response is a `SubscriptionPlan` object.)
          * </em>
          */
-        R.plans = function() {
+        R.subscriptionPlan = function() {
           var TargetResource = $injector.get("SubscriptionPlan");
-          var action = TargetResource["::get::subscription::plans"];
+          var action = TargetResource["::get::subscription::subscriptionPlan"];
           return action.apply(R, arguments);
         };
 
@@ -12487,9 +12756,9 @@ module.factory(
           method: "DELETE",
         },
 
-        // INTERNAL. Use Subscription.plans() instead.
-        "::get::subscription::plans": {
-          url: urlBase + "/subscriptions/:id/plans",
+        // INTERNAL. Use Subscription.subscriptionPlan() instead.
+        "::get::subscription::subscriptionPlan": {
+          url: urlBase + "/subscriptions/:id/subscriptionPlan",
           method: "GET",
         },
       }
@@ -13584,6 +13853,43 @@ module.factory(
         // INTERNAL. Use Customer.machineSwap.destroyAll() instead.
         "::delete::customer::machineSwap": {
           url: urlBase + "/customers/:id/machineSwap",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use Customer.swaps.findById() instead.
+        "::findById::customer::swaps": {
+          url: urlBase + "/customers/:id/swaps/:fk",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Customer.swaps.destroyById() instead.
+        "::destroyById::customer::swaps": {
+          url: urlBase + "/customers/:id/swaps/:fk",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use Customer.swaps.updateById() instead.
+        "::updateById::customer::swaps": {
+          url: urlBase + "/customers/:id/swaps/:fk",
+          method: "PUT",
+        },
+
+        // INTERNAL. Use Customer.swaps() instead.
+        "::get::customer::swaps": {
+          url: urlBase + "/customers/:id/swaps",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use Customer.swaps.create() instead.
+        "::create::customer::swaps": {
+          url: urlBase + "/customers/:id/swaps",
+          method: "POST",
+        },
+
+        // INTERNAL. Use Customer.swaps.destroyAll() instead.
+        "::delete::customer::swaps": {
+          url: urlBase + "/customers/:id/swaps",
           method: "DELETE",
         },
       }
