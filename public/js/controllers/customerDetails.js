@@ -58,6 +58,11 @@ angular.module('customerDetails', [
         .then(function (cartridges) {
           $log.debug(cartridges);
           $scope.cartridges = cartridges;
+          return Customer.cartridgesReturned(id).$promise;
+        })
+        .then(function (cartridgesReturned) {
+          $log.debug(cartridgesReturned);
+          $scope.cartridgesReturned = cartridgesReturned;
           def.resolve(true);
         })
         .catch(def.reject)

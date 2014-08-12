@@ -18,6 +18,10 @@ module.exports = {
     customer: {
       type: 'belongsTo',
       model: 'customer'
+    },
+    cartridgesReturned: {
+      type: 'hasMany',
+      model: 'cartridgeReturn'
     }
   }
 };

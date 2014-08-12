@@ -34,6 +34,10 @@ module.exports = {
     returnBy: {
       type: 'hasAndBelongsToMany',
       model: 'customer'
+    },
+    filamentChanges: {
+      type: 'hasMany',
+      model: 'filamentChange'
     }
   }
 };

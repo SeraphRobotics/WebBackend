@@ -1,6 +1,6 @@
 'use strict';
 var filament = {
-  vol: Number,
+  volume: Number,
   importDate: {
     type: Date,
     default: new Date()

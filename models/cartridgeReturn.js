@@ -3,11 +3,6 @@ var cartridgeReturn = {
   date: {
     type: Date,
     default: new Date()
-  },
-  cartridgeNum: {
-    type: String,
-    required: true,
-    index: true
   }
 };
 module.exports = {
@@ -17,13 +12,11 @@ module.exports = {
   relations: {
     customer: {
       type: 'belongsTo',
-      model: 'customer',
-      foreignKey: 'custId'
+      model: 'customer'
     },
     cartridge: {
       type: 'belongsTo',
-      model: 'cartridge',
-      foreignKey: 'cartridgeNum'
+      model: 'cartridge'
     }
   }
 };

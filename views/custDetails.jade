@@ -138,7 +138,7 @@ block body
                 td {{ customer && filamentChanges ? filamentChanges.length: "No Data" }}
               tr
                 td Num of Cartridge Returns
-                td {{ customer && cartReturns ? cartReturns.length: "No Data" }}
+                td {{ customer && cartridgesReturned? cartridgesReturned.length: "No Data" }}
         .row.collapse
           .small-2.column
             span.prefix Date Range
@@ -166,7 +166,8 @@ block body
           table
             tr
               td Num of Cartridges Used
-              td {{ numberUsedWithinRange ? numberUsedWithinRange: cartridge.length || "No Data" }}
+              td {{ numberUsedWithinRange ? numberUsedWithinRange: cartridges.length || "No Data" }}
+      a.button.small(href="/customerSupport") Customer Support Page
     .row
       h3.text-left Machines
       .divider
