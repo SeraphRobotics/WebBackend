@@ -1976,6 +1976,12 @@ module.factory(
           method: "PUT",
         },
 
+        // INTERNAL. Use Cartridge.customer() instead.
+        "prototype$__get__customer": {
+          url: urlBase + "/cartridges/:id/customer",
+          method: "GET",
+        },
+
         // INTERNAL. Use CartridgeCredit.cartridge() instead.
         "::get::cartridgeCredit::cartridge": {
           url: urlBase + "/cartridgeCredits/:id/cartridge",
@@ -1986,6 +1992,43 @@ module.factory(
         "::get::cartridgeReturn::cartridge": {
           url: urlBase + "/cartridgeReturns/:id/cartridge",
           method: "GET",
+        },
+
+        // INTERNAL. Use Customer.cartridge.findById() instead.
+        "::findById::customer::cartridge": {
+          url: urlBase + "/customers/:id/cartridge/:fk",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Customer.cartridge.destroyById() instead.
+        "::destroyById::customer::cartridge": {
+          url: urlBase + "/customers/:id/cartridge/:fk",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use Customer.cartridge.updateById() instead.
+        "::updateById::customer::cartridge": {
+          url: urlBase + "/customers/:id/cartridge/:fk",
+          method: "PUT",
+        },
+
+        // INTERNAL. Use Customer.cartridge() instead.
+        "::get::customer::cartridge": {
+          url: urlBase + "/customers/:id/cartridge",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use Customer.cartridge.create() instead.
+        "::create::customer::cartridge": {
+          url: urlBase + "/customers/:id/cartridge",
+          method: "POST",
+        },
+
+        // INTERNAL. Use Customer.cartridge.destroyAll() instead.
+        "::delete::customer::cartridge": {
+          url: urlBase + "/customers/:id/cartridge",
+          method: "DELETE",
         },
       }
     );
@@ -2113,6 +2156,42 @@ module.factory(
         R["update"] = R["updateAll"];
 
 
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Cartridge#customer
+         * @methodOf lbServices.Cartridge
+         *
+         * @description
+         *
+         * Fetches belongsTo relation customer
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - cartridge id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        R.customer = function() {
+          var TargetResource = $injector.get("Customer");
+          var action = TargetResource["::get::cartridge::customer"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
@@ -3687,6 +3766,43 @@ module.factory(
           method: "PUT",
         },
 
+        // INTERNAL. Use Customer.cartridge.findById() instead.
+        "prototype$__findById__cartridge": {
+          url: urlBase + "/customers/:id/cartridge/:fk",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Customer.cartridge.destroyById() instead.
+        "prototype$__destroyById__cartridge": {
+          url: urlBase + "/customers/:id/cartridge/:fk",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use Customer.cartridge.updateById() instead.
+        "prototype$__updateById__cartridge": {
+          url: urlBase + "/customers/:id/cartridge/:fk",
+          method: "PUT",
+        },
+
+        // INTERNAL. Use Customer.cartridge() instead.
+        "prototype$__get__cartridge": {
+          url: urlBase + "/customers/:id/cartridge",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use Customer.cartridge.create() instead.
+        "prototype$__create__cartridge": {
+          url: urlBase + "/customers/:id/cartridge",
+          method: "POST",
+        },
+
+        // INTERNAL. Use Customer.cartridge.destroyAll() instead.
+        "prototype$__delete__cartridge": {
+          url: urlBase + "/customers/:id/cartridge",
+          method: "DELETE",
+        },
+
         // INTERNAL. Use Customer.cartridgesReturn.findById() instead.
         "prototype$__findById__cartridgesReturn": {
           url: urlBase + "/customers/:id/cartridgesReturn/:fk",
@@ -4013,6 +4129,12 @@ module.factory(
           method: "DELETE",
         },
 
+        // INTERNAL. Use Cartridge.customer() instead.
+        "::get::cartridge::customer": {
+          url: urlBase + "/cartridges/:id/customer",
+          method: "GET",
+        },
+
         // INTERNAL. Use CartridgeCredit.customer() instead.
         "::get::cartridgeCredit::customer": {
           url: urlBase + "/cartridgeCredits/:id/customer",
@@ -4272,6 +4394,238 @@ module.factory(
         R["update"] = R["updateAll"];
 
 
+    /**
+     * @ngdoc object
+     * @name lbServices.Customer.cartridge
+     * @object
+     * @description
+     *
+     * The object `Customer.cartridge` groups methods
+     * manipulating `Cartridge` instances related to `Customer`.
+     *
+     * Use {@link lbServices.Customer#cartridge} to query
+     * all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#cartridge
+         * @methodOf lbServices.Customer
+         *
+         * @description
+         *
+         * Queries cartridge of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Cartridge` object.)
+         * </em>
+         */
+        R.cartridge = function() {
+          var TargetResource = $injector.get("Cartridge");
+          var action = TargetResource["::get::customer::cartridge"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.cartridge#create
+         * @methodOf lbServices.Customer.cartridge
+         *
+         * @description
+         *
+         * Creates a new instance in cartridge of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Cartridge` object.)
+         * </em>
+         */
+        R.cartridge.create = function() {
+          var TargetResource = $injector.get("Cartridge");
+          var action = TargetResource["::create::customer::cartridge"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.cartridge#destroyAll
+         * @methodOf lbServices.Customer.cartridge
+         *
+         * @description
+         *
+         * Deletes all cartridge of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Cartridge` object.)
+         * </em>
+         */
+        R.cartridge.destroyAll = function() {
+          var TargetResource = $injector.get("Cartridge");
+          var action = TargetResource["::delete::customer::cartridge"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.cartridge#destroyById
+         * @methodOf lbServices.Customer.cartridge
+         *
+         * @description
+         *
+         * Delete a related item by id for cartridge
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `fk` – `{*}` - Foreign key for cartridge
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `` – `{undefined=}` - 
+         */
+        R.cartridge.destroyById = function() {
+          var TargetResource = $injector.get("Cartridge");
+          var action = TargetResource["::destroyById::customer::cartridge"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.cartridge#findById
+         * @methodOf lbServices.Customer.cartridge
+         *
+         * @description
+         *
+         * Find a related item by id for cartridge
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `fk` – `{*}` - Foreign key for cartridge
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Cartridge` object.)
+         * </em>
+         */
+        R.cartridge.findById = function() {
+          var TargetResource = $injector.get("Cartridge");
+          var action = TargetResource["::findById::customer::cartridge"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.cartridge#updateById
+         * @methodOf lbServices.Customer.cartridge
+         *
+         * @description
+         *
+         * Update a related item by id for cartridge
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `fk` – `{*}` - Foreign key for cartridge
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method does not accept any data. Supply an empty object.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Cartridge` object.)
+         * </em>
+         */
+        R.cartridge.updateById = function() {
+          var TargetResource = $injector.get("Cartridge");
+          var action = TargetResource["::updateById::customer::cartridge"];
+          return action.apply(R, arguments);
+        };
     /**
      * @ngdoc object
      * @name lbServices.Customer.cartridgesReturn

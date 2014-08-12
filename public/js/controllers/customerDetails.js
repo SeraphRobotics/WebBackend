@@ -1,4 +1,4 @@
-/* globals angular */
+/* globals _ */
 'use strict';
 angular.module('customerDetails', [
   'lbServices'
@@ -8,18 +8,20 @@ angular.module('customerDetails', [
     $q,
     $log,
     $scope,
+    $filter,
     Order,
     Customer,
     Subscription
   )
   {
+    $scope.endDate = $filter('date')(new Date(), 'yyyy-MM-dd');
     /**
      * finds related items after customer is identified
      */
     function findCustomerRelations(id) {
       var def = $q.defer();
       $q
-        .when(true) //Ideally, this should be a $q.all()
+        .when(true) //Ideally, this should be done in parallel using $q.all()
         .then(function () {
           return Customer.currentSubscription(id).$promise;
         })
@@ -51,12 +53,18 @@ angular.module('customerDetails', [
         .then(function (machinesOwned) {
           $log.debug(machinesOwned);
           $scope.machines = machinesOwned;
+          return Customer.cartridge(id).$promise;
+        })
+        .then(function (cartridges) {
+          $log.debug(cartridges);
+          $scope.cartridges = cartridges;
           def.resolve(true);
         })
         .catch(def.reject)
       ;
       return def.promise;
     }
+
     $scope.findCustomer = function (custId) {
       $log.debug(custId);
       $scope.customer = null;
@@ -125,6 +133,51 @@ angular.module('customerDetails', [
 
     $scope.clearOrderIdErr = function() {
       $scope.orderIdErr = null;
+    };
+
+    $scope.updateCartridgeDateRange = function() {
+      if (!$scope.cartridges) {
+        return false;
+      }
+      $scope.numberUsedWithinRange = 0;
+      _.chain($scope.cartridges)
+        .map(function (cartridge) {
+          return { soldOnDate: new Date(cartridge.soldOnDate) };
+        })
+        .filter(function (cartridge) { //filter those before range
+          return cartridge.soldOnDate > new Date($scope.startDate);
+        })
+        .filter(function (cartridge) {
+          return cartridge.soldOnDate < new Date($scope.endDate);
+        })
+        .forEach(function () {
+          $scope.numberUsedWithinRange += 1;
+        })
+      ;
+    };
+
+    $scope.isLessThanEnd = true;
+    $scope.startDateRangeCheck = function() {
+      if (!$scope.startDate || !$scope.endDate) {
+        $scope.isLessThanEnd = true;
+      } else if (new Date($scope.startDate) < new Date($scope.endDate)) {
+        $scope.isLessThanEnd = true;
+        $scope.updateCartridgeDateRange();
+      } else {
+        $scope.isLessThanEnd = false;
+      }
+    };
+
+    $scope.isGreaterThanStart = true;
+    $scope.endDateRangeCheck = function() {
+      if (!$scope.startDate || !$scope.endDate) {
+        $scope.isGreaterThanStart = true;
+      } else if (new Date($scope.startDate) < new Date($scope.endDate)) {
+        $scope.isGreaterThanStart = true;
+        $scope.updateCartridgeDateRange();
+      } else {
+        $scope.isGreaterThanStart = false;
+      }
     };
   })
   .directive('updateCustomer', function ($log) {

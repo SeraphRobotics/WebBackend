@@ -129,34 +129,44 @@ block body
             tbody
               tr
                 td Current Subscription
-                td {{subscriptionPlan.name || "null"}}
+                td {{ customer && subscriptionPlan ? subscriptionPlan.name: "No Data" }}
               tr
                 td Num of Mach. Swaps
-                td {{swaps.length || "null"}}
+                td {{ customer && swaps ? swaps.length: "No Data" }}
               tr
                 td Num of filament Changes
-                td {{filamentChanges.length || "null"}}
+                td {{ customer && filamentChanges ? filamentChanges.length: "No Data" }}
               tr
                 td Num of Cartridge Returns
-                td {{cartReturns.length || "null"}}
+                td {{ customer && cartReturns ? cartReturns.length: "No Data" }}
         .row.collapse
           .small-2.column
             span.prefix Date Range
           .small-5.column
             input(
               type="date"
-              ng-model="dateStart"
+              name="startDate"
+              ng-model="startDate"
+              ng-change="startDateRangeCheck()"
+              ng-class="startDate && !isLessThanEnd? 'error':''"
+              max="endDate | date: 'yyyy-MM-dd'"
               required)
+            small.error(ng-show="startDate && !isLessThanEnd") Date must be before end date
           .small-5.column
             input(
               type="date"
-              ng-model="dateEnd"
+              name="endDate"
+              min="startDate"
+              ng-model="endDate"
+              ng-change="endDateRangeCheck()"
+              ng-class="startDate && endDate && !isGreaterThanEnd? 'error':''"
               required)
+            small.error(ng-show="startDate && endDate && !isGreaterThanStart") Date must be after start date
         .row
           table
             tr
               td Num of Cartridges Used
-              td {{numOfCartridges || "no Data"}}
+              td {{ numberUsedWithinRange ? numberUsedWithinRange: cartridge.length || "No Data" }}
     .row
       h3.text-left Machines
       .divider
@@ -169,22 +179,30 @@ block body
             th Status
         tbody
           tr(ng-repeat="machine in machines" ng-show="customer")
-            td {{machine.id}}
-            td {{machine.machineType}}
-            td {{machine.machineStatus}}
+            td {{ machine.id }}
+            td {{ machine.machineType }}
+            td {{ machine.machineStatus }}
     .row
       h3.text-center Records
     .divider
     .row
       h4.text-left Orders
-      .label(ng-hide="customer") No Data
+      .label(ng-hide="orders") No Data
       accordion(close-others="true")
-        accordion-group(ng-repeat="order in orders" heading="{{order.id}}-{{order.date}}")
+        accordion-group(
+          ng-repeat="order in orders"
+          heading="ID: {{ order.id }}  -  Date: {{ order.datePlaced }}")
     .row
       h4.text-left Returns
       .label(ng-hide="swaps || returns") No Data
       accordion(close-others="true")
-        accordion-group(ng-repeat="swaps in swaps" heading="{{swap.id}}-{{swap.date}}")
-        accordion-group(ng-repeat="return in returns" heading="{{return.id}}-{{return.date}}")
+        accordion-group(
+          ng-show="swaps"
+          ng-repeat="swap in swaps"
+          heading="ID: {{ swap.id }}  -  Date: {{ swap.date }}")
+        accordion-group(
+          ng-show="returns"
+          ng-repeat="return in returns"
+          heading="ID: {{ return.id }}  -  Date: {{ return.date }}")
 
 

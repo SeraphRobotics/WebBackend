@@ -4,6 +4,9 @@ var cartridge = {
   manufactureDate: {
     type: Date,
     default: new Date()
+  },
+  soldOnDate: {
+    type: Date
   }
 };
 
@@ -11,5 +14,10 @@ module.exports = {
   properties: cartridge,
   dataSource: 'db',
   public: true,
-  relations: {}
+  relations: {
+    customer: {
+      type: 'belongsTo',
+      model: 'customer'
+    }
+  }
 };
