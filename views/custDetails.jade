@@ -172,38 +172,114 @@ block body
       h3.text-left Machines
       .divider
       .label(ng-hide="customer") No Data
-      table.small-9.column.small-centered(ng-show="customer")
+      table.small-9.column.small-centered(ng-show="customer && machines")
         thead
           tr
             th Serial Numbers
             th Type
             th Status
         tbody
-          tr(ng-repeat="machine in machines" ng-show="customer")
+          tr(ng-repeat="machine in machines" ng-show="customer && machines")
             td {{ machine.id }}
             td {{ machine.machineType }}
             td {{ machine.machineStatus }}
     .row
       h3.text-center Records
-    .divider
+      .divider
+      h4.text-left Machines Returned
+      .label(ng-hide="orders") No Data
+      table.small-9.column.small-centered(ng-show="customer && machinesReturned")
+        thead
+          tr
+            th Serial Number
+            th Type
+            th Status
+        tbody
+          tr(ng-repeat="machine in machinesReturned" ng-show="customer && machinesReturned")
+            td {{ machine.id }}
+            td {{ machine.machineType }}
+            td {{ machine.machineStatus }}
     .row
       h4.text-left Orders
       .label(ng-hide="orders") No Data
       accordion(close-others="true")
         accordion-group(
           ng-repeat="order in orders"
-          heading="ID: {{ order.id }}  -  Date: {{ order.datePlaced }}")
+          heading="ID: {{ order.id }}  -  Date: {{ order.datePlaced | date: 'dd/MM/yyyy' }}")
+          .row
+            .small-3.column Order
+            .small-3.column {{ order.id }}
+            .small-3.column Date Recieved
+            .small-3.column {{ order.datePlaced | date: 'dd/MM/yyyy' }}
+          .row
+            table.small-9.column.small-centered(ng-show="order.items.length > 0")
+              thead
+                tr
+                  td items
+                  td Serial Numbers
+                  td Status
+                  td Tracking Numbers
+              tbody
+                tr(ng-repeat="item in orders.items")
+                  td {{ item.name }}
+                  td {{ item.id }}
+                  td {{ item.status }}
+                  td {{ item.trackingNum }}
+          .row
+            .small-3.column Order Total
+            .small-3.column {{ order.total }}
+            .small-6.column
+          .row(ng-repeat="payment in order.payments")
+            .small-3.column Amount Paid
+            .small-3.column {{ payment.amount }}
+            .small-3.column Date
+            .small-3.column {{ payment.date }}
+          .row
+            .small-3.column Amount Owed
+            .small-3.column {{ order.amountDue }}
     .row
       h4.text-left Returns
-      .label(ng-hide="swaps || returns") No Data
+      h5.text-center Swaps
+      .label(ng-hide="swaps") No Data
       accordion(close-others="true")
         accordion-group(
           ng-show="swaps"
           ng-repeat="swap in swaps"
-          heading="ID: {{ swap.id }}  -  Date: {{ swap.date }}")
+          heading="ID: {{ swap.id }}  -  Date: {{ swap.date | date: 'dd/MM/yyyy' }}")
+          .row
+            table.small-9.column.small-centered(ng-show="true")
+              thead
+                tr
+                  td Swap Id
+                  td Old Machine
+                  td New Machine
+                  td Shipment Numbers
+              tbody
+                tr(ng-repeat="swap in swaps")
+                  td {{ swap.id}}
+                  td {{ swap.oldMachineNum }}
+                  td {{ swap.newMachineNum }}
+                  td {{ swap.trackingNum }}
+      h5.text-center Filament Changes
+      .label(ng-hide="filamentChanges") No Data
+      accordion(close-others="true")
         accordion-group(
-          ng-show="returns"
-          ng-repeat="return in returns"
-          heading="ID: {{ return.id }}  -  Date: {{ return.date }}")
-
-
+          ng-show="filamentChanges"
+          ng-repeat="filamentChange in filamentChanges"
+          heading="ID: {{ filamentChange.id }}  -  Date: {{ filamentChange.date | date: 'dd/MM/yyyy' }}")
+          .row
+            .small-3.column.panel.callout Time
+            .small-3.column.panel {{ filamentChange.time || "No Data" }}
+            .small-3.column.panel.callout Volume Used
+            .small-3.column.panel {{ filamentChange.volumeUsed || "No Data" }}
+      h5.text-center Cartridge Returns
+      .label(ng-hide="cartridgesReturned") No Data
+      accordion(close-others="true")
+        accordion-group(
+          ng-show="cartridgesReturned"
+          ng-repeat="return in cartridgesReturned"
+          heading="ID: {{ return.id}} - Date: {{ return.date | date: 'dd/MM/yyyy' }}")
+          .row
+            .small-4.column.panel.callout Cartridge Id
+            .small-4.column.panel {{ return.cartridgeId || "No Data" }}
+            .small-4.column

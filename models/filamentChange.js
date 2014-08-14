@@ -1,7 +1,11 @@
 'use strict';
 var filamentChange = {
   time: Number,
-  volumeUsed: Number
+  volumeUsed: Number,
+  date: {
+    type: Date,
+    default: new Date()
+  }
 };
 
 module.exports = {

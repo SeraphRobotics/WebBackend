@@ -1,7 +1,8 @@
 /* globals _ */
 'use strict';
 angular.module('customerDetails', [
-  'lbServices'
+  'lbServices',
+  'mm.foundation.accordion'
 ])
   .controller('customerDetails', function
   (
@@ -9,6 +10,7 @@ angular.module('customerDetails', [
     $log,
     $scope,
     $filter,
+    Swap,
     Order,
     Customer,
     Subscription
@@ -26,42 +28,72 @@ angular.module('customerDetails', [
           return Customer.currentSubscription(id).$promise;
         })
         .then(function (subscription) {
-          $log.debug(subscription);
+          $log.debug('Subscriptions', subscription);
           $scope.subscription = subscription;
           return Subscription.subscriptionPlan({ id: subscription.id }).$promise;
         })
         .then(function (subscriptionPlan) {
-          $log.debug(subscriptionPlan);
+          $log.debug('Subscription Plans', subscriptionPlan);
           $scope.subscriptionPlan = subscriptionPlan;
           return Customer.order(id).$promise;
         })
         .then(function (orders) {
-          $log.debug(orders);
+          $log.debug('Orders', orders);
           $scope.orders = orders;
           return Customer.filamentChange(id).$promise;
         })
         .then(function (filamentChanges) {
-          $log.debug(filamentChanges);
+          $log.debug('Filament Changes', filamentChanges);
           $scope.filamentChanges = filamentChanges;
           return Customer.machineSwap(id).$promise;
         })
         .then(function (swaps) {
-          $log.debug(swaps);
           $scope.swaps = swaps;
+          var promises = _.chain($scope.swaps)
+            .map(function (swap) {
+              return Swap.shipment({ id: swap.id }).$promise;
+            })
+            .value()
+          ;
+          return $q.all(promises);
+        })
+        .then(function (swapShipments) { // Add shipment tracking numbers to swaps
+          $scope.swaps = _.chain($scope.swaps)
+            .map(function (swap) {
+              return _.chain(swapShipments)
+                .filter(function (shipment) {
+                  return shipment.id === swap.shipmentNum;
+                })
+                .map(function (shipment) {
+                  swap.trackingNum = shipment.trackingNum;
+                  return swap;
+                })
+                .value()
+              ;
+            })
+            .flatten()
+            .value()
+          ;
+          $log.debug('Swaps', $scope.swaps);
           return Customer.hasMachines(id).$promise;
         })
         .then(function (machinesOwned) {
-          $log.debug(machinesOwned);
+          $log.debug('Current Machines', machinesOwned);
           $scope.machines = machinesOwned;
+          return Customer.machinesReturned(id).$promise;
+        })
+        .then(function (machinesReturned) {
+          $log.debug('Machines Returned', machinesReturned);
+          $scope.machinesReturned = machinesReturned;
           return Customer.cartridge(id).$promise;
         })
         .then(function (cartridges) {
-          $log.debug(cartridges);
+          $log.debug('Cartridges', cartridges);
           $scope.cartridges = cartridges;
           return Customer.cartridgesReturned(id).$promise;
         })
         .then(function (cartridgesReturned) {
-          $log.debug(cartridgesReturned);
+          $log.debug('Cartridges Returned', cartridgesReturned);
           $scope.cartridgesReturned = cartridgesReturned;
           def.resolve(true);
         })

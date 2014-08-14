@@ -5,8 +5,7 @@ var order = {
     type: Date,
     default: new Date()
   },
-  items: [
-  ],
+  items: [],
   payments: [],
   shipments: []
 };
