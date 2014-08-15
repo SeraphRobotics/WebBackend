@@ -1,7 +1,7 @@
 extends layout
 block body
   h2.text-center Repair and Manufacturing Queue
-  form(ng-controller="orderQueue")
+  form(ng-controller="queue")
     .row.border.margin
       .small-6.column
         h3.text-left Orders
@@ -44,7 +44,7 @@ block body
               th Order Number
               th Name
               th Date Placed
-              th Replacement or New
+              th Type
               th Num of Printers
               th Num of Scanners
               th Num of Tablets
@@ -52,15 +52,15 @@ block body
               th Num of Filaments
           tbody
             tr(ng-repeat="order in orders")
-              td {{order.orderNum}}
-              td {{order.name}}
-              td {{order.datePlaced}}
-              td {{order.isNew}}
-              td {{order.numOfPrinters}}
-              td {{order.numOfScanners}}
-              td {{order.numOfTablets}}
-              td {{order.numOfCartridges}}
-              td {{order.numOfFilaments}}
+              td {{ order.id }}
+              td {{ order.name }}
+              td {{ order.datePlaced }}
+              td {{ order.type || "Not Set" }}
+              td {{ order.numOfPrinters }}
+              td {{ order.numOfScanners }}
+              td {{ order.numOfTablets }}
+              td {{ order.numOfCartridges }}
+              td {{ order.numOfFilaments }}
     .row.border.margin
       .small-12.column
         h3.text-left Repair Queue

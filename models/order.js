@@ -1,13 +1,23 @@
 'use strict';
 var order = {
-  orderType: String,
+  type: {
+    type: String,
+    required: true
+  },
   datePlaced: {
     type: Date,
     default: new Date()
   },
   items: [],
+  machines: [],
+  cartridges: [],
+  filament: [],
   payments: [],
-  shipments: []
+  shipments: [],
+  isComplete: {
+    type: Boolean,
+    default: false
+  }
 };
 module.exports = {
   properties: order,

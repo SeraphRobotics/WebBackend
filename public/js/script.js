@@ -8,11 +8,12 @@ angular.module('app',[
   'machineDetails',
   'masterList',
   'productGeneration',
+  'queue',
   'updateMachine',
   'mm.foundation.modal',
   'mm.foundation.tpls',
-  'mm.foundation.accordion',
-  'angular-lodash'
+  'mm.foundation.accordion'
+//  'angular-lodash'
 ])
   .config(function($logProvider){
     $logProvider.debugEnabled(true);
@@ -125,9 +126,6 @@ angular.module('app',[
         });
       }
     };
-  })
-  .controller('orderQueue', function () {
-
   })
   .controller('orderFullfill', function () {
 

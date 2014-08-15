@@ -10,6 +10,7 @@ angular.module('customerSupport', [
     $log,
     $scope,
     Swap,
+    Order,
     Machine,
     Customer,
     Shipment,
@@ -38,7 +39,7 @@ angular.module('customerSupport', [
           return Customer.hasMachines(id).$promise;
         })
         .then(function (machines) {
-          $log.debug(machines);
+          $log.debug('Machines: ', machines);
           if (machines.length === 1) {
             $scope.oldMachId = machines[0].id;
             $scope.ownedMachine = machines[0];
@@ -47,8 +48,7 @@ angular.module('customerSupport', [
           return Customer.currentSubscription(id).$promise;
         })
         .then(function (currentSubscription) {
-          $log.debug('=========');
-          $log.debug(currentSubscription);
+          $log.debug('Current Subscription', currentSubscription);
           if (currentSubscription[0] !== 'n') {
             $scope.currentSubscription = currentSubscription;
             return SubscriptionPlan.findById({ id: currentSubscription.subscriptionPlanId }).$promise;
@@ -57,7 +57,7 @@ angular.module('customerSupport', [
           }
         })
         .then(function (subscriptionPlan) {
-          $log.debug(subscriptionPlan);
+          $log.debug('Subscription Plan', subscriptionPlan);
           if (subscriptionPlan) {
             $scope.currentSubscriptionPlan = subscriptionPlan;
             $scope.copyOfSubPlan = angular.copy(subscriptionPlan);
@@ -135,12 +135,15 @@ angular.module('customerSupport', [
           $log.debug(shipment);
           $scope.trackingNum = shipment.trackingNum;
           swapData.shipmentNum = shipment.id;
+          if ($scope.newMachine && $scope.newMachine.id) {
+            swapData.newMachineNum = $scope.newMachine.id;
+          }
           return Swap.create({}, swapData).$promise;
         })
         .then(function (swap) {
           $log.debug(swap);
           machineTypes.forEach(function (type) {
-            if (/(?=.*transit)(?=.*warehouse)/.exec(type.toLowerCase())) {
+            if (/(?=.*broken)(?=.*customer)/.exec(type.toLowerCase())) {
               $log.debug(type);
               $scope.ownedMachine.machineStatus = type;
             }
@@ -148,8 +151,21 @@ angular.module('customerSupport', [
           return $scope.ownedMachine.$save();
         })
         .then(function (ownedMachine) {
-          $log.debug('oMachine updated');
-          $log.debug(ownedMachine);
+          $log.debug('Machine Updated', ownedMachine);
+          if (swapData.newMachineNum) {
+            return Order.create({}, {
+              type: 'swap',
+              machines: [
+                { id: swapData.newMachineNum }
+              ],
+              customerId: $scope.customer.id
+            }).$promise;
+          } else {
+            return false;
+          }
+        })
+        .then(function (swapOrder) {
+          $log.debug('Order Placed', swapOrder);
         })
         .catch($log.debug)
       ;
