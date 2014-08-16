@@ -135,9 +135,6 @@ angular.module('customerSupport', [
           $log.debug(shipment);
           $scope.trackingNum = shipment.trackingNum;
           swapData.shipmentNum = shipment.id;
-          if ($scope.newMachine && $scope.newMachine.id) {
-            swapData.newMachineNum = $scope.newMachine.id;
-          }
           return Swap.create({}, swapData).$promise;
         })
         .then(function (swap) {
@@ -152,17 +149,12 @@ angular.module('customerSupport', [
         })
         .then(function (ownedMachine) {
           $log.debug('Machine Updated', ownedMachine);
-          if (swapData.newMachineNum) {
-            return Order.create({}, {
-              type: 'swap',
-              machines: [
-                { id: swapData.newMachineNum }
-              ],
-              customerId: $scope.customer.id
-            }).$promise;
-          } else {
-            return false;
-          }
+          return Order.create({}, {
+            type: 'swap',
+            machines: 1,
+            customerId: $scope.customer.id
+          })
+          .$promise;
         })
         .then(function (swapOrder) {
           $log.debug('Order Placed', swapOrder);

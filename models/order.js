@@ -9,9 +9,26 @@ var order = {
     default: new Date()
   },
   items: [],
-  machines: [],
-  cartridges: [],
-  filament: [],
+  printers: {
+    type: Number,
+    default: 0
+  },
+  tablets: {
+    type: Number,
+    default: 0
+  },
+  scanners: {
+    type: Number,
+    default: 0
+  },
+  cartridges: {
+    type: Number,
+    default: 0
+  },
+  filaments: {
+    type: Number,
+    default: 0
+  },
   payments: [],
   shipments: [],
   isComplete: {

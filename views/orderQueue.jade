@@ -9,40 +9,40 @@ block body
           tbody
             tr
               td Printers
-              td.panel {{printers.orderNum}}
+              td.panel {{ printers }}
             tr
               td Scanners
-              td.panel {{scanners.orderNum}}
+              td.panel {{ scanners}}
             tr
               td Tablets
-              td.panel {{tablets.orderNum}}
+              td.panel {{ tablets }}
             tr
               td Cartridge
-              td.panel {{cartridge.orderNum}}
+              td.panel {{ cartridges }}
             tr
               td Filaments
-              td.panel {{filaments.orderNum}}
+              td.panel {{ filaments }}
       .small-6.column
         h3.text-left Repairs
         table
           tbody
             tr
               td Printers
-              td.panel {{printers.orderNum}}
+              td.panel {{ repairs.printers }}
             tr
               td Tablets
-              td.panel {{tablets.orderNum}}
+              td.panel {{ repairs.tablets }}
             tr
               td Scanners
-              td.panel {{scanners.orderNum}}
+              td.panel {{ repairs.scanners }}
     .row.border.margin
-      .small-12.column
+      .small-12.column.scrollable
         h3.text-left Unfulfilled Orders List
         table
           thead
             tr
               th Order Number
-              th Name
+              th Customer Id
               th Date Placed
               th Type
               th Num of Printers
@@ -53,14 +53,14 @@ block body
           tbody
             tr(ng-repeat="order in orders")
               td {{ order.id }}
-              td {{ order.name }}
+              td {{ order.customerId }}
               td {{ order.datePlaced }}
               td {{ order.type || "Not Set" }}
-              td {{ order.numOfPrinters }}
-              td {{ order.numOfScanners }}
-              td {{ order.numOfTablets }}
-              td {{ order.numOfCartridges }}
-              td {{ order.numOfFilaments }}
+              td {{ order.printers }}
+              td {{ order.scanners }}
+              td {{ order.tablets }}
+              td {{ order.cartridges }}
+              td {{ order.filaments }}
     .row.border.margin
       .small-12.column
         h3.text-left Repair Queue
@@ -68,15 +68,15 @@ block body
           thead
             tr
               th Serial Number
-              th Name
-              th Date Recieved
+              th Customer ID
+              th Date Manufactured
               th Type
           tbody
-            tr(ng-repeat="machine in repairs")
-              td {{machine.machineId}}
-              td {{machine.name}}
-              td {{machine.dateReceived}}
-              td {{machine.type}}
+            tr(ng-repeat="machine in machines")
+              td {{ machine.id }}
+              td {{ machine.customerId }}
+              td {{ machine.dateManufactured | date: 'dd/MM/yyyy' }}
+              td {{ machine.machineType }}
     .row
       .small-12.column.small-centered
         .button.expand Update Machine
