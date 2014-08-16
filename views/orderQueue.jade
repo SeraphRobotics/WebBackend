@@ -73,7 +73,7 @@ block body
               th Type
           tbody
             tr(ng-repeat="machine in machines")
-              td {{ machine.id }}
+              td: a(href="/updateMachine/{{ machine.id }}") {{ machine.id }}
               td {{ machine.customerId }}
               td {{ machine.dateManufactured | date: 'dd/MM/yyyy' }}
               td {{ machine.machineType }}
