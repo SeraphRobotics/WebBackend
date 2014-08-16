@@ -5,7 +5,7 @@ angular.module('updateMachine', [
   'lbServices',
   'helpers'
 ])
-  .controller('updateMachine', function ($scope, $log, Machine, machineTypes) {//machineTypes needs to be changed to machineStats
+  .controller('updateMachine', function ($q, $log, $scope, $timeout, Machine, machineTypes) {//machineTypes needs to be changed to machineStats
     $scope.updateSuccess = false;
     $scope.machine = {};
     $scope.master = {};
@@ -34,10 +34,10 @@ angular.module('updateMachine', [
       if (machineNum) {
         Machine.findById({id: machineNum})
           .$promise
-          .then(function (machineIns) {
+          .then(function (machine) {
             $scope.clearErr();
-            $log.debug(machineIns);
-            $scope.machine = machineIns;
+            $log.debug(machine);
+            $scope.machine = machine;
           })
           .catch(function (err) {
             $log.error(err);
@@ -53,42 +53,53 @@ angular.module('updateMachine', [
 
     $scope.initId = function (id) {
       if (id !== 'undefined') {
-        $log.debug(typeof id);
         $scope.machineNum = id;
         $scope.findMachine(id);
       }
     };
 
     $scope.save = function () {
-      Machine.customer({ id: $scope.machine.machineNum})
-        .$promise
+      $q
+        .when((function () {
+          if ($scope.machine.ownedBy) {
+            return Machine.currentCustomer({ id: $scope.machine.id }).$promise;
+          } else {
+            return null;
+          }
+        }()))
         .then(function (customer) {
-          $log.debug('Found Customer');
-          $scope.customer = customer;
-          $log.debug(customer);
+          if (customer) {
+            $scope.customer = customer;
+            $log.debug('Customer', customer);
+          }
         })
         .catch($log.debug)
         .finally(function () {
+          $log.debug('finally');
           if ($scope.comment.length > 2 ) {
             var log = {};
             log.date = new Date();
             log.comments = $scope.comment.trim();
             log.status = $scope.machine.machineStatus;
+            if (!$scope.machine.logs) {
+              $scope.machine.logs = [];
+            }
             $scope.machine.logs.push(log);
-            if ($scope.customer.length > 0) {
+            if ($scope.customer && $scope.customer.length > 0) {
               $scope.log.custId = $scope.customer.id;
               $scope.log.custName = $scope.customer.name;
             }
           }
-          $log.debug('finally');
-          $scope.machine.$updateOrCreate()
-            .then(function () {
-              $log.info('success');
-              $scope.updateSuccess = true;
-            })
-            .catch($log.error)
-          ;
-        }.bind(this))
+          return $scope.machine.$save();
+        })
+        .then(function () {
+          $log.info('success');
+          $scope.updateSuccess = true;
+          $timeout(function () {
+            $scope.updateSuccess = null;
+          }, 1000);
+        })
+        .catch($log.debug)
       ;
     };
 });

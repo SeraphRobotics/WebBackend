@@ -4435,52 +4435,52 @@ module.factory(
           method: "GET",
         },
 
-        // INTERNAL. Use Machine.returnBy.findById() instead.
-        "::findById::machine::returnBy": {
-          url: urlBase + "/machines/:id/returnBy/:fk",
+        // INTERNAL. Use Machine.returnedBy.findById() instead.
+        "::findById::machine::returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy/:fk",
           method: "GET",
         },
 
-        // INTERNAL. Use Machine.returnBy.destroyById() instead.
-        "::destroyById::machine::returnBy": {
-          url: urlBase + "/machines/:id/returnBy/:fk",
+        // INTERNAL. Use Machine.returnedBy.destroyById() instead.
+        "::destroyById::machine::returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use Machine.returnBy.updateById() instead.
-        "::updateById::machine::returnBy": {
-          url: urlBase + "/machines/:id/returnBy/:fk",
+        // INTERNAL. Use Machine.returnedBy.updateById() instead.
+        "::updateById::machine::returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use Machine.returnBy.link() instead.
-        "::link::machine::returnBy": {
-          url: urlBase + "/machines/:id/returnBy/rel/:fk",
+        // INTERNAL. Use Machine.returnedBy.link() instead.
+        "::link::machine::returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy/rel/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use Machine.returnBy.unlink() instead.
-        "::unlink::machine::returnBy": {
-          url: urlBase + "/machines/:id/returnBy/rel/:fk",
+        // INTERNAL. Use Machine.returnedBy.unlink() instead.
+        "::unlink::machine::returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy/rel/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use Machine.returnBy() instead.
-        "::get::machine::returnBy": {
-          url: urlBase + "/machines/:id/returnBy",
+        // INTERNAL. Use Machine.returnedBy() instead.
+        "::get::machine::returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy",
           method: "GET",
           isArray: true,
         },
 
-        // INTERNAL. Use Machine.returnBy.create() instead.
-        "::create::machine::returnBy": {
-          url: urlBase + "/machines/:id/returnBy",
+        // INTERNAL. Use Machine.returnedBy.create() instead.
+        "::create::machine::returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy",
           method: "POST",
         },
 
-        // INTERNAL. Use Machine.returnBy.destroyAll() instead.
-        "::delete::machine::returnBy": {
-          url: urlBase + "/machines/:id/returnBy",
+        // INTERNAL. Use Machine.returnedBy.destroyAll() instead.
+        "::delete::machine::returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy",
           method: "DELETE",
         },
 
@@ -8744,52 +8744,52 @@ module.factory(
           method: "PUT",
         },
 
-        // INTERNAL. Use Machine.returnBy.findById() instead.
-        "prototype$__findById__returnBy": {
-          url: urlBase + "/machines/:id/returnBy/:fk",
+        // INTERNAL. Use Machine.returnedBy.findById() instead.
+        "prototype$__findById__returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy/:fk",
           method: "GET",
         },
 
-        // INTERNAL. Use Machine.returnBy.destroyById() instead.
-        "prototype$__destroyById__returnBy": {
-          url: urlBase + "/machines/:id/returnBy/:fk",
+        // INTERNAL. Use Machine.returnedBy.destroyById() instead.
+        "prototype$__destroyById__returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use Machine.returnBy.updateById() instead.
-        "prototype$__updateById__returnBy": {
-          url: urlBase + "/machines/:id/returnBy/:fk",
+        // INTERNAL. Use Machine.returnedBy.updateById() instead.
+        "prototype$__updateById__returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use Machine.returnBy.link() instead.
-        "prototype$__link__returnBy": {
-          url: urlBase + "/machines/:id/returnBy/rel/:fk",
+        // INTERNAL. Use Machine.returnedBy.link() instead.
+        "prototype$__link__returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy/rel/:fk",
           method: "PUT",
         },
 
-        // INTERNAL. Use Machine.returnBy.unlink() instead.
-        "prototype$__unlink__returnBy": {
-          url: urlBase + "/machines/:id/returnBy/rel/:fk",
+        // INTERNAL. Use Machine.returnedBy.unlink() instead.
+        "prototype$__unlink__returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy/rel/:fk",
           method: "DELETE",
         },
 
-        // INTERNAL. Use Machine.returnBy() instead.
-        "prototype$__get__returnBy": {
-          url: urlBase + "/machines/:id/returnBy",
+        // INTERNAL. Use Machine.returnedBy() instead.
+        "prototype$__get__returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy",
           method: "GET",
           isArray: true,
         },
 
-        // INTERNAL. Use Machine.returnBy.create() instead.
-        "prototype$__create__returnBy": {
-          url: urlBase + "/machines/:id/returnBy",
+        // INTERNAL. Use Machine.returnedBy.create() instead.
+        "prototype$__create__returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy",
           method: "POST",
         },
 
-        // INTERNAL. Use Machine.returnBy.destroyAll() instead.
-        "prototype$__delete__returnBy": {
-          url: urlBase + "/machines/:id/returnBy",
+        // INTERNAL. Use Machine.returnedBy.destroyAll() instead.
+        "prototype$__delete__returnedBy": {
+          url: urlBase + "/machines/:id/returnedBy",
           method: "DELETE",
         },
 
@@ -9061,26 +9061,26 @@ module.factory(
 
     /**
      * @ngdoc object
-     * @name lbServices.Machine.returnBy
+     * @name lbServices.Machine.returnedBy
      * @object
      * @description
      *
-     * The object `Machine.returnBy` groups methods
+     * The object `Machine.returnedBy` groups methods
      * manipulating `Customer` instances related to `Machine`.
      *
-     * Use {@link lbServices.Machine#returnBy} to query
+     * Use {@link lbServices.Machine#returnedBy} to query
      * all related instances.
      */
 
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine#returnBy
+         * @name lbServices.Machine#returnedBy
          * @methodOf lbServices.Machine
          *
          * @description
          *
-         * Queries returnBy of this model.
+         * Queries returnedBy of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -9103,20 +9103,20 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.returnBy = function() {
+        R.returnedBy = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::get::machine::returnBy"];
+          var action = TargetResource["::get::machine::returnedBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.returnBy#create
-         * @methodOf lbServices.Machine.returnBy
+         * @name lbServices.Machine.returnedBy#create
+         * @methodOf lbServices.Machine.returnedBy
          *
          * @description
          *
-         * Creates a new instance in returnBy of this model.
+         * Creates a new instance in returnedBy of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -9141,20 +9141,20 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.returnBy.create = function() {
+        R.returnedBy.create = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::create::machine::returnBy"];
+          var action = TargetResource["::create::machine::returnedBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.returnBy#destroyAll
-         * @methodOf lbServices.Machine.returnBy
+         * @name lbServices.Machine.returnedBy#destroyAll
+         * @methodOf lbServices.Machine.returnedBy
          *
          * @description
          *
-         * Deletes all returnBy of this model.
+         * Deletes all returnedBy of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -9175,26 +9175,26 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.returnBy.destroyAll = function() {
+        R.returnedBy.destroyAll = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::delete::machine::returnBy"];
+          var action = TargetResource["::delete::machine::returnedBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.returnBy#destroyById
-         * @methodOf lbServices.Machine.returnBy
+         * @name lbServices.Machine.returnedBy#destroyById
+         * @methodOf lbServices.Machine.returnedBy
          *
          * @description
          *
-         * Delete a related item by id for returnBy
+         * Delete a related item by id for returnedBy
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - machine id
          *
-         *  - `fk` – `{*}` - Foreign key for returnBy
+         *  - `fk` – `{*}` - Foreign key for returnedBy
          *
          * @param {Function(Object, Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -9210,26 +9210,26 @@ module.factory(
          *
          *  - `` – `{undefined=}` - 
          */
-        R.returnBy.destroyById = function() {
+        R.returnedBy.destroyById = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::destroyById::machine::returnBy"];
+          var action = TargetResource["::destroyById::machine::returnedBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.returnBy#findById
-         * @methodOf lbServices.Machine.returnBy
+         * @name lbServices.Machine.returnedBy#findById
+         * @methodOf lbServices.Machine.returnedBy
          *
          * @description
          *
-         * Find a related item by id for returnBy
+         * Find a related item by id for returnedBy
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - machine id
          *
-         *  - `fk` – `{*}` - Foreign key for returnBy
+         *  - `fk` – `{*}` - Foreign key for returnedBy
          *
          * @param {Function(Object, Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -9246,26 +9246,26 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.returnBy.findById = function() {
+        R.returnedBy.findById = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::findById::machine::returnBy"];
+          var action = TargetResource["::findById::machine::returnedBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.returnBy#link
-         * @methodOf lbServices.Machine.returnBy
+         * @name lbServices.Machine.returnedBy#link
+         * @methodOf lbServices.Machine.returnedBy
          *
          * @description
          *
-         * Add a related item by id for returnBy
+         * Add a related item by id for returnedBy
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - machine id
          *
-         *  - `fk` – `{*}` - Foreign key for returnBy
+         *  - `fk` – `{*}` - Foreign key for returnedBy
          *
          * @param {Object} postData Request data.
          *
@@ -9286,26 +9286,26 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.returnBy.link = function() {
+        R.returnedBy.link = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::link::machine::returnBy"];
+          var action = TargetResource["::link::machine::returnedBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.returnBy#unlink
-         * @methodOf lbServices.Machine.returnBy
+         * @name lbServices.Machine.returnedBy#unlink
+         * @methodOf lbServices.Machine.returnedBy
          *
          * @description
          *
-         * Remove the returnBy relation to an item by id
+         * Remove the returnedBy relation to an item by id
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - machine id
          *
-         *  - `fk` – `{*}` - Foreign key for returnBy
+         *  - `fk` – `{*}` - Foreign key for returnedBy
          *
          * @param {Function(Object, Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -9321,26 +9321,26 @@ module.factory(
          *
          *  - `` – `{undefined=}` - 
          */
-        R.returnBy.unlink = function() {
+        R.returnedBy.unlink = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::unlink::machine::returnBy"];
+          var action = TargetResource["::unlink::machine::returnedBy"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name lbServices.Machine.returnBy#updateById
-         * @methodOf lbServices.Machine.returnBy
+         * @name lbServices.Machine.returnedBy#updateById
+         * @methodOf lbServices.Machine.returnedBy
          *
          * @description
          *
-         * Update a related item by id for returnBy
+         * Update a related item by id for returnedBy
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*=}` - machine id
          *
-         *  - `fk` – `{*}` - Foreign key for returnBy
+         *  - `fk` – `{*}` - Foreign key for returnedBy
          *
          * @param {Object} postData Request data.
          *
@@ -9361,9 +9361,9 @@ module.factory(
          * This usually means the response is a `Customer` object.)
          * </em>
          */
-        R.returnBy.updateById = function() {
+        R.returnedBy.updateById = function() {
           var TargetResource = $injector.get("Customer");
-          var action = TargetResource["::updateById::machine::returnBy"];
+          var action = TargetResource["::updateById::machine::returnedBy"];
           return action.apply(R, arguments);
         };
     /**

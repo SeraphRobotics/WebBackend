@@ -31,7 +31,8 @@ block body
           textarea(ng-model="comment" rows="5" name="comments")
       .row
         .small-6.column.small-centered
-          button.button.expand(ng-click='isChanged(machine)? save():""'
+          button.button.expand(
+            ng-click='isChanged(machine)? save():""'
             ng-class="isChanged(machine)? '': 'disabled'"
             name="update") Update Machine
       .row(ng-show="updateSuccess")

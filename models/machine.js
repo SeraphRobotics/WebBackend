@@ -12,18 +12,21 @@ var machine = {
     type: String,
     default: 'Operational in warehouse'
   },
-  logs: [
+  logs:{
+    type: [
     {
-      date: {
-        default: new Date(),
-        type: Date,
-      },
-      status: String,
-      custId: String,
-      custName: String,
-      comments: String
-    }
-  ]
+        date: {
+          default: new Date(),
+          type: Date,
+        },
+        status: String,
+        custId: String,
+        custName: String,
+        comments: String
+      }
+    ],
+    default: []
+  }
 };
 
 module.exports = {
@@ -31,13 +34,18 @@ module.exports = {
   dataSource: 'db',
   public: true,
   relations: {
-    returnBy: {
+    returnedBy: {
       type: 'hasAndBelongsToMany',
       model: 'customer'
     },
     filamentChanges: {
       type: 'hasMany',
       model: 'filamentChange'
+    },
+    currentCustomer: {
+      type: 'belongsTo',
+      model: 'customer',
+      foreignKey: 'ownedBy' //Key is attached to this model
     }
   }
 };
