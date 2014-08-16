@@ -52,7 +52,7 @@ block body
               th Num of Filaments
           tbody
             tr(ng-repeat="order in orders")
-              td {{ order.id }}
+              td: a(href="/orderFulfill/{{ order.id }}") {{ order.id }}
               td {{ order.customerId }}
               td {{ order.datePlaced }}
               td {{ order.type || "Not Set" }}
