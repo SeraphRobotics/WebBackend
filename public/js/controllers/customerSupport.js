@@ -151,7 +151,14 @@ angular.module('customerSupport', [
           $log.debug('Machine Updated', ownedMachine);
           return Order.create({}, {
             type: 'swap',
-            machines: 1,
+            items: [
+              {
+                type: 'printer',
+                status: 'unfulfilled',
+                itemId: '',
+                item: {}
+              }
+            ],
             customerId: $scope.customer.id
           })
           .$promise;

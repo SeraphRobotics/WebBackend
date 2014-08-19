@@ -17,11 +17,17 @@ angular.module('queue', [
         $log.debug(orders);
         _.chain(orders)
           .forEach(function (order) {
-            $scope.printers += order.printers;
-            $scope.scanners += order.scanners;
-            $scope.tablets += order.tablets;
-            $scope.cartridges += order.cartridges;
-            $scope.filaments += order.filaments;
+            _.chain(order.items)
+              .forEach(function (item) {
+                var type = item.type + 's';
+                $scope[type] += 1;
+                if (order[type]){
+                  order[type] += 1;
+                } else {
+                  order[type] = 1;
+                }
+              })
+            ;
           })
         ;
         $scope.orders = orders;

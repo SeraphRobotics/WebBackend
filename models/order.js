@@ -8,26 +8,9 @@ var order = {
     type: Date,
     default: new Date()
   },
-  items: [],
-  printers: {
-    type: Number,
-    default: 0
-  },
-  tablets: {
-    type: Number,
-    default: 0
-  },
-  scanners: {
-    type: Number,
-    default: 0
-  },
-  cartridges: {
-    type: Number,
-    default: 0
-  },
-  filaments: {
-    type: Number,
-    default: 0
+  items: {
+    type: [],
+    default: []
   },
   payments: [],
   shipments: [],
@@ -44,6 +27,10 @@ module.exports = {
     customer: {
       type: 'belongsTo',
       model: 'customer'
+    },
+    shipments: {
+      type: 'hasMany',
+      model: 'shipment'
     }
   }
 };
