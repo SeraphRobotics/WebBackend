@@ -8,12 +8,17 @@ var shipment = {
     type: String,
     required: true
   },
-  parts: []
+  items: []
 };
 
 module.exports = {
   properties: shipment,
   dataSource: 'db',
   public: true,
-  relations: {}
+  relations: {
+    order: {
+      type: 'belongsTo',
+      model: 'order'
+    }
+  }
 };

@@ -1,34 +1,41 @@
 extends layout
 block body
   h2.text-center Order Fulfillment Status and Update
-  form.row(ng-controller="orderFullfill")
+  .row(ng-controller="orderFulfill" ng-init="initId('#{id}')")
     .small-10.column.small-centered
-      .row.collapse
+      .row.collapse(ng-class="orderIdErr? 'error': ''")
         .small-3.column
           span.prefix Order Number
+        .small-6.column
+          input(
+            type="text"
+            name="orderId"
+            ng-model="orderId"
+            ng-change="clearOrderErr()")
+        .small-3.column
+          .postfix.button(ng-click="findOrder(orderId)") Search
+        small.error(ng-show="findOrderErr") {{ findOrderErr }}
+      .row.collapse
+        .small-3.column
+          span.alert-box.scrollable.oneLine Customer Name
         .small-9.column
-          input(type="text")
+          span.alert-box.secondary  {{ customer.name || "Name"}}
+        //-  .small-3.column
+            span.alert-box.text-center Copy
       .row.collapse
         .small-3.column
-          span.prefix Customer Name
-        .small-6.column
-          input(type="text")
-        .small-3.column
-          .postfix.button Copy
+          span.alert-box.scrollable.oneLine Customer Address
+        .small-9.column
+          span.alert-box.secondary.scrollable.oneLine {{ (customer.address | addressArrToOneLine) || "Address" }}
+       //- .small-3.column
+          span.alert-box.text-center Copy
       .row.collapse
         .small-3.column
-          span.prefix Customer Address
-        .small-6.column
-          input(type="text")
-        .small-3.column
-          .postfix.button Copy
-      .row.collapse
-        .small-3.column
-          span.prefix Customer Number
-        .small-6.column
-          input(type="text")
-        .small-3.column
-          .postfix.button Copy
+          span.alert-box.scrollable.oneLine Customer Number
+        .small-9.column
+          span.alert-box.secondary {{ (customer.phoneNum[0] | telephone) || "Telephone Number" }}
+        //-  .small-3.column
+            span.alert-box.text-center Copy
       .row
         table.small-11.column.small-centered
           thead
@@ -36,15 +43,39 @@ block body
               th Item
               th Serial Number
               th Status
+              th shipment ID
               th Add to Shipment
           tbody
-            tr(ng-repeat="part in orders")
-              td {{part.name}}
-              td {{part.partNum}}
-              td {{part.status}}
-              td.button.tiny.expand(ng-click="addToShip()") Add
-      .row.collapse
-        .small-6.column.panel.text-center
-          span Tracking Number (TODO: pull from fedex)
-        .small-6.column.panel.text-center
-          span {{order.trackingNum || "'Tracking number'"}}
+            tr(ng-repeat="item in order.items")
+              td {{ item.type }}
+              td {{ item.id }}
+              td {{ item.status }}
+              td(
+                ng-click="openFindItemModal(item)")
+                | {{ item.shipmentId || 'add ' + item.type }}
+              td.button.tiny.expand(
+                ng-click="item.status === 'unfulfilled'? addToShipment(item):'' ")
+                | {{ (item.status === "unfulfilled")? 'add': '' }}
+      .row
+        h3.text-center New Shipment
+        .divider
+        .row(ng-repeat="item in newShipment.items")
+          .small-3.column Item Type: {{ item.type}}
+          .small-5.column Item ID: {{ item.id }}
+          .small-3.column Item Status: {{ item.status }}
+          .small-2.column
+      .row(ng-show="newShipment.items.length > 0")
+        .button.expand(ng-click="newShipment.items.length > 0? createShipment(): ''") Create Shipment
+      .row
+        h5.text-center(ng-hide="newShipment.items.length > 0") No items added
+      .row
+        h3.text-center Shipments
+        .divider
+        h5.text-center(ng-hide="shipments.length > 0") No Shipments for this order
+        accordion(close-others='true' ng-repeat="shipment in shipments")
+          accordion-group(
+            heading="Shipment ID: {{ shipment.id }} Tracking Number: {{ shipment.trackingNum }}")
+            ul.circles
+              li(ng-repeat="item in shipment.items") {{ item.type }}: ID: {{ item.id }}
+  script(type="text/ng-template" id="findItemModal.html")
+    include findItemModal

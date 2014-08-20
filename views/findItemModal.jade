@@ -1,0 +1,11 @@
+.row.collapse
+  .small-4.column
+    span.prefix.callout Find {{ type }} By Id
+  .small-6.column
+    input(
+      name="id"
+      type="text"
+      ng-model="itemId")
+  .small-2.column
+    span.postfix.button(ng-click="findItem(itemId)") Find
+  small.error(ng-show="findItemIdErr") {{ findItemIdErr }}

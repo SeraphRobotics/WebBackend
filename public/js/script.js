@@ -7,13 +7,13 @@ angular.module('app',[
   'customerSupport',
   'machineDetails',
   'masterList',
+  'orderFulfill',
   'productGeneration',
   'queue',
   'updateMachine',
   'mm.foundation.modal',
   'mm.foundation.tpls',
   'mm.foundation.accordion'
-//  'angular-lodash'
 ])
   .config(function($logProvider){
     $logProvider.debugEnabled(true);
@@ -126,9 +126,6 @@ angular.module('app',[
         });
       }
     };
-  })
-  .controller('orderFullfill', function () {
-
   })
   .controller('globerView', function ($scope) {
     $scope.dateSelected = false;

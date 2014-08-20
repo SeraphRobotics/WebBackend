@@ -16,7 +16,7 @@ module.exports = function (app) {
     res.render('orderQueue');
   };
   mNO.orderFulfill = function (req, res) {
-    res.render('orderFulfill');
+    res.render('orderFulfill', { id: req.params.id });
   };
   mNO.machineDetails = function (req, res) {
     res.render('machineDetails');
@@ -26,6 +26,7 @@ module.exports = function (app) {
   app.get('/updateMachine/:id', mNO.updateMachineWithData);
   app.get('/updateMachine', mNO.updateMachine);
   app.get('/orderQueue', mNO.orderQueue);
+  app.get('/orderFulfill/:id', mNO.orderFulfill);
   app.get('/orderFulfill', mNO.orderFulfill);
   app.get('/machineDetails', mNO.machineDetails);
 };
