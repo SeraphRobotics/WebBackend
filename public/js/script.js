@@ -1,4 +1,3 @@
-/* globals _  */
 'use strict';
 angular.module('app',[
   'helpers',
@@ -9,6 +8,7 @@ angular.module('app',[
   'masterList',
   'orderFulfill',
   'productGeneration',
+  'subscriptionSettings',
   'queue',
   'updateMachine',
   'mm.foundation.modal',
@@ -134,9 +134,6 @@ angular.module('app',[
 
   })
   .controller('portal', function () {
-
-  })
-  .controller('subscriptionSettings', function () {
 
   })
 ;

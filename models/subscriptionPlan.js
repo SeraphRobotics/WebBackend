@@ -6,12 +6,17 @@ var subscriptionPlan = {//This is an open model
     index: {
       unique: true
     }
+  },
+  schema: {
+    type: String,
+    default: ''
   }
 };
 
 module.exports = {
   properties: subscriptionPlan,
   dataSource: 'db',
+  strict: false,
   public: true,
   relations: {
     customers: {
