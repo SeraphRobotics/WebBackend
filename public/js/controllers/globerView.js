@@ -22,34 +22,36 @@ angular.module('globerView', [
     $scope.startDate= $filter('date')(new Date(2012, 2, 15), 'yyyy-MM-dd');
     $scope.endDate = $scope.currentDate;
 
-    $scope.printers = {
-      made: 0,
-      shipped: 0,
-      returned: 0
+    $scope.initOverviewData = function () {
+      $scope.printers = {
+        made: 0,
+        shipped: 0,
+        returned: 0
+      };
+
+      $scope.scanners = {
+        made: 0,
+        shipped: 0,
+        returned: 0
+      };
+
+      $scope.tablets = {
+        made: 0,
+        shipped: 0,
+        returned: 0
+      };
     };
 
-    $scope.scanners = {
-      made: 0,
-      shipped: 0,
-      returned: 0
-    };
-
-    $scope.tablets = {
-      made: 0,
-      shipped: 0,
-      returned: 0
-    };
-
+    $scope.initOverviewData();
 
     $scope.updateData = function() {
+      $scope.initOverviewData();
       $scope.machineMadeData();
       $scope.shippingData();
+      $scope.swapData();
     };
 
     $scope.machineMadeData = function() {
-      $scope.printers.made = 0;
-      $scope.tablets.made = 0;
-      $scope.scanners.made = 0;
       _.chain($scope.machines)
         .filter(function (machine) { //Start Date filter
           return new Date(machine.dateManufactured) > new Date($scope.startDate);
@@ -72,9 +74,6 @@ angular.module('globerView', [
     };
 
     $scope.shippingData = function() {
-      $scope.printers.shipped = 0;
-      $scope.tablets.shipped = 0;
-      $scope.scanners.shipped = 0;
       _.chain($scope.shipments)
         .filter(function (shipment) { //Start Date filter
           return new Date(shipment.dateCreated) > new Date($scope.startDate);
@@ -100,17 +99,41 @@ angular.module('globerView', [
       ;
     };
 
+    $scope.swapData = function() {
+      _.chain($scope.swaps)
+        .filter(function (swap) { //Start Date filter
+          return new Date(swap.date) > new Date($scope.startDate);
+        })
+        .filter(function (swap) { //End Date Filter
+          return new Date(swap.date) < new Date($scope.endDate);
+        })
+        .forEach(function (swap) {
+          _.chain($scope.machines)
+            .filter(function (machine) {
+              return machine.id === swap.oldMachineNum;
+            })
+            .forEach(function (machine) {
+              if (machine.machineType === 'printer') {
+                $scope.printers.returned += 1;
+              } else if (machine.machineType === 'scanner'){
+                $scope.scanners.returned += 1;
+              } else if (machine.machineType === 'tablet') {
+                $scope.tablets.returned += 1;
+              } else {
+                $log.debug('Unknown Type', machine);
+              }
+            })
+          ;
+        })
+      ;
+    };
+
     $scope.filamentData = function() {
     };
 
     $scope.cartridgeData = function() {
     };
 
-    $scope.shipmentData = function() {
-    };
-
-    $scope.swapData = function() {
-    };
 
     Machine.query().$promise
       .then(function (machines) {
@@ -188,6 +211,7 @@ angular.module('globerView', [
       .then(function (swaps) {
         $scope.swaps = swaps;
         $log.debug('Swaps', swaps);
+        $scope.swapData();
       })
       .catch(function (err) {
         $log.debug(err);
