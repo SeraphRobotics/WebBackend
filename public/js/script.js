@@ -4,6 +4,7 @@ angular.module('app',[
   'lbServices',
   'customerDetails',
   'customerSupport',
+  'globerView',
   'machineDetails',
   'masterList',
   'orderFulfill',
@@ -126,9 +127,6 @@ angular.module('app',[
         });
       }
     };
-  })
-  .controller('globerView', function ($scope) {
-    $scope.dateSelected = false;
   })
   .controller('bookKeeping', function () {
 

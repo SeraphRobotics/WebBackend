@@ -3,14 +3,23 @@ block body
   h2.text-center Global Overview
   .small-10.column.small-centered(ng-controller="globerView")
     h3.text-left Machine
+    .divider
     h4.text-left Overview
-    .row.collapse
-      .small-4.column
+    form(name="date.range").row.collapse
+      .small-3.column
         span.prefix Date Range
-      .small-4.column
-        input(type="date" ng-model="dateStart" required)
-      .small-4.column
-        input(type="date" ng-model="dateEnd" required)
+      .small-3.column
+        input(
+          type="date"
+          ng-model="startDate"
+          required)
+      .small-3.column
+        input(
+          type="date"
+          ng-model="endDate"
+          required)
+      .small-3.column
+        span.postfix.button(ng-click="updateData(startDate, endDate)") Update
     .row.collapse
       .small-3.column
         span.prefix Printers
