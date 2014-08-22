@@ -12,11 +12,13 @@ block body
         input(
           type="date"
           ng-model="startDate"
+          ng-change="startDateCap()"
           required)
       .small-3.column
         input(
           type="date"
           ng-model="endDate"
+          ng-change="endDateCap()"
           required)
       .small-3.column
         span.postfix.button(ng-click="updateData(startDate, endDate)") Update

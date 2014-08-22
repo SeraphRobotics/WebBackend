@@ -18,6 +18,10 @@ angular.module('globerView', [
     Shipment
   )
   {
+    function isThisBeforeThat (startDate, endDate) {
+      return new Date(startDate) < new Date(endDate);
+    }
+
     $scope.currentDate = $filter('date')(new Date(), 'yyyy-MM-dd');
     $scope.startDate= $filter('date')(new Date(2012, 2, 15), 'yyyy-MM-dd');
     $scope.endDate = $scope.currentDate;
@@ -134,6 +138,27 @@ angular.module('globerView', [
     $scope.cartridgeData = function() {
     };
 
+    $scope.startDateCap = function () {
+      if (isThisBeforeThat($scope.startDate, $scope.endDate)) {
+        return;
+      } else {
+        $scope.startDate = $filter('date')(new Date($scope.endDate), 'yyyy-MM-dd');
+        return;
+      }
+    };
+
+    $scope.endDateCap = function () {
+      var isBeforeToday = isThisBeforeThat($scope.endDate, $scope.currentDate);
+      if (isBeforeToday) {
+        if (isThisBeforeThat($scope.startDate, $scope.endDate)) {
+          return;
+        } else {
+          $scope.endDate = $filter('date')(new Date($scope.startDate), 'yyyy-MM-dd');
+        }
+      } else {
+          $scope.endDate = $scope.currentDate;
+      }
+    };
 
     Machine.query().$promise
       .then(function (machines) {
