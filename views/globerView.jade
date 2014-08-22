@@ -2,7 +2,7 @@ extends layout
 block body
   h2.text-center Global Overview
   .small-10.column.small-centered(ng-controller="globerView")
-    h3.text-left Machine
+    h3.text-center Machines
     .divider
     h4.text-left Overview
     form(name="date.range").row.collapse
@@ -22,43 +22,41 @@ block body
         span.postfix.button(ng-click="updateData(startDate, endDate)") Update
     .row.collapse
       .small-3.column
-        span.prefix Printers
+        span.alert-box Printers
       .small-3.column
-        input(type="text" ng-model="printers.made" placeholder="Made" disabled)
+        span.alert-box.secondary {{ printers.made }}
       .small-3.column
-        input(type="text" ng-model="printers.shipped" placeholder="Shipped" disabled)
+        span.alert-box.secondary {{ printers.shipped }}
       .small-3.column
-        input(type="text" ng-model="printers.return" placeholder="Returned" disabled)
+        span.alert-box.secondary {{ printers.returned }}
     .row.collapse
       .small-3.column
-        span.prefix Tablets
+        span.alert-box Scanners
       .small-3.column
-        input(type="text" ng-model="tablets.made" placeholder="Made" disabled)
+        span.alert-box.secondary {{ scanners.made }}
       .small-3.column
-        input(type="text" ng-model="tablets.shipped" placeholder="Shipped" disabled)
+        span.alert-box.secondary {{ scanners.shipped }}
       .small-3.column
-        input(type="text" ng-model="tablets.return" placeholder="Returned" disabled)
+        span.alert-box.secondary {{ scanners.returned }}
     .row.collapse
       .small-3.column
-        span.prefix Scanners
+        span.alert-box Tablets
       .small-3.column
-        input(type="text" ng-model="scanners.made" placeholder="Made" disabled)
+        span.alert-box.secondary {{ tablets.made }}
       .small-3.column
-        input(type="text" ng-model="scanners.shipped" placeholder="Shipped" disabled)
+        span.alert-box.secondary {{ tablets.shipped }}
       .small-3.column
-        input(type="text" ng-model="scanners.return" placeholder="Returned" disabled)
+        span.alert-box.secondary {{ tablets.returned }}
     h4.text-left Details
     .row.collapse
       .small-3.column
         span.prefix Product Type
       .small-3.column.end
         select(ng-model="productType")
-          option Filament
-          option Cartridge
-          option Tablet
-          option Scanner
-          option Printer
-    .row(ng-show="dateSelected")
+          option(value="printer") Printer
+          option(value="scanner") Scanner
+          option(value="tablet") Tablet
+    .row.scrollable
       table
         thead
           tr
@@ -69,13 +67,13 @@ block body
             th Current Cutomer
             th Previous Customer
         tbody
-          tr(ng-repeat="machine in machines")
-            td {{machine.machineId}}
-            td {{machine.status}}
-            td {{machine.dateCreated}}
-            td {{machine.numOfServices}}
-            td {{machine.currentCust}}
-            td {{machine.prevCust}}
+          tr(ng-repeat="machine in machines | filter: { machineType: productType }")
+            td {{ machine.id }}
+            td {{ machine.machineStatus }}
+            td {{ machine.dateManufactured }}
+            td {{ machine.numOfServices }}
+            td {{ machine.ownedBy }}
+            td {{ machine.prevCust }}
     .row.collapse
       h3.text-left Cartridges and Filaments
       h4.text-left Overview
