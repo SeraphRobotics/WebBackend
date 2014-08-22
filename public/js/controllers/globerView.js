@@ -43,6 +43,7 @@ angular.module('globerView', [
 
     $scope.updateData = function() {
       $scope.machineMadeData();
+      $scope.shippingData();
     };
 
     $scope.machineMadeData = function() {
@@ -66,6 +67,35 @@ angular.module('globerView', [
           } else {
             $log.debug('Unknown Type', machine);
           }
+        })
+      ;
+    };
+
+    $scope.shippingData = function() {
+      $scope.printers.shipped = 0;
+      $scope.tablets.shipped = 0;
+      $scope.scanners.shipped = 0;
+      _.chain($scope.shipments)
+        .filter(function (shipment) { //Start Date filter
+          return new Date(shipment.dateCreated) > new Date($scope.startDate);
+        })
+        .filter(function (shipment) { //End Date Filter
+          return new Date(shipment.dateCreated) < new Date($scope.endDate);
+        })
+        .forEach(function (shipment) {
+          _.chain(shipment.items)
+            .forEach(function (item) {
+              if (item.type === 'printer') {
+                $scope.printers.shipped += 1;
+              } else if (item.type === 'scanner'){
+                $scope.scanners.shipped += 1;
+              } else if (item.type === 'tablet') {
+                $scope.tablets.shipped += 1;
+              } else {
+                $log.debug('Unknown Type', item);
+              }
+            })
+          ;
         })
       ;
     };
@@ -147,6 +177,7 @@ angular.module('globerView', [
       .then(function (shipments) {
         $scope.shipments = shipments;
         $log.debug('Shipments', shipments);
+        $scope.shippingData();
       })
       .catch(function (err) {
         $log.debug(err);
