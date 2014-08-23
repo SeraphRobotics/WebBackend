@@ -12,6 +12,10 @@ var machine = {
     type: String,
     default: 'Operational in warehouse'
   },
+  numOfServices: {
+    type: Number,
+    default: 0
+  },
   logs:{
     type: [
     {

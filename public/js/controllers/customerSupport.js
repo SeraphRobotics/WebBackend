@@ -143,6 +143,8 @@ angular.module('customerSupport', [
             if (/(?=.*broken)(?=.*customer)/.exec(type.toLowerCase())) {
               $log.debug(type);
               $scope.ownedMachine.machineStatus = type;
+              $scope.ownedMachine.numOfServices =  $scope.ownedMachine.numOfServices || 0;
+              $scope.ownedMachine.numOfServices += 1;
             }
           });
           return $scope.ownedMachine.$save();
