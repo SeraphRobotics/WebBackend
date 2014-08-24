@@ -51,5 +51,12 @@ angular.module('machineDetails', [
     $scope.updateMachine = function (id) {
       $window.location.href = '/updateMachine/' + id;
     };
+
+    $scope.initId = function (id) {
+      if (id !== 'undefined') {
+        $scope.machineNum = id;
+        $scope.findMachine(id);
+      }
+    };
   })
 ;

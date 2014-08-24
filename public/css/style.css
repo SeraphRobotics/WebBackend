@@ -23,3 +23,6 @@
 .oneLine {
   white-space: nowrap;
 }
+.blankChar {
+  height: 1em;
+}

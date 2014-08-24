@@ -1,7 +1,7 @@
 extends layout
 block body
   h2.text-center Machine Details
-  form.small-10.column.small-centered(ng-controller="machineDetails")
+  form.small-10.column.small-centered(ng-controller="machineDetails" ng-init="initId('#{id}')")
     .row.collapse
       .small-3.column
         .alert-box.prefix Machine Number

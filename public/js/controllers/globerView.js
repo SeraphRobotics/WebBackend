@@ -5,6 +5,7 @@ angular.module('globerView', [
 ])
   .controller('globerView', function
   (
+    $q,
     $log,
     $scope,
     $filter,
@@ -23,7 +24,7 @@ angular.module('globerView', [
     }
 
     $scope.currentDate = $filter('date')(new Date(), 'yyyy-MM-dd');
-    $scope.startDate= $filter('date')(new Date(2012, 2, 15), 'yyyy-MM-dd');
+    $scope.startDate= $filter('date')(new Date(2014, 2, 15), 'yyyy-MM-dd');
     $scope.endDate = $scope.currentDate;
 
     $scope.initOverviewData = function () {
@@ -44,6 +45,18 @@ angular.module('globerView', [
         shipped: 0,
         returned: 0
       };
+
+      $scope.cartridgesOverview = {
+        made: 0,
+        shipped: 0,
+        returned: 0
+      };
+
+      $scope.filamentsOverview = {
+        made: 0,
+        shipped: 0,
+        returned: 0
+      };
     };
 
     $scope.initOverviewData();
@@ -53,6 +66,7 @@ angular.module('globerView', [
       $scope.machineMadeData();
       $scope.shippingData();
       $scope.swapData();
+      $scope.cartsAndFilData();
     };
 
     $scope.machineMadeData = function() {
@@ -94,6 +108,10 @@ angular.module('globerView', [
                 $scope.scanners.shipped += 1;
               } else if (item.type === 'tablet') {
                 $scope.tablets.shipped += 1;
+              } else if (item.type === 'cartridge') {
+                $scope.cartridgesOverview.shipped += 1;
+              } else if (item.type === 'filament') {
+                $scope.filamentsOverview.shipped += 1;
               } else {
                 $log.debug('Unknown Type', item);
               }
@@ -132,10 +150,52 @@ angular.module('globerView', [
       ;
     };
 
-    $scope.filamentData = function() {
-    };
+    $scope.cartsAndFilData = function() {
+      _.chain($scope.cartridges)
+        .filter(function (cartridge) {
+          return isThisBeforeThat($scope.startDate, cartridge.manufactureDate);
+        })
+        .filter(function (cartridge) {
+          return isThisBeforeThat(cartridge.manufactureDate, $scope.endDate);
+        })
+        .forEach(function () {
+          $scope.cartridgesOverview.made += 1;
+        })
+      ;
+      _.chain($scope.cartridgeReturns)
+        .filter(function (cartridgeReturn) {
+          return isThisBeforeThat($scope.startDate, cartridgeReturn.date);
+        })
+        .filter(function (cartridgeReturn) {
+          return isThisBeforeThat(cartridgeReturn.date, $scope.endDate);
+        })
+        .forEach(function () {
+          $scope.cartridges.returned += 1;
+        })
+      ;
+      _.chain($scope.filaments)
+        .filter(function (filament) {
+          return isThisBeforeThat($scope.startDate, filament.date);
+        })
+        .filter(function (filament) {
+          return isThisBeforeThat(filament.date, $scope.endDate);
+        })
+        .forEach(function () {
+          $scope.filamentsOverview.made += 1;
+        })
+      ;
 
-    $scope.cartridgeData = function() {
+      _.chain($scope.filamentChanges)
+        .filter(function (filamentChange) {
+          return isThisBeforeThat($scope.startDate, filamentChange.date);
+        })
+        .filter(function (filamentChange) {
+          return isThisBeforeThat(filamentChange.date, $scope.endDate);
+        })
+        .forEach(function () {
+          $scope.filamentsOverview.returned += 1;
+        })
+      ;
     };
 
     $scope.startDateCap = function () {
@@ -160,87 +220,55 @@ angular.module('globerView', [
       }
     };
 
-    Machine.query().$promise
-      .then(function (machines) {
-        $log.debug('Machines', machines);
-        $scope.machines = machines;
+    $q.all({
+      machines: Machine.query().$promise,
+      shipment: Shipment.query().$promise,
+      swap: Swap.query().$promise
+    })
+      .then(function (promises) {
+        $log.debug('MacPromises', promises);
+        $scope.machines = promises.machines;
+        $scope.shipments = promises.shipments;
+        $scope.swaps = promises.swaps;
         $scope.machineMadeData();
-      })
-      .catch(function (err) {
-        $log.debug(err);
-      })
-    ;
-
-    Cartridge.query().$promise
-      .then(function (cartridges) {
-        $log.debug('Cartridges', cartridges);
-        $scope.cartridges = cartridges;
-      })
-      .catch(function (err) {
-        $log.debug(err);
-      })
-    ;
-
-    CartridgeCredit.query().$promise
-      .then(function (cartridgeCredits) {
-        $log.debug('cartridgeCredits', cartridgeCredits);
-        $scope.cartridgeCredits = cartridgeCredits;
-      })
-      .catch(function (err) {
-        $log.debug(err);
-      })
-    ;
-
-    CartridgeReturn.query().$promise
-      .then(function (cartridgeReturns) {
-        $log.debug('cartridgeReturns', cartridgeReturns);
-        $scope.cartridgeReturns = cartridgeReturns;
-      })
-      .catch(function (err) {
-        $log.debug(err);
-      })
-    ;
-
-    Filament.query().$promise
-      .then(function (filaments) {
-        $log.debug('filaments', filaments);
-        $scope.filaments = filaments;
-      })
-      .catch(function (err) {
-        $log.debug(err);
-      })
-    ;
-
-    FilamentChange.query().$promise
-      .then(function (filamentChanges) {
-        $log.debug('filamentChanges', filamentChanges);
-        $scope.filaments = filamentChanges;
-      })
-      .catch(function (err) {
-        $log.debug(err);
-      })
-    ;
-
-    Shipment.query().$promise
-      .then(function (shipments) {
-        $scope.shipments = shipments;
-        $log.debug('Shipments', shipments);
         $scope.shippingData();
       })
       .catch(function (err) {
+        $scope.waitForShipmentToCome.reject('Oh Noooooooeeess!');
         $log.debug(err);
+        if (err.data) {
+          $scope.machinesAndShipmentsErr = err.data.error.message;
+        } else {
+          $scope.machinesAndShipmentsErr = err;
+        }
       })
     ;
 
-    Swap.query().$promise
-      .then(function (swaps) {
-        $scope.swaps = swaps;
-        $log.debug('Swaps', swaps);
-        $scope.swapData();
+    $q.all({
+      cartridge:       Cartridge.query().$promise,
+      cartridgeCredit: CartridgeCredit.query().$promise,
+      cartridgeReturn: CartridgeReturn.query().$promise,
+      filaments:       Filament.query().$promise,
+      filamentChanges: FilamentChange.query().$promise,
+    })
+      .then(function (promises) {
+        $log.debug('Promises', promises);
+        $scope.cartridges = promises.cartridge;
+        $scope.cartridgeCredits = promises.cartridgeCredit;
+        $scope.cartridgeReturns = promises.cartridgeReturn;
+        $scope.filaments = promises.filaments;
+        $scope.filamentChanges = promises.filamentChanges;
+        $scope.cartsAndFilData();
       })
       .catch(function (err) {
-        $log.debug(err);
+        $log.debug('PromisesErr', err);
+        if (err.data) {
+          $scope.cartsAndFilsErr = err.data.error.message;
+        } else {
+          $scope.cartsAndFilsErr = err;
+        }
       })
     ;
+
   })
 ;

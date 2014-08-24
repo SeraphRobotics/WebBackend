@@ -50,6 +50,11 @@ module.exports = {
       type: 'belongsTo',
       model: 'customer',
       foreignKey: 'ownedBy' //Key is attached to this model
+    },
+    prevCustomer: {
+      type: 'belongsTo',
+      model: 'customer',
+      foreignKey: 'prevOwner' //Key is attached to this model
     }
   }
 };

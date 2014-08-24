@@ -142,6 +142,8 @@ angular.module('customerSupport', [
           machineTypes.forEach(function (type) {
             if (/(?=.*broken)(?=.*customer)/.exec(type.toLowerCase())) {
               $log.debug(type);
+              $scope.ownedMachine.prevOwner = $scope.ownedMachine.ownedBy;
+              $scope.ownedMachine.ownedBy = null;
               $scope.ownedMachine.machineStatus = type;
               $scope.ownedMachine.numOfServices =  $scope.ownedMachine.numOfServices || 0;
               $scope.ownedMachine.numOfServices += 1;
