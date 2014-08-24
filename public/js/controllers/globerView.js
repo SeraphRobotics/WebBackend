@@ -1,5 +1,6 @@
 'use strict';
 angular.module('globerView', [
+  'ngCsv',
   'helpers',
   'lbServices'
 ])

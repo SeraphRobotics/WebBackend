@@ -24,6 +24,7 @@
     "mocha": "^1.21.3",
     "mongoose": "latest",
     "morgan": "latest",
+    "ng-csv": "git+https://github.com/asafdav/ng-csv.git",
     "q": "^1.0.1"
   },
   "devDependencies": {
