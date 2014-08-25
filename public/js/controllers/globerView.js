@@ -221,6 +221,23 @@ angular.module('globerView', [
       }
     };
 
+    $scope.getOverviewData = function () {
+      var data = _.chain($scope.machines)
+        .filter(function (machine) {
+          if ($scope.productType && $scope.productType.length > 2) {
+            return machine.machineType === $scope.productType;
+          } else {
+            return true;
+          }
+        })
+        .map(function (machine) {
+          return _.chain(machine).value();
+        })
+        .value()
+      ;
+      return data;
+    };
+
     $q.all({
       machines: Machine.query().$promise,
       shipment: Shipment.query().$promise,
