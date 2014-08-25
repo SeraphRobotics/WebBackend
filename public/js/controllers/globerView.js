@@ -221,6 +221,15 @@ angular.module('globerView', [
       }
     };
 
+    $scope.overViewDataHeaders = [
+      'id',
+      'status',
+      'manufactured',
+      'number of services',
+      'Current Customer',
+      'Previous Customer'
+      ];
+
     $scope.getOverviewData = function () {
       var data = _.chain($scope.machines)
         .filter(function (machine) {
@@ -231,7 +240,14 @@ angular.module('globerView', [
           }
         })
         .map(function (machine) {
-          return _.chain(machine).value();
+          return {
+            id: machine.id,
+            status: machine.machineStatus,
+            manufactured: $filter('date')(machine.dateManufactured, 'MM/dd/yyyy'),
+            numOfServices: machine.numOfServices || '0',
+            currentCustomer: machine.ownedBy || 'None',
+            previousCustomer: machine.prevCust || 'None'
+          };
         })
         .value()
       ;
