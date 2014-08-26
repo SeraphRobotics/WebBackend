@@ -24,6 +24,13 @@ block body
             span.alert-box.text-center Copy
       .row.collapse
         .small-3.column
+          span.alert-box.scrollable.oneLine Customer ID
+        .small-9.column
+          span.alert-box.secondary  {{ customer.id || "ID"}}
+        //-  .small-3.column
+            span.alert-box.text-center Copy
+      .row.collapse
+        .small-3.column
           span.alert-box.scrollable.oneLine Customer Address
         .small-9.column
           span.alert-box.secondary.scrollable.oneLine {{ (customer.address | addressArrToOneLine) || "Address" }}
@@ -31,7 +38,7 @@ block body
           span.alert-box.text-center Copy
       .row.collapse
         .small-3.column
-          span.alert-box.scrollable.oneLine Customer Number
+          span.alert-box.scrollable.oneLine Customer Phone Number
         .small-9.column
           span.alert-box.secondary {{ (customer.phoneNum[0] | telephone) || "Telephone Number" }}
         //-  .small-3.column
