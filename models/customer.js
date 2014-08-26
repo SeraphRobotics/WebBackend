@@ -23,6 +23,10 @@ var customer = {
   isMulti: {
     type: Boolean,
     default: false
+  },
+  dateAquired: {
+    type: Date,
+    default: new Date()
   }
 };
 

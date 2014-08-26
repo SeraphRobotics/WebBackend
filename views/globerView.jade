@@ -125,5 +125,7 @@ block body
         csv-header="overViewDataHeaders") Export as CSV
     .row
       h3.text-left Customers
-      .small-12.column.button Generate Customer Report
+      .small-12.column.button(
+        ng-csv="getCustomerReport()"
+        filename="Customer_Report_{{ currentDate }}.csv") Generate Customer Report
 

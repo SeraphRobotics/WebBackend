@@ -12,6 +12,7 @@ angular.module('globerView', [
     $filter,
     Machine,
     Swap,
+    Customer,
     Cartridge,
     CartridgeCredit,
     CartridgeReturn,
@@ -254,6 +255,31 @@ angular.module('globerView', [
       return data;
     };
 
+    $scope.getCustomerReport = function () {
+      return _.chain($scope.customers)
+        .map(function (customer) {
+          return {
+            id: customer.id,
+            date: customer.dateAquired,
+            subscription: customer.currentSubscription,
+            cartridgeUsage: customer.cartridge.length || '0',
+            estimatedInventory: 'Est, Inv',
+            numberOfReturns: customer.machinesReturned || '0' +
+              customer.cartridgesReturned || '0' +
+              customer.filamentChanges || '0',
+            totMatUsed: 'totMatUsed',
+            totMatDel: 'totMatDel',
+            totMatWasted: 'totMatWasted',
+            numOfPrinterSwaps: 'printSwaps',
+            numOfTabletSwaps: 'tabSwaps',
+            numOfScannerSwaps: 'scanSwaps',
+            averageScannerUpTime: 'scannerUpTime',
+            averageNumOfScansPer: 'scansPerUptime',
+            totalScans: 'totScans'
+          };
+        }).value();
+    };
+
     $q.all({
       machines: Machine.query().$promise,
       shipment: Shipment.query().$promise,
@@ -301,6 +327,25 @@ angular.module('globerView', [
         } else {
           $scope.cartsAndFilsErr = err;
         }
+      })
+    ;
+
+    Customer.query({
+      filter: {
+        include: [
+          'cartridge',
+          'cartridgesReturned',
+          'filamentChange',
+          'machinesReturned'
+        ]
+      }
+    }).$promise
+      .then(function (customers) {
+        $log.debug(customers);
+        $scope.customers = customers;
+      })
+      .catch(function (err) {
+        $log.debug(err);
       })
     ;
 
