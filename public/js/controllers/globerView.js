@@ -178,7 +178,7 @@ angular.module('globerView', [
       ;
       _.chain($scope.filaments)
         .filter(function (filament) {
-          return withinDateRange(filament.date);
+          return withinDateRange(filament.importDate);
         })
         .forEach(function () {
           $scope.filamentsOverview.made += 1;
