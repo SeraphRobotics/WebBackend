@@ -1,21 +1,34 @@
 'use strict';
 var Scanner = {
-  custId: Number,
-  machineNum: Number,
-  IOTimes: [
+  IOTimes: {
+    type: [
     {
-      type: String,
-      time: Number
+      type: {
+        type: Boolean,
+        default: false
+      },
+      time: {
+        type: Number,
+        default: 0
+      }
     }
-  ],
-  scanTimes: [
-    Number
-  ]
+    ],
+    default: []
+  },
+  scanTimes: {
+    type: [ Number ],
+    default: []
+  }
 };
 
 module.exports = {
   properties: Scanner,
   dataSource: 'db',
   public: true,
-  relations: {}
+  relations: {
+    machine: {
+      type: 'belongsTo',
+      model: 'machine'
+    }
+  }
 };

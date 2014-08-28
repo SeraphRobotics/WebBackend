@@ -8470,43 +8470,6 @@ module.factory(
           url: urlBase + "/filaments/:id/filamentChanges",
           method: "DELETE",
         },
-
-        // INTERNAL. Use Machine.filamentChanges.findById() instead.
-        "::findById::machine::filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges/:fk",
-          method: "GET",
-        },
-
-        // INTERNAL. Use Machine.filamentChanges.destroyById() instead.
-        "::destroyById::machine::filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges/:fk",
-          method: "DELETE",
-        },
-
-        // INTERNAL. Use Machine.filamentChanges.updateById() instead.
-        "::updateById::machine::filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges/:fk",
-          method: "PUT",
-        },
-
-        // INTERNAL. Use Machine.filamentChanges() instead.
-        "::get::machine::filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges",
-          method: "GET",
-          isArray: true,
-        },
-
-        // INTERNAL. Use Machine.filamentChanges.create() instead.
-        "::create::machine::filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges",
-          method: "POST",
-        },
-
-        // INTERNAL. Use Machine.filamentChanges.destroyAll() instead.
-        "::delete::machine::filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges",
-          method: "DELETE",
-        },
       }
     );
 
@@ -9159,43 +9122,6 @@ module.factory(
           method: "DELETE",
         },
 
-        // INTERNAL. Use Machine.filamentChanges.findById() instead.
-        "prototype$__findById__filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges/:fk",
-          method: "GET",
-        },
-
-        // INTERNAL. Use Machine.filamentChanges.destroyById() instead.
-        "prototype$__destroyById__filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges/:fk",
-          method: "DELETE",
-        },
-
-        // INTERNAL. Use Machine.filamentChanges.updateById() instead.
-        "prototype$__updateById__filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges/:fk",
-          method: "PUT",
-        },
-
-        // INTERNAL. Use Machine.filamentChanges() instead.
-        "prototype$__get__filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges",
-          method: "GET",
-          isArray: true,
-        },
-
-        // INTERNAL. Use Machine.filamentChanges.create() instead.
-        "prototype$__create__filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges",
-          method: "POST",
-        },
-
-        // INTERNAL. Use Machine.filamentChanges.destroyAll() instead.
-        "prototype$__delete__filamentChanges": {
-          url: urlBase + "/machines/:id/filamentChanges",
-          method: "DELETE",
-        },
-
         // INTERNAL. Use Machine.currentCustomer() instead.
         "prototype$__get__currentCustomer": {
           url: urlBase + "/machines/:id/currentCustomer",
@@ -9205,6 +9131,12 @@ module.factory(
         // INTERNAL. Use Machine.prevCustomer() instead.
         "prototype$__get__prevCustomer": {
           url: urlBase + "/machines/:id/prevCustomer",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Machine.scanner() instead.
+        "prototype$__get__scanner": {
+          url: urlBase + "/machines/:id/scanner",
           method: "GET",
         },
 
@@ -9297,6 +9229,12 @@ module.factory(
         // INTERNAL. Use FilamentChange.machine() instead.
         "::get::filamentChange::machine": {
           url: urlBase + "/filamentChanges/:id/machine",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Scanner.machine() instead.
+        "::get::scanner::machine": {
+          url: urlBase + "/scanners/:id/machine",
           method: "GET",
         },
 
@@ -9744,238 +9682,6 @@ module.factory(
           var action = TargetResource["::updateById::machine::returnedBy"];
           return action.apply(R, arguments);
         };
-    /**
-     * @ngdoc object
-     * @name lbServices.Machine.filamentChanges
-     * @object
-     * @description
-     *
-     * The object `Machine.filamentChanges` groups methods
-     * manipulating `FilamentChange` instances related to `Machine`.
-     *
-     * Use {@link lbServices.Machine#filamentChanges} to query
-     * all related instances.
-     */
-
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Machine#filamentChanges
-         * @methodOf lbServices.Machine
-         *
-         * @description
-         *
-         * Queries filamentChanges of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - machine id
-         *
-         *  - `filter` – `{object=}` - 
-         *
-         * @param {Function(Array.<Object>, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FilamentChange` object.)
-         * </em>
-         */
-        R.filamentChanges = function() {
-          var TargetResource = $injector.get("FilamentChange");
-          var action = TargetResource["::get::machine::filamentChanges"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Machine.filamentChanges#create
-         * @methodOf lbServices.Machine.filamentChanges
-         *
-         * @description
-         *
-         * Creates a new instance in filamentChanges of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - machine id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {Function(Object, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FilamentChange` object.)
-         * </em>
-         */
-        R.filamentChanges.create = function() {
-          var TargetResource = $injector.get("FilamentChange");
-          var action = TargetResource["::create::machine::filamentChanges"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Machine.filamentChanges#destroyAll
-         * @methodOf lbServices.Machine.filamentChanges
-         *
-         * @description
-         *
-         * Deletes all filamentChanges of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - machine id
-         *
-         * @param {Function(Object, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FilamentChange` object.)
-         * </em>
-         */
-        R.filamentChanges.destroyAll = function() {
-          var TargetResource = $injector.get("FilamentChange");
-          var action = TargetResource["::delete::machine::filamentChanges"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Machine.filamentChanges#destroyById
-         * @methodOf lbServices.Machine.filamentChanges
-         *
-         * @description
-         *
-         * Delete a related item by id for filamentChanges
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - machine id
-         *
-         *  - `fk` – `{*}` - Foreign key for filamentChanges
-         *
-         * @param {Function(Object, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `` – `{undefined=}` - 
-         */
-        R.filamentChanges.destroyById = function() {
-          var TargetResource = $injector.get("FilamentChange");
-          var action = TargetResource["::destroyById::machine::filamentChanges"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Machine.filamentChanges#findById
-         * @methodOf lbServices.Machine.filamentChanges
-         *
-         * @description
-         *
-         * Find a related item by id for filamentChanges
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - machine id
-         *
-         *  - `fk` – `{*}` - Foreign key for filamentChanges
-         *
-         * @param {Function(Object, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FilamentChange` object.)
-         * </em>
-         */
-        R.filamentChanges.findById = function() {
-          var TargetResource = $injector.get("FilamentChange");
-          var action = TargetResource["::findById::machine::filamentChanges"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Machine.filamentChanges#updateById
-         * @methodOf lbServices.Machine.filamentChanges
-         *
-         * @description
-         *
-         * Update a related item by id for filamentChanges
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*=}` - machine id
-         *
-         *  - `fk` – `{*}` - Foreign key for filamentChanges
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method does not accept any data. Supply an empty object.
-         *
-         * @param {Function(Object, Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {Function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @return {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `FilamentChange` object.)
-         * </em>
-         */
-        R.filamentChanges.updateById = function() {
-          var TargetResource = $injector.get("FilamentChange");
-          var action = TargetResource["::updateById::machine::filamentChanges"];
-          return action.apply(R, arguments);
-        };
 
         /**
          * @ngdoc method
@@ -10046,6 +9752,42 @@ module.factory(
         R.prevCustomer = function() {
           var TargetResource = $injector.get("Customer");
           var action = TargetResource["::get::machine::prevCustomer"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Machine#scanner
+         * @methodOf lbServices.Machine
+         *
+         * @description
+         *
+         * Fetches belongsTo relation scanner
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - machine id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Scanner` object.)
+         * </em>
+         */
+        R.scanner = function() {
+          var TargetResource = $injector.get("Scanner");
+          var action = TargetResource["::get::machine::scanner"];
           return action.apply(R, arguments);
         };
 
@@ -13151,6 +12893,18 @@ module.factory(
           url: urlBase + "/scanners/:id",
           method: "PUT",
         },
+
+        // INTERNAL. Use Scanner.machine() instead.
+        "prototype$__get__machine": {
+          url: urlBase + "/scanners/:id/machine",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Machine.scanner() instead.
+        "::get::machine::scanner": {
+          url: urlBase + "/machines/:id/scanner",
+          method: "GET",
+        },
       }
     );
 
@@ -13277,6 +13031,42 @@ module.factory(
         R["update"] = R["updateAll"];
 
 
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Scanner#machine
+         * @methodOf lbServices.Scanner
+         *
+         * @description
+         *
+         * Fetches belongsTo relation machine
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - scanner id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Machine` object.)
+         * </em>
+         */
+        R.machine = function() {
+          var TargetResource = $injector.get("Machine");
+          var action = TargetResource["::get::scanner::machine"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);

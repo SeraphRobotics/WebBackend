@@ -3,7 +3,7 @@
 angular.module('productGeneration', [
   'lbServices'
 ])
-  .controller('productGeneration', function ($scope, $log, Machine, Filament, Cartridge) {
+  .controller('productGeneration', function ($q, $scope, $log, Machine, Filament, Scanner, Cartridge) {
     $scope.hasSerialNumber = false;
     $scope.newProducts = [];
 
@@ -12,19 +12,39 @@ angular.module('productGeneration', [
       var data = {
         machineType: $scope.type
       };
-      if ($scope.type === 'Tablet') {
-          if (!id) {
-            $log.error('tablet and no id');
-            return 1;
+      $q.when(true)
+        .then(function () {
+          if ($scope.type === 'Scanner') {
+            return Scanner.create({}).$promise;
           } else {
-            data.id = id;
+            return false;
           }
-      }
-      Machine.create({}, data).$promise
+        })
+        .then(function (scanner) {
+          if (scanner) {
+            data.scannerId = scanner.id;
+            $scope.scanner = scanner;
+          }
+          if ($scope.type === 'Tablet') {
+            if (!id) {
+              return $q.reject('tablet and no id');
+            } else {
+              data.id = id;
+            }
+          }
+          return Machine.create({}, data).$promise;
+        })
         .then(function (machineInstance) {
           $scope.newProducts.push(machineInstance);
           $scope.serialNumber = machineInstance.id;
           $log.debug(machineInstance);
+          if (machineInstance.scannerId && $scope.scanner) {
+            $scope.scanner.machineId = machineInstance.id;
+            return $scope.scanner.$save();
+          }
+        })
+        .then(function () {
+          $log.debug('Success');
         })
         .catch(function (err) {
           $log.error(err);
@@ -39,10 +59,7 @@ angular.module('productGeneration', [
         createMachine($scope.setSerialNumber);
       },
       Cartridge: function () {
-        var data = {
-          machineType: $scope.productType
-        };
-        Cartridge.create({}, data).$promise
+        Cartridge.create().$promise
           .then(function (cartrideInstance) {
             $log.debug(cartrideInstance);
             $scope.newProducts.push(cartrideInstance);
@@ -52,10 +69,7 @@ angular.module('productGeneration', [
         ;
       },
       Filament: function () {
-        var data = {
-          machineType: $scope.productType
-        };
-        Filament.create({}, data)
+        Filament.create()
           .$promise
           .then(function (filamentInstance) {
             $log.debug(filamentInstance);
