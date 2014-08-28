@@ -101,12 +101,10 @@ angular.module('globerView', [
     };
 
     $scope.shippingData = function() {
+      var withinDateRange = $scope.betweenTwoDates($scope.startDate, $scope.endDate);
       _.chain($scope.shipments)
-        .filter(function (shipment) { //Start Date filter
-          return new Date(shipment.dateCreated) > new Date($scope.startDate);
-        })
-        .filter(function (shipment) { //End Date Filter
-          return new Date(shipment.dateCreated) < new Date($scope.endDate);
+        .filter(function (shipment) {
+          return withinDateRange(shipment.dateCreated);
         })
         .forEach(function (shipment) {
           _.chain(shipment.items)
@@ -131,10 +129,10 @@ angular.module('globerView', [
     };
 
     $scope.swapData = function() {
-      var betweenTwoDates = $scope.betweenTwoDates($scope.startDate, $scope.endDate);
+      var withinDateRange = $scope.betweenTwoDates($scope.startDate, $scope.endDate);
       _.chain($scope.swaps)
         .filter(function (swap) {
-          return betweenTwoDates(swap.date);
+          return withinDateRange(swap.date);
         })
         .forEach(function (swap) {
           _.chain($scope.machines)
@@ -158,10 +156,10 @@ angular.module('globerView', [
     };
 
     $scope.cartsAndFilData = function() {
-      var betweenTwoDates = $scope.betweenTwoDates($scope.startDate, $scope.endDate);
+      var withinDateRange = $scope.betweenTwoDates($scope.startDate, $scope.endDate);
       _.chain($scope.cartridges)
         .filter(function (cartridge) {
-          return betweenTwoDates(cartridge.manufactureDate);
+          return withinDateRange(cartridge.manufactureDate);
         })
         .forEach(function () {
           $scope.cartridgesOverview.made += 1;
@@ -180,7 +178,7 @@ angular.module('globerView', [
       ;
       _.chain($scope.filaments)
         .filter(function (filament) {
-          return betweenTwoDates(filament.date);
+          return withinDateRange(filament.date);
         })
         .forEach(function () {
           $scope.filamentsOverview.made += 1;
@@ -189,7 +187,7 @@ angular.module('globerView', [
 
       _.chain($scope.filamentChanges)
         .filter(function (filamentChange) {
-          return betweenTwoDates(filamentChange.date);
+          return withinDateRange(filamentChange.date);
         })
         .forEach(function () {
           $scope.filamentsOverview.returned += 1;
@@ -274,10 +272,10 @@ angular.module('globerView', [
     ];
 
     $scope.getCustomerReport = function () {
-      var dateFilter = $scope.betweenTwoDates($scope.startDate, $scope.endDate);
+      var withinDateRange = $scope.betweenTwoDates($scope.startDate, $scope.endDate);
       return _.chain($scope.customers)
         .filter(function (customer) {
-          return dateFilter(customer.dateAquired);
+          return withinDateRange(customer.dateAquired);
         })
         .map(function (customer) {
           return {
