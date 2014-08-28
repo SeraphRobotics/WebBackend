@@ -1,6 +1,9 @@
 'use strict';
 var filament = {
-  volume: Number,
+  volume: {
+    type: Number,
+    default: 0
+  },
   type: String,
   importDate: {
     type: Date,
@@ -14,8 +17,12 @@ module.exports = {
   public: true,
   relations: {
     filamentChanges: {
-      model: 'filamentChange',
-      type: 'hasMany'
+      type: 'hasMany',
+      model: 'filamentChange'
+    },
+    customer: {
+      type: 'belongsTo',
+      model: 'customer'
     }
   }
 };

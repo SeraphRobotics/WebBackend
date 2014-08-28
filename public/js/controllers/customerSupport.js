@@ -125,7 +125,8 @@ angular.module('customerSupport', [
     $scope.submitSwap = function() {
       var swapData = {
         customerId: $scope.customer.id,
-        oldMachineNum: $scope.ownedMachine.id
+        oldMachineNum: $scope.ownedMachine.id,
+        type: $scope.ownedMachine.machineType
       };
 
       // A shipment with fedex needs to be made here

@@ -127,5 +127,6 @@ block body
       h3.text-left Customers
       .small-12.column.button(
         ng-csv="getCustomerReport()"
-        filename="Customer_Report_{{ currentDate }}.csv") Generate Customer Report
+        filename="Customer_Report_{{ currentDate }}.csv"
+        csv-header="customerReportHeaders") Generate Customer Report
 

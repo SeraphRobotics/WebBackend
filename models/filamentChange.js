@@ -1,7 +1,10 @@
 'use strict';
 var filamentChange = {
   time: Number,
-  volumeUsed: Number,
+  volumeUsed: {
+    type: Number,
+    default: 0
+  },
   date: {
     type: Date,
     default: new Date()

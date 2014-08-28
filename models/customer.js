@@ -48,6 +48,10 @@ module.exports = {
       model: 'subscription',
       foreignKey: 'currentSubscriptionId'
     },
+    filament: {
+      type: 'hasMany',
+      model: 'filament'
+    },
     filamentChange: {
       type: 'hasMany',
       model: 'filamentChange',
