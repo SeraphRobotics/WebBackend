@@ -64,4 +64,14 @@ angular.module('helpers', [
       return (country + ' (' + city + ') ' + number).trim();
     };
   })
+  .directive('onBlur', function () {
+    return {
+      restrict: 'A',
+      link: function(scope, el, attr) {
+        el.bind('blur', function() {
+          scope.$apply(attr.uiBlur);
+        });
+      }
+    };
+  })
 ;

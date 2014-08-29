@@ -94,7 +94,7 @@ angular.module('app',[
       filament: {}
     };
   })
-  .directive('onBlur', function () {
+/*  .directive('onBlur', function () {
     return {
       restrict: 'A',
       link: function(scope, el, attr) {
@@ -103,7 +103,7 @@ angular.module('app',[
         });
       }
     };
-  })
+  })*/
   .controller('bookKeeping', function () {
 
   })
