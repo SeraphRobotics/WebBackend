@@ -4,18 +4,7 @@ angular.module('masterList', [
 ])
   .controller('masterList', function ($scope, $log, $modal, Part) {
 
-    function queryParts() {
-      Part.query().$promise
-        .then(function (partsList) {
-          $log.debug(partsList);
-          $scope.parts = partsList;
-        })
-        .catch($log.error)
-      ;
-    }
-    queryParts();
-
-    $scope.editPart = function (part) {
+    $scope.editPart = function (part, $index) {
       $log.debug('edit Part', part);
       var modalInstance = $modal.open({
         templateUrl: 'editPartModal.html',
@@ -28,8 +17,18 @@ angular.module('masterList', [
       });
       modalInstance
         .result
-        .then(function () {
-          queryParts();
+        .then(function (part) {
+          $log.debug('PartUpdate', part);
+          if (part === 'delete') {
+            $scope.parts.splice($index, 1);
+          } else if (part && $index) {
+            $scope.parts[$index] = part;
+          } else if (part) {
+            $scope.parts.push(part);
+          } else if (part === 'delete') {
+            $scope.parts.slice($index, 1);
+            $scope.$apply();
+          }
         })
       ;
     };
@@ -37,8 +36,22 @@ angular.module('masterList', [
     $scope.addNew = function () {
       $scope.editPart('new');
     };
+
+    Part.query().$promise
+      .then(function (parts) {
+        $log.debug('Parts', parts);
+        $scope.parts = parts;
+      })
+      .catch(function (err) {
+        if (err.data) {
+          $scope.genErr = err.data.error.message;
+        } else {
+          $scope.genErr = err;
+        }
+      })
+    ;
   })
-  .controller('editPartModalController', function ($scope, $log, $modalInstance, part, Part) {
+  .controller('editPartModalController', function ($q, $log, $scope, $modalInstance, part, Part) {
 
     function setForMachine() {
       if ($scope.part.forMachine) {
@@ -55,7 +68,7 @@ angular.module('masterList', [
 
     var isNew = false;
     if (part === 'new') {
-      $scope.part = {};
+      $scope.part = { forMachine: false };
       $scope.partType();
       isNew = true;
     } else {
@@ -64,30 +77,32 @@ angular.module('masterList', [
     }
 
     $scope.save = function () {
-      if (isNew) {
-        Part.create({}, $scope.part).$promise.then(function () {
+      $q.when(true)
+        .then(function () {
+          if (isNew) {
+            return Part.create({}, $scope.part).$promise;
+          } else {
+            return $scope.part.$save();
+          }
+        })
+        .then(function (part) {
           isNew = false;
-          $modalInstance.close();
-        }).catch($log.debug);
-      } else {
-        $scope.part.$save()
-          .then(function (success) {
-            $log.debug(success);
-            $modalInstance.dismiss();
-          })
-          .catch($log.debug)
-        ;
-      }
+          $modalInstance.close(part);
+        })
+        .catch(function (err) {
+          $log.debug(err);
+        })
+      ;
     };
 
     $scope.deleteThis = function () {
       if (isNew) {
-        $modalInstance.dismiss();
+        $modalInstance.close(false);
       } else {
         Part.destroyById({id: $scope.part.id})
           .$promise
           .then(function () {
-            $modalInstance.close();
+            $modalInstance.close('delete');
           })
           .catch($log.debug)
         ;

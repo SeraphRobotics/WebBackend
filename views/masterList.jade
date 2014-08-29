@@ -2,7 +2,8 @@ extends layout
 block body
   h1.text-center Master List
   .large-10.column.large-centered(ng-controller="masterList")
-    .row
+    small.error(ng-if="genErr") {{ genErr }}
+    .row.scrollable
       table
         thead
           tr
@@ -17,7 +18,7 @@ block body
             th Number Per Cartridge
             th Number Per Filament
         tbody
-          tr(ng-repeat="part in parts" ng-click="editPart(part)")
+          tr(ng-repeat="part in parts" ng-click="editPart(part, $index)")
             td {{ part.name }}
             td {{ part.id }}
             td {{ part.vendor }}
@@ -28,6 +29,7 @@ block body
             td {{ part.numPerScanner }}
             td {{ part.numPerCartridge }}
             td {{ part.numPerFilament }}
+    .row
       .button.small.expand(ng-click="addNew()") Create Component
   script(type="text/ng-template" id="editPartModal.html")
     include editPartModal
