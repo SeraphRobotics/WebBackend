@@ -2,11 +2,11 @@
 angular.module('masterList', [
   'lbServices'
 ])
-  .controller('masterList', function ($scope, $log, $modal, Part) {
+  .controller('masterList', function ($log, $scope, $modal, Part) {
 
     $scope.editPart = function (part, $index) {
       $log.debug('edit Part', part);
-      var modalInstance = $modal.open({
+      $modal.open({
         templateUrl: 'editPartModal.html',
         controller: 'editPartModalController',
         resolve: {
@@ -14,8 +14,7 @@ angular.module('masterList', [
             return part;
           }
         }
-      });
-      modalInstance
+      })
         .result
         .then(function (part) {
           $log.debug('PartUpdate', part);
