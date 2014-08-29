@@ -13,7 +13,8 @@ block body
           .small-2.column
             .alert-box.prefix(for="vendorSelect") Vendor
           .small-10.column
-            select(ng-model="selectedVendor"
+            select(
+              ng-model="selectedVendor"
               ng-options="vendor as vendor.name for vendor in vendors")
         .row.collapse
           .small-2.column(style="height: 100%")
