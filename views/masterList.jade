@@ -18,16 +18,16 @@ block body
             th Number Per Filament
         tbody
           tr(ng-repeat="part in parts" ng-click="editPart(part)")
-            td {{part.name}}
-            td {{part.partNumber}}
-            td {{part.vendor}}
-            td {{part.leadTime}}
-            td {{part.numInStock}}
-            td {{part.numPerBatch}}
-            td {{part.numPerPrinter}}
-            td {{part.numPerScanner}}
-            td {{part.numPerCartridge}}
-            td {{part.numPerFilament}}
+            td {{ part.name }}
+            td {{ part.id }}
+            td {{ part.vendor }}
+            td {{ part.leadTime }}
+            td {{ part.numInStock }}
+            td {{ part.numPerBatch }}
+            td {{ part.numPerPrinter }}
+            td {{ part.numPerScanner }}
+            td {{ part.numPerCartridge }}
+            td {{ part.numPerFilament }}
       .button.small.expand(ng-click="addNew()") Create Component
   script(type="text/ng-template" id="editPartModal.html")
     include editPartModal

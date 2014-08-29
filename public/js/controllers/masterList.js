@@ -16,8 +16,7 @@ angular.module('masterList', [
     queryParts();
 
     $scope.editPart = function (part) {
-      $log.debug('edit Part');
-      $log.debug(part);
+      $log.debug('edit Part', part);
       var modalInstance = $modal.open({
         templateUrl: 'editPartModal.html',
         controller: 'editPartModalController',

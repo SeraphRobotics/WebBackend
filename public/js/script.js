@@ -131,8 +131,5 @@ angular.module('app',[
   .controller('bookKeeping', function () {
 
   })
-  .controller('portal', function () {
-
-  })
 ;
 
