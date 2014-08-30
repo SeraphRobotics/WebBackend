@@ -10,7 +10,7 @@ angular.module('productGeneration', [
     function createMachine(id) {
       $log.debug('creating machine');
       var data = {
-        machineType: $scope.type
+        machineType: $scope.type.toLowerCase()
       };
       $q.when(true)
         .then(function () {
