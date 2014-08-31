@@ -1,43 +1,78 @@
 extends layout
 block body
   h1.text-center Component Ordering
-  form(ng-controller="compOrdering")
+  form(name="order" ng-controller="compOrdering" novalidate)
     .row
+      small.error(ng-if="genErr") {{ genErr }}
       .small-9.column.small-centered
         .row.collapse
-          .small-2.column
+          .small-3.column
             .alert-box.prefix Date
-          .small-10.column
-            input(ng-model="vendorOrder.dateCreated" type="date")
+          .small-9.column
+            input(
+              type="date"
+              ng-model="vendorOrder.dateCreated")
         .row.collapse
-          .small-2.column
+          .small-3.column
             .alert-box.prefix(for="vendorSelect") Vendor
-          .small-10.column
+          .small-9.column
             select(
-              ng-model="selectedVendor"
-              ng-options="vendor as vendor.name for vendor in vendors")
+              name="vendor"
+              ng-model="vendorOrder.vendor"
+              ng-options="vendor as vendor for vendor in vendors"
+              ng-change="filterParts(vendorOrder.vendor)"
+              required)
         .row.collapse
-          .small-2.column(style="height: 100%")
+          .small-3.column
             .alert-box.prefix Order Num
-          .small-10.column
-            input(type="text" ng-model="vendorOrder.orderNum" required)
+          .small-9.column
+            input(
+              type="text"
+              name="orderId"
+              ng-model="vendorOrder.id"
+              required)
+          small.error(ng-if="orderIdErr") {{ orderIdErr }}
         .row
           .button.expand(ng-click="addItem()") Add Item to order
+        .row.scrollable
+          table(ng-table="tableParams")
+            tr(
+              ng-repeat="part in vendorOrder.partsOrdered"
+              ng-class="part.notAPart && partErr? 'error': ''")
+              td(data-title="'Part Number'")
+                span(ng-if="!part.$edit") {{ part.id }}
+                div(ng-if="part.$edit")
+                  input(
+                    type="text"
+                    on-blur
+                    ui-blur="findPartById(part.id, $index)"
+                    ng-model="part.id")
+              td(data-title="'Name'")
+                span(ng-if="!part.$edit") {{ part.name }}
+                div(ng-if="part.$edit")
+                  input(
+                    type="text"
+                    on-blur
+                    ui-blur="findPartByName(part.name, $index)"
+                    ng-model="part.name")
+              td(data-title="'Number of Batches'")
+                span(ng-if="!part.$edit") {{ part.numOfBatches }}
+                div(ng-if="part.$edit")
+                  input(
+                    type="number"
+                    ng-model="part.numOfBatches")
+              td(data-title="'Number per Batch'")
+                span(ng-if="!part.$edit") {{ part.numPerBatch }}
+                div(ng-if="part.$edit")
+                  input(
+                    type="number"
+                    ng-model="part.numPerBatch")
+              td(data-title="'Edit'")
+                a.button.tiny.radius(ng-if="!part.$edit" ng-click="part.$edit = true") Edit
+                a.button.tiny.radius(ng-if="part.$edit" ng-click="part.$edit = false") Done
+              td(data-title="'Remove'")
+                a.button.tiny.radious(ng-click="removePart()") Remove
         .row
-          table.small-12.column
-            thead
-              tr
-                th Part Number
-                th Name
-                th Number of Batches
-                th Number per Batch
-            tbody
-              tr(ng-repeat="part in thisOrder")
-                td {{part.partNum}}
-                td {{part.name}}
-                td {{part.numOfBatches}}
-                td {{part.numPerBatch}}
-        .row
-          .button.expand(ng-click="placeOrder(selectedVendor)") Place Order
+          .button.expand(ng-click="placeOrder(vendorOrder)") Place Order
 
 

@@ -74,4 +74,24 @@ angular.module('helpers', [
       }
     };
   })
+  .factory('alertModal', function ($q, $modal, $timeout) {
+    return function alertModal (message) {
+      var def = $q.defer();
+      var modalInstance = $modal.open({
+        template: '<small class="error">' + message + '</small>',
+      });
+
+      var tPromise = $timeout(function () {
+        def.resolve();
+        modalInstance.dismiss();
+      }, 2000);
+
+      modalInstance.result.finally(function () {
+        def.resolve();
+        $timeout.cancel(tPromise);
+      });
+
+      return def.promise;
+    };
+  })
 ;

@@ -2,7 +2,8 @@
 var Part= {
   name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   vendor: String,
   numInStock: Number,

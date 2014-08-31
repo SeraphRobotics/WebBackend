@@ -6,20 +6,26 @@ var VendorOrder = {
   },
   dateCreated: {
     type: Date,
-    default: Date.now()
+    default: new Date()
   },
-  partsOrdered: [
-    {
-      partNum: Number,
-      quantity: Number
-    }
-  ],
-  partsReceived: [
-    {
-      partNum: Number,
-      dateReceived: Date
-    }
-  ]
+  partsOrdered:{
+    type: [
+      {
+        partNum: Number,
+        quantity: Number
+      }
+    ],
+    default: []
+  },
+  partsReceived: {
+    type: [
+      {
+        partNum: Number,
+        dateReceived: Date
+      }
+    ],
+    default: []
+  }
 };
 module.exports = {
   properties: VendorOrder,
@@ -28,13 +34,11 @@ module.exports = {
   relations: {
     vendor: {
       type: 'belongsTo',
-      model: 'vendor',
-      foreignKey: 'vendor'
+      model: 'vendor'
     },
     part: {
       type: 'hasAndBelongsToMany',
-      model: 'part',
-      foreignKey: 'partNum'
+      model: 'part'
     }
   }
 };
