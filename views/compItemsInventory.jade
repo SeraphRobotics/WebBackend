@@ -9,24 +9,24 @@ block body
           th
           th Scanner
           th Printer
-          th Cartridge
           th Tablet
           th Filament
+          th Cartridge
       tbody
         tr
           td Num In Stock
-          td {{scanners.numInStock}}
-          td {{printers.numInStock}}
-          td {{cartridge.numInStock}}
-          td {{tablet.numInStock}}
-          td {{filament.numInStock}}
+          td {{ forSale.scanners.length }}
+          td {{ forSale.printers.length }}
+          td {{ forSale.tablets.length }}
+          td {{ forSale.filaments.length }}
+          td {{ forSale.cartridges.length }}
         tr
           td Serials
-          td {{scanners.machineIds}}
-          td {{printers.machineIds}}
-          td {{cartridge.machineIds}}
-          td {{tablet.machineIds}}
-          td {{filament.machineIds}}
+          td: ul: li(ng-repeat="part in forSale.scanners") {{ part.id }}
+          td: ul: li(ng-repeat="part in forSale.printers") {{ part.id }}
+          td: ul: li(ng-repeat="part in forSale.tablets") {{ part.id }}
+          td: ul: li(ng-repeat="part in forSale.filaments") {{ part.id }}
+          td: ul: li(ng-repeat="part in forSale.cartridges") {{ part.id }}
   .row
     h3.text-left In Transit to Warehouse
     table.small-8.column.small-centered

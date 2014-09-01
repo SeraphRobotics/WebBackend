@@ -5,12 +5,12 @@ angular.module('helpers', [
   .constant('machineTypes',
     [
       'Operational in warehouse',
-      'Assigned to Shipment',
+      'Operational at customer',
+      'Assigned to shipment',
       'In transit to warehouse',
       'In transit to Customer',
       'Broken in warehouse',
       'Broken at customer',
-      'Operational at Customer',
       'Decommissioned'
     ]
   )
