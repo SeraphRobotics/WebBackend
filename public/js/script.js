@@ -20,24 +20,6 @@ angular.module('app',[
   .config(function($logProvider){
     $logProvider.debugEnabled(true);
   })
-/*  .controller('compInventory', function ($scope, $log, Part) {
-    Part.query().$promise
-      .then(function (parts) {
-        $log.debug('Parts', parts);
-        $scope.mParts = _.remove(parts, function (part) {
-          return part.forMachine;
-        });
-        $scope.cParts = parts;
-      })
-      .catch(function (err) {
-        if (err.data) {
-          $scope.genErr = err.data.error.message;
-        } else {
-          $scope.genErr = err;
-        }
-      })
-    ;
-  })*/
   .controller('compReceiving', function ($scope, $modal) {
     $scope.mockData = [
       {
