@@ -20,21 +20,6 @@ angular.module('app',[
   .config(function($logProvider){
     $logProvider.debugEnabled(true);
   })
-  .controller('compCompleted', function ($scope) {
-    $scope.InventoryRes = {
-      scanners: {
-        numInStock: 3,
-        machineId: [
-          125423,
-          384924,
-          393335
-        ]
-      },
-      printers: {},
-      cartridge: {},
-      filament: {}
-    };
-  })
   .controller('bookKeeping', function () {
 
   })

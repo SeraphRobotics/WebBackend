@@ -1,7 +1,7 @@
 extends layout
 block body
   h1.text-center INVENTORY
-  .row(ng-controller="compCompleted")
+  .row(ng-controller="compItemsInventory")
     h3.text-left Available For Sale
     table.small-10.column.small-centered
       thead
@@ -78,3 +78,5 @@ block body
           td {{filament.leadTime}}
           td {{filament.orders.date}}
           td {{filament.orders.numOfBatches}}
+block footer
+  script(type="text/javascript" src="js/controllers/compItemsInventory.js")

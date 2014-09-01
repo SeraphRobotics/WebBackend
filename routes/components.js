@@ -10,11 +10,11 @@ module.exports = function (app) {
   comp.receiving = function (req, res) {
     res.render('compReceiving');
   };
-  comp.completed = function (req, res) {
-    res.render('compCompleted');
+  comp.itemsInventory = function (req, res) {
+    res.render('compItemsInventory');
   };
   app.use('/compInventory', comp.inventory);
   app.use('/compOrdering' , comp.ordering);
   app.use('/compReceiving', comp.receiving);
-  app.use('/compCompleted', comp.completed);
+  app.use('/compItemsInventory', comp.itemsInventory);
 };
