@@ -11,8 +11,19 @@ var VendorOrder = {
   partsOrdered:{
     type: [
       {
-        partNum: Number,
-        quantity: Number
+        id: String,
+        vendor: {
+          type: String,
+          default: ''
+        },
+        numOfBatches: {
+          type: Number,
+          default: 0
+        },
+        numPerBatch: {
+          type: Number,
+          default: 0
+        }
       }
     ],
     default: []
@@ -20,13 +31,25 @@ var VendorOrder = {
   partsReceived: {
     type: [
       {
-        partNum: Number,
-        dateReceived: Date
+        id: String,
+        vendor: {
+          type: String,
+          default: ''
+        },
+        numOfBatches: {
+          type: Number,
+          default: 0
+        },
+        numPerBatch: {
+          type: Number,
+          default: 0
+        }
       }
     ],
     default: []
   }
 };
+
 module.exports = {
   properties: VendorOrder,
   dataSource: 'db',
