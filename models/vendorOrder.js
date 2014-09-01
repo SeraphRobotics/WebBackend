@@ -23,12 +23,16 @@ var VendorOrder = {
         numPerBatch: {
           type: Number,
           default: 0
+        },
+        batchesReceived: {
+          type: Number,
+          default: 0
         }
       }
     ],
     default: []
-  },
-  partsReceived: {
+  }
+  /* partsReceived: {
     type: [
       {
         id: String,
@@ -47,7 +51,7 @@ var VendorOrder = {
       }
     ],
     default: []
-  }
+  } */
 };
 
 module.exports = {

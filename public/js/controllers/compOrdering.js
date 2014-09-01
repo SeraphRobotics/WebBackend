@@ -26,7 +26,6 @@ angular.module('compOrdering', [
       $scope.vendorOrder = {
         vendor: '',
         dateCreated: $filter('date')(new Date(), 'yyyy-MM-dd'),
-        partsRecieved: [],
         partsOrdered: [ { notAPart: true }]
       };
 

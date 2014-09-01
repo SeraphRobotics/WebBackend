@@ -1,21 +1,29 @@
-.row
-  .small-10.column.border.margin.small-centered
-    h5 Date Placed: {{order.datePlaced | date: 'dd/MM/yyyy'}}
-.row
-  table.small-10.column.small-centered
-    thead
-      tr
-        th Part Number
-        th Name
-        th Batches Ordered
-        th Batches Received
-    tbody
-      tr(ng-repeat="part in order.partsOrdered")
-        td {{ part.id }}
-        td {{ part.name }}
-        td {{ part.numOfBatches }}
-        td: input(type="number" ng-model="part.batchesReceived"
-          max="{{part.batchesOrdered}}" min="0")
-.row
-  .small-10.column.small-centered
-    .button.expand(ng-click='saveChanges()') Save Changes
+form(name="editPart" novalidate)
+  .row
+    .small-10.column.border.margin.small-centered
+      h5 Date Placed: {{ date | date:'MM/dd/yyyy' }}
+  .row
+      table.small-10.column.small-centered
+        thead
+          tr
+            th Part Number
+            th Name
+            th Batches Ordered
+            th Batches Received
+        tbody
+          tr(ng-repeat="part in parts")
+            td {{ part.id }}
+            td {{ part.name }}
+            td {{ part.numOfBatches }}
+            td
+              input(
+                type="number"
+                min="{{ part.prevBatchesReceived }}"
+                max="{{ part.numOfBatches }}"
+                ng-model="part.batchesReceived")
+  .row
+    .small-5.column
+      .button.expand(ng-click="saveChanges()") Save Changes
+    .small-5.column
+      .button.expand(ng-click="cancel()") Cancel
+    small.error(ng-if="saveErr") {{ saveErr }}

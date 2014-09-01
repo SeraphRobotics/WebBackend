@@ -5,8 +5,10 @@ var Part= {
     required: true,
     unique: true
   },
-  vendor: String,
-  numInStock: Number,
+  vendor: {
+    type: String,
+    required: true
+  },
   machineUsage: [
     {
       machineType: String,
@@ -17,9 +19,22 @@ var Part= {
     type: Boolean,
     default: true
   },
-  costPer: Number,
-  batchSize: Number,
-  expectedLeadTime: Number
+  costPer: {
+    type: Number,
+    default: 0
+  },
+  numPerBatch: {
+    type: Number,
+    default: 1
+  },
+  numInStock: {
+    type: Number,
+    default: 0
+  },
+  expectedLeadTime: {
+    type: Number,
+    default: 1
+  }
 };
 module.exports = {
   properties: Part,

@@ -20,12 +20,6 @@ angular.module('app',[
   .config(function($logProvider){
     $logProvider.debugEnabled(true);
   })
-  .controller('editOrderModalController', function ($scope, $log, VendorOrder, $modalInstance, order) {
-    $scope.order = order;
-    $scope.saveChanges = function () {
-      $log.debug('save');
-    };
-  })
   .controller('compCompleted', function ($scope) {
     $scope.InventoryRes = {
       scanners: {
