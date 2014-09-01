@@ -6,6 +6,7 @@ angular
 
 compReceiving.$inject = [
   '$q',
+  '$log',
   '$scope',
   '$modal',
   'Part',
@@ -15,6 +16,7 @@ compReceiving.$inject = [
 function compReceiving
 (
   $q,
+  $log,
   $scope,
   $modal,
   Part,
@@ -29,20 +31,22 @@ function compReceiving
     $scope.vendors = [];
     VendorOrder.query().$promise
       .then(function (orders) {
+        $log.debug('Orders', orders);
         $scope.orders = orders;
       })
     ;
     Part.query().$promise
       .then(function (parts) {
-        $scope.parts = parts;
-
+        $log.debug('Parts', parts);
         parts.forEach(function (part) {
           $scope.vendors.push(part.vendor);
         });
+
+        $scope.parts = parts;
+        $scope.vendors = _.uniq($scope.vendors);
       })
     ;
   }
-
 
   function editOrder (order) {
     $modal.open({ //Returns modal instance
