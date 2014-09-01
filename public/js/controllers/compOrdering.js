@@ -87,6 +87,11 @@ angular.module('compOrdering', [
       $scope.vendorOrder.partsOrdered.push({ notAPart: true });
     };
 
+    $scope.removePart = function removePart ($index) {
+      $log.debug('Remove', $index);
+      $scope.vendorOrder.partsOrdered.splice($index, 1);
+    };
+
     $scope.findPartById = function (id, $index) {
       if (!id || !_.isString(id)) { return; }
       $log.debug('id', id);

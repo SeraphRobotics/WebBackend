@@ -71,7 +71,7 @@ block body
                 a.button.tiny.radius(ng-if="!part.$edit" ng-click="part.$edit = true") Edit
                 a.button.tiny.radius(ng-if="part.$edit" ng-click="part.$edit = false") Done
               td(data-title="'Remove'")
-                a.button.tiny.radious(ng-click="removePart()") Remove
+                a.button.tiny.radious(ng-click="removePart($index)") Remove
         .row
           .button.expand(ng-click="placeOrder(vendorOrder)") Place Order
 
