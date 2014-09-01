@@ -20,7 +20,7 @@ angular.module('app',[
   .config(function($logProvider){
     $logProvider.debugEnabled(true);
   })
-  .controller('compInventory', function ($scope, $log, Part) {
+/*  .controller('compInventory', function ($scope, $log, Part) {
     Part.query().$promise
       .then(function (parts) {
         $log.debug('Parts', parts);
@@ -37,7 +37,7 @@ angular.module('app',[
         }
       })
     ;
-  })
+  })*/
   .controller('compReceiving', function ($scope, $modal) {
     $scope.mockData = [
       {
