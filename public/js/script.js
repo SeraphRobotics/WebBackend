@@ -20,41 +20,6 @@ angular.module('app',[
   .config(function($logProvider){
     $logProvider.debugEnabled(true);
   })
-  .controller('compReceiving', function ($scope, $modal) {
-    $scope.mockData = [
-      {
-        id: 42,
-        orderNum: 1234,
-        receivedInFull: false,
-        partsOrdered: [
-          {
-            partNum: 48484,
-            name: 'Coke+',
-            batchesOrdered: 3,
-            batchesReceived: 0
-          },
-          {
-            partNum: 1337,
-            name: 'Pepsi1',
-            batchesOrdered: 3,
-            batchesReceived: 0
-          }
-        ],
-        datePlaced: new Date(2014, 12, 1)
-      }
-    ];
-    $scope.editOrder = function (order) {
-      $modal.open({ //Returns modal instance
-        templateUrl: 'editOrderModal.html',
-        controller: 'editOrderModalController',
-        resolve: {
-          order: function () {
-            return order;
-          }
-        }
-      });
-    };
-  })
   .controller('editOrderModalController', function ($scope, $log, VendorOrder, $modalInstance, order) {
     $scope.order = order;
     $scope.saveChanges = function () {
