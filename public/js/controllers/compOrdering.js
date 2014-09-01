@@ -144,7 +144,7 @@ angular.module('compOrdering', [
       $scope.vendorOrder.partsOrdered[$index] = {
         id: part.id,
         name: part.name,
-        numPerBatch: part.numPerBatch,
+        numPerBatch: part.numPerBatch || 0,
         numOfBatches: 0,
         vendor: part.vendor,
         $edit: part.$edit
