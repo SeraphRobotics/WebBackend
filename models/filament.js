@@ -8,6 +8,10 @@ var filament = {
   importDate: {
     type: Date,
     default: new Date()
+  },
+  isSold: {
+    type: Boolean,
+    default: false
   }
 };
 

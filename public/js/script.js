@@ -15,7 +15,8 @@ angular.module('app',[
   'updateMachine',
   'mm.foundation.modal',
   'mm.foundation.tpls',
-  'mm.foundation.accordion'
+  'mm.foundation.accordion',
+  'mm.foundation.pagination'
 ])
   .config(function($logProvider){
     $logProvider.debugEnabled(true);

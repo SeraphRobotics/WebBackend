@@ -1,82 +1,102 @@
 extends layout
 block body
   h1.text-center INVENTORY
-  .row(ng-controller="compItemsInventory")
-    h3.text-left Available For Sale
-    table.small-10.column.small-centered
-      thead
-        tr
-          th
-          th Scanner
-          th Printer
-          th Tablet
-          th Filament
-          th Cartridge
-      tbody
-        tr
-          td Num In Stock
-          td {{ forSale.scanners.length }}
-          td {{ forSale.printers.length }}
-          td {{ forSale.tablets.length }}
-          td {{ forSale.filaments.length }}
-          td {{ forSale.cartridges.length }}
-        tr
-          td Serials
-          td: ul: li(ng-repeat="part in forSale.scanners") {{ part.id }}
-          td: ul: li(ng-repeat="part in forSale.printers") {{ part.id }}
-          td: ul: li(ng-repeat="part in forSale.tablets") {{ part.id }}
-          td: ul: li(ng-repeat="part in forSale.filaments") {{ part.id }}
-          td: ul: li(ng-repeat="part in forSale.cartridges") {{ part.id }}
-  .row
-    h3.text-left In Transit to Warehouse
-    table.small-8.column.small-centered
-      thead
-        tr
-          th
-          th Scanners
-          th Printers
-          th Tablet
-      tbody
-        tr
-          td Num In Stock
-          td {{scanners.numInStock}}
-          td {{printers.numInStock}}
-          td {{tablets.numInStock}}
-  .row
-    h3.text-left Broken at Warehouse
-    table.small-8.column.small-centered
-      thead
-        tr
-          th
-          th Scanners
-          th Printers
-          th Tablet
-      tbody
-        tr
-          td Num In Stock
-          td {{scanners.numInStock}}
-          td {{printers.numInStock}}
-          td {{tablets.numInStock}}
-  .row
-    h3.text-left Filament Inventory
-    table.small-10.column.small-centered
-      thead
-        tr
-          th Name
-          th Part Number
-          th Vendor
-          th Num Per Batch
-          th Num In Stock
-          th Lead Time
-          th(colspan="2") Orders Placed
-      tbody
-        tr
-          td {{filament.material}}
-          td {{filament.partNumber}}
-          td {{filament.numPerBatch}}
-          td {{filament.numInStock}}
-          td {{filament.leadTime}}
-          td {{filament.orders.date}}
-          td {{filament.orders.numOfBatches}}
+  .row.small-10.column.small-centered(ng-controller="compItemsInventory")
+    .row
+      h3.text-left Available For Sale
+      .row.equalHeight
+        ul.small-block-grid-2.medium-block-grid-4.large-block-grid-5
+          li
+            .row
+              h4 Printers:{{ forSale.scanners.count }}
+              ul
+                li(ng-repeat="id in forSale.printers.ids")
+                  small {{ id }}
+          li
+            .row
+              h4 Scanners: {{ forSale.printers.count }}
+              ul
+                li(ng-repeat="id in forSale.scanners.ids")
+                  small {{ id }}
+          li
+            .row
+              h4 Tablets: {{ forSale.tablets.count }}
+              ul
+                li(ng-repeat="id in forSale.tablets.ids")
+                  small {{ id }}
+          li
+            .row
+              h4 Filaments: {{ forSale.filaments.count }}
+              ul
+                li(ng-repeat="id in forSale.filaments.ids")
+                  small {{ id }}
+          li
+            .row
+              h4 Cartridges: {{ forSale.cartridges.count }}
+              ul
+                li(ng-repeat="id in forSale.cartridges.ids")
+                  small {{ id }}
+    .row
+      pagination.small-10.column.small-centered(
+        total-items="serials.totalItems"
+        items-per-page="serials.itemsPerPage"
+        max-size="5"
+        boundary-links="true"
+        on-select-page="serialPaginations(page)"
+        page="serials.page")
+    .row
+      h3.text-left In Transit to Warehouse
+      .row.scrollable
+        table.small-8.column.small-centered
+          thead
+            tr
+              th
+              th Scanners
+              th Printers
+              th Tablet
+          tbody
+            tr
+              td Num In Stock
+              td {{scanners.numInStock}}
+              td {{printers.numInStock}}
+              td {{tablets.numInStock}}
+    .row
+      h3.text-left Broken at Warehouse
+      .row.scrollable
+        table.small-8.column.small-centered
+          thead
+            tr
+              th
+              th Scanners
+              th Printers
+              th Tablet
+          tbody
+            tr
+              td Num In Stock
+              td {{scanners.numInStock}}
+              td {{printers.numInStock}}
+              td {{tablets.numInStock}}
+    .row
+      h3.text-left Filament Inventory
+      .row.scrollable
+        table.small-10.column.small-centered
+          thead
+            tr
+              th Name
+              th Part Number
+              th Vendor
+              th Num Per Batch
+              th Num In Stock
+              th Lead Time
+              th(colspan="2") Orders Placed
+          tbody
+            tr
+              td {{filament.material}}
+              td {{filament.partNumber}}
+              td {{filament.numPerBatch}}
+              td {{filament.numInStock}}
+              td {{filament.leadTime}}
+              td {{filament.orders.date}}
+              td {{filament.orders.numOfBatches}}
 block footer
   script(type="text/javascript" src="js/controllers/compItemsInventory.js")

@@ -37,6 +37,7 @@ module.exports = {
   properties: machine,
   dataSource: 'db',
   public: true,
+  strict: true,
   relations: {
     returnedBy: {
       type: 'hasAndBelongsToMany',

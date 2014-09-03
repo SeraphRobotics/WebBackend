@@ -7,6 +7,10 @@ var cartridge = {
   },
   soldOnDate: {
     type: Date
+  },
+  isSold: {
+    type: Boolean,
+    default: false
   }
 };
 
