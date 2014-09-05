@@ -38,65 +38,98 @@ block body
                   small {{ id }}
     .row
       pagination.small-10.column.small-centered(
-        total-items="serials.totalItems"
-        items-per-page="serials.itemsPerPage"
+        total-items="forSale.totalItems"
+        items-per-page="forSale.itemsPerPage"
         max-size="5"
         boundary-links="true"
-        on-select-page="serialPaginations(page)"
+        on-select-page="forSalePagination(page)"
         page="serials.page")
     .row
       h3.text-left In Transit to Warehouse
-      .row.scrollable
-        table.small-8.column.small-centered
-          thead
-            tr
-              th
-              th Scanners
-              th Printers
-              th Tablet
-          tbody
-            tr
-              td Num In Stock
-              td {{scanners.numInStock}}
-              td {{printers.numInStock}}
-              td {{tablets.numInStock}}
+      .row.equalHeight
+        ul.small-block-grid-2.medium-block-grid-4.large-block-grid-5
+          li
+            .row
+              h4 Printers:{{ inTransit.printers.count }}
+              ul
+                li(ng-repeat="id in inTransit.printers.ids")
+                  small {{ id }}
+          li
+            .row
+              h4 Scanners: {{ inTransit.scanners.count }}
+              ul
+                li(ng-repeat="id in inTransit.scanners.ids")
+                  small {{ id }}
+          li
+            .row
+              h4 Tablets: {{ inTransit.tablets.count }}
+              ul
+                li(ng-repeat="id in inTransit.tablets.ids")
+                  small {{ id }}
+    .row
+      pagination.small-10.column.small-centered(
+        total-items="inTransit.totalItems"
+        items-per-page="inTrasit.itemsPerPage"
+        max-size="5"
+        boundary-links="true"
+        on-select-page="inTransitPagination(page)"
+        page="inTrasit.page")
     .row
       h3.text-left Broken at Warehouse
-      .row.scrollable
+      .row.equalHeight
+        ul.small-block-grid-2.medium-block-grid-4.large-block-grid-5
+          li
+            .row
+              h4 Printers:{{ brokenInWarehouse.scanners.count }}
+              ul
+                li(ng-repeat="id in brokenInWarehouse.printers.ids")
+                  small {{ id }}
+          li
+            .row
+              h4 Scanners: {{ brokenInWarehouse.printers.count }}
+              ul
+                li(ng-repeat="id in brokenInWarehouse.scanners.ids")
+                  small {{ id }}
+          li
+            .row
+              h4 Tablets: {{ brokenInWarehouse.tablets.count }}
+              ul
+                li(ng-repeat="id in brokenInWarehouse.tablets.ids")
+                  small {{ id }}
+    .row
+      pagination.small-10.column.small-centered(
+        total-items="brokenInWarehouse.totalItems"
+        items-per-page="brokenInWarehouse.itemsPerPage"
+        max-size="5"
+        boundary-links="true"
+        on-select-page="brokenInWarehousePaginations(page)"
+        page="brokenInWarehouse.page")
+      .row(style="height: 33em")
+        h3.text-left Filament
         table.small-8.column.small-centered
           thead
             tr
-              th
-              th Scanners
-              th Printers
-              th Tablet
-          tbody
-            tr
-              td Num In Stock
-              td {{scanners.numInStock}}
-              td {{printers.numInStock}}
-              td {{tablets.numInStock}}
-    .row
-      h3.text-left Filament Inventory
-      .row.scrollable
-        table.small-10.column.small-centered
-          thead
-            tr
-              th Name
+              th Material
               th Part Number
               th Vendor
-              th Num Per Batch
-              th Num In Stock
+              th Number Per Patch
               th Lead Time
-              th(colspan="2") Orders Placed
+              th Orders Placed
           tbody
-            tr
-              td {{filament.material}}
-              td {{filament.partNumber}}
-              td {{filament.numPerBatch}}
-              td {{filament.numInStock}}
-              td {{filament.leadTime}}
-              td {{filament.orders.date}}
-              td {{filament.orders.numOfBatches}}
+            tr(ng-repeat="fil in filaments")
+              td: small {{ fil.material }}
+              td: small {{ fil.id }}
+              td: small {{ fil.vendor }}
+              td: small {{ fil.numPerBatch }}
+              td: small {{ fil.leadTime }}
+              td: small {{ fil.orders }}
+    .row
+      pagination.small-10.column.small-centered(
+        total-items="filament.totalItems"
+        items-per-page="filament.itemsPerPage"
+        max-size="5"
+        boundary-links="true"
+        on-select-page="filamentPagination(page)"
+        page="filament.page")
 block footer
   script(type="text/javascript" src="js/controllers/compItemsInventory.js")

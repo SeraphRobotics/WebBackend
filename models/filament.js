@@ -4,10 +4,29 @@ var filament = {
     type: Number,
     default: 0
   },
-  type: String,
+  type: {
+    type: String,
+    default: ''
+  },
+  vendor: {
+    type: String,
+    default: ''
+  },
+  material: {
+    type: String,
+    default: ''
+  },
+  numbPerBatch: {
+    type: Number,
+    default: 1
+  },
   importDate: {
     type: Date,
     default: new Date()
+  },
+  leadTime: {
+    type: Number,
+    leadTime: 1
   },
   isSold: {
     type: Boolean,
@@ -18,6 +37,7 @@ var filament = {
 module.exports = {
   properties: filament,
   dataSource: 'db',
+  strict: true,
   public: true,
   relations: {
     filamentChanges: {

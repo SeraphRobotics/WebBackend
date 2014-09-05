@@ -1,7 +1,18 @@
 'use strict';
+angular
+ .module('app.core', [
+    'helpers',
+    'lbServices',
+    'app.paginateData',
+    'mm.foundation.modal',
+    'mm.foundation.tpls',
+    'mm.foundation.accordion',
+    'mm.foundation.pagination'
+  ])
+;
+
 angular.module('app',[
-  'helpers',
-  'lbServices',
+  'app.core',
   'compOrdering',
   'customerDetails',
   'customerSupport',
@@ -12,17 +23,10 @@ angular.module('app',[
   'productGeneration',
   'subscriptionSettings',
   'queue',
-  'updateMachine',
-  'mm.foundation.modal',
-  'mm.foundation.tpls',
-  'mm.foundation.accordion',
-  'mm.foundation.pagination'
+  'updateMachine'
 ])
   .config(function($logProvider){
     $logProvider.debugEnabled(true);
-  })
-  .controller('bookKeeping', function () {
-
   })
 ;
 
