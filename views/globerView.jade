@@ -68,7 +68,7 @@ block body
           option(value="printer") Printer
           option(value="scanner") Scanner
           option(value="tablet") Tablet
-    .row.scrollable
+    .row.scrollable(style="height: 37em")
       table
         thead
           tr
@@ -79,13 +79,22 @@ block body
             th Current Customer
             th Previous Customer
         tbody
-          tr(ng-repeat="machine in machines | filter: { machineType: productType }")
-            td: a(href="/machineDetails/{{ machine.id }}") {{ machine.id }}
-            td {{ machine.machineStatus }}
-            td {{ machine.dateManufactured }}
-            td {{ machine.numOfServices }}
-            td {{ machine.ownedBy || "None" }}
-            td {{ machine.prevOwner || "None" }}
+          tr(ng-repeat="machine in machinesPage | filter: { machineType: productType }")
+            td: a(href="/machineDetails/{{ machine.id }}"): small {{ machine.id }}
+            td: small {{ machine.machineStatus }}
+            td: small {{ machine.dateManufactured | date: "MM/dd/yyyy" }}
+            td: small {{ machine.numOfServices }}
+            td: small {{ machine.ownedBy || "None" }}
+            td: small {{ machine.prevOwner || "None" }}
+
+    .row
+      pagination.small-10.column.small-centered(
+        total-items="totalItems"
+        items-per-page="10"
+        max-size="5"
+        boundary-links="true"
+        on-select-page="machinePage(page)"
+        page="page")
     .row.collapse
       h3.text-left Cartridges and Filaments
       .divider

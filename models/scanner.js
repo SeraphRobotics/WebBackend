@@ -29,6 +29,10 @@ module.exports = {
     machine: {
       type: 'belongsTo',
       model: 'machine'
+    },
+    returnedBy: {
+      type: 'hasAndBelongsToMany',
+      model: 'customer'
     }
   }
 };

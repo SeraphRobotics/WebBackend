@@ -41,13 +41,10 @@ filamentPage.$inject = [ 'Filament' ];
 function filamentPage (Filament) {
 
   return function filamentPage(limit, skip, isSold) {
-    return Filament.query({
-      filter: {
-        where: isSold,
-        limit: limit,
-        skip: skip
-      }
-    }).$promise;
+    isSold = isSold || false;
+    var filter = { limit: limit, skip: skip };
+    if (isSold) { filter.where = isSold; }
+    return Filament.query({ filter: filter }).$promise;
   };
 }
 
@@ -56,13 +53,10 @@ cartridgePage.$inject = [ 'Cartridge' ];
 function cartridgePage (Cartridge) {
 
   return function cartridgePage (limit, skip, isSold) {
-    return Cartridge.query({
-      filter: {
-        where: isSold,
-        limit: limit,
-        skip: skip
-      }
-    }).$promise;
+    isSold = isSold || false;
+    var filter = { limit: limit, skip: skip };
+    if (isSold) { filter.where = isSold; }
+    return Cartridge.query({ filter: filter }).$promise;
   };
 }
 
