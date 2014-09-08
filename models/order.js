@@ -12,8 +12,18 @@ var order = {
     type: [],
     default: []
   },
-  payments: [],
-  shipments: [],
+  payments: {
+    type: [],
+    default: []
+  },
+  cost: {
+    type: Number,
+    default: 0
+  },
+  shipments: {
+    type: [],
+    default: []
+  },
   isComplete: {
     type: Boolean,
     default: false

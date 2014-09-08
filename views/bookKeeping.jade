@@ -1,14 +1,29 @@
 extends layout
 block body
   h2.text-center Book Keeping
-  .small-10.column.small-centered
+  .small-10.column.small-centered(ng-controller='bookKeeping')
     .row.collapse
       .small-4.column
         span.prefix Date Range
       .small-4.column
-        input(type="date" ng-model="dateStart" required)
+        input(
+          type="date"
+          on-blur
+          ui-blur="pageData(startDate, endDate)"
+          ng-model="startDate"
+          ng-change="startDateCap()"
+          required)
       .small-4.column
-        input(type="date" ng-model="dateEnd" required)
+        input(
+          type="date"
+          on-blur
+          ui-blur="pageData(startDate, endDate)"
+          ng-model="endDate"
+          ng-change="endDateCap()"
+          required)
     .row
-      .small-12.column.button(ng-click="returnCSV()") Create Report
+      .small-12.column.button(
+        ng-csv="createReport()"
+        filename="bookKeeping_{{ startDate | date:'dd/MM/yyyy' }}_{{ endDate | date:'dd/MM/YYYY'}}.csv"
+        csv-header="reportHeader") Create Report
 
