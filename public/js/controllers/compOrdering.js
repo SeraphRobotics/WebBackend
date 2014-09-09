@@ -137,6 +137,10 @@ angular.module('compOrdering', [
         })
         .value()
       ;
+
+      if ($scope.vendorOrder.partsOrdered.length === 0) {
+        $scope.addItem();
+      }
     };
 
     function mapToOrderedParts (part, $index) {
