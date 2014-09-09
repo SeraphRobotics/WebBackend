@@ -69,6 +69,10 @@ module.exports = {
       type: 'hasAndBelongsToMany',
       model: 'machine'
     },
+    scannersOwned: {
+      type: 'hasMany',
+      model: 'scanner'
+    },
     cartridge: {
       type: 'hasMany',
       model: 'cartridge'

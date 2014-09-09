@@ -4331,6 +4331,43 @@ module.factory(
           method: "DELETE",
         },
 
+        // INTERNAL. Use Customer.scannersOwned.findById() instead.
+        "prototype$__findById__scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned/:fk",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Customer.scannersOwned.destroyById() instead.
+        "prototype$__destroyById__scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned/:fk",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use Customer.scannersOwned.updateById() instead.
+        "prototype$__updateById__scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned/:fk",
+          method: "PUT",
+        },
+
+        // INTERNAL. Use Customer.scannersOwned() instead.
+        "prototype$__get__scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use Customer.scannersOwned.create() instead.
+        "prototype$__create__scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned",
+          method: "POST",
+        },
+
+        // INTERNAL. Use Customer.scannersOwned.destroyAll() instead.
+        "prototype$__delete__scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned",
+          method: "DELETE",
+        },
+
         // INTERNAL. Use Customer.subscription.findById() instead.
         "prototype$__findById__subscription": {
           url: urlBase + "/customers/:id/subscription/:fk",
@@ -4542,6 +4579,12 @@ module.factory(
         // INTERNAL. Use Order.customer() instead.
         "::get::order::customer": {
           url: urlBase + "/orders/:id/customer",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Scanner.customersOwned() instead.
+        "::get::scanner::customersOwned": {
+          url: urlBase + "/scanners/:id/customersOwned",
           method: "GET",
         },
 
@@ -6428,6 +6471,238 @@ module.factory(
         R.order.updateById = function() {
           var TargetResource = $injector.get("Order");
           var action = TargetResource["::updateById::customer::order"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Customer.scannersOwned
+     * @object
+     * @description
+     *
+     * The object `Customer.scannersOwned` groups methods
+     * manipulating `Scanner` instances related to `Customer`.
+     *
+     * Use {@link lbServices.Customer#scannersOwned} to query
+     * all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer#scannersOwned
+         * @methodOf lbServices.Customer
+         *
+         * @description
+         *
+         * Queries scannersOwned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {Function(Array.<Object>, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Scanner` object.)
+         * </em>
+         */
+        R.scannersOwned = function() {
+          var TargetResource = $injector.get("Scanner");
+          var action = TargetResource["::get::customer::scannersOwned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.scannersOwned#create
+         * @methodOf lbServices.Customer.scannersOwned
+         *
+         * @description
+         *
+         * Creates a new instance in scannersOwned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Scanner` object.)
+         * </em>
+         */
+        R.scannersOwned.create = function() {
+          var TargetResource = $injector.get("Scanner");
+          var action = TargetResource["::create::customer::scannersOwned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.scannersOwned#destroyAll
+         * @methodOf lbServices.Customer.scannersOwned
+         *
+         * @description
+         *
+         * Deletes all scannersOwned of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Scanner` object.)
+         * </em>
+         */
+        R.scannersOwned.destroyAll = function() {
+          var TargetResource = $injector.get("Scanner");
+          var action = TargetResource["::delete::customer::scannersOwned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.scannersOwned#destroyById
+         * @methodOf lbServices.Customer.scannersOwned
+         *
+         * @description
+         *
+         * Delete a related item by id for scannersOwned
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `fk` – `{*}` - Foreign key for scannersOwned
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `` – `{undefined=}` - 
+         */
+        R.scannersOwned.destroyById = function() {
+          var TargetResource = $injector.get("Scanner");
+          var action = TargetResource["::destroyById::customer::scannersOwned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.scannersOwned#findById
+         * @methodOf lbServices.Customer.scannersOwned
+         *
+         * @description
+         *
+         * Find a related item by id for scannersOwned
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `fk` – `{*}` - Foreign key for scannersOwned
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Scanner` object.)
+         * </em>
+         */
+        R.scannersOwned.findById = function() {
+          var TargetResource = $injector.get("Scanner");
+          var action = TargetResource["::findById::customer::scannersOwned"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Customer.scannersOwned#updateById
+         * @methodOf lbServices.Customer.scannersOwned
+         *
+         * @description
+         *
+         * Update a related item by id for scannersOwned
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - customer id
+         *
+         *  - `fk` – `{*}` - Foreign key for scannersOwned
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method does not accept any data. Supply an empty object.
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Scanner` object.)
+         * </em>
+         */
+        R.scannersOwned.updateById = function() {
+          var TargetResource = $injector.get("Scanner");
+          var action = TargetResource["::updateById::customer::scannersOwned"];
           return action.apply(R, arguments);
         };
     /**
@@ -12900,6 +13175,49 @@ module.factory(
           method: "GET",
         },
 
+        // INTERNAL. Use Scanner.customersOwned() instead.
+        "prototype$__get__customersOwned": {
+          url: urlBase + "/scanners/:id/customersOwned",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Customer.scannersOwned.findById() instead.
+        "::findById::customer::scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned/:fk",
+          method: "GET",
+        },
+
+        // INTERNAL. Use Customer.scannersOwned.destroyById() instead.
+        "::destroyById::customer::scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned/:fk",
+          method: "DELETE",
+        },
+
+        // INTERNAL. Use Customer.scannersOwned.updateById() instead.
+        "::updateById::customer::scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned/:fk",
+          method: "PUT",
+        },
+
+        // INTERNAL. Use Customer.scannersOwned() instead.
+        "::get::customer::scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned",
+          method: "GET",
+          isArray: true,
+        },
+
+        // INTERNAL. Use Customer.scannersOwned.create() instead.
+        "::create::customer::scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned",
+          method: "POST",
+        },
+
+        // INTERNAL. Use Customer.scannersOwned.destroyAll() instead.
+        "::delete::customer::scannersOwned": {
+          url: urlBase + "/customers/:id/scannersOwned",
+          method: "DELETE",
+        },
+
         // INTERNAL. Use Machine.scanner() instead.
         "::get::machine::scanner": {
           url: urlBase + "/machines/:id/scanner",
@@ -13065,6 +13383,42 @@ module.factory(
         R.machine = function() {
           var TargetResource = $injector.get("Machine");
           var action = TargetResource["::get::scanner::machine"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Scanner#customersOwned
+         * @methodOf lbServices.Scanner
+         *
+         * @description
+         *
+         * Fetches belongsTo relation customersOwned
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*=}` - scanner id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {Function(Object, Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {Function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @return {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Customer` object.)
+         * </em>
+         */
+        R.customersOwned = function() {
+          var TargetResource = $injector.get("Customer");
+          var action = TargetResource["::get::scanner::customersOwned"];
           return action.apply(R, arguments);
         };
 

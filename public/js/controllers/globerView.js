@@ -197,78 +197,126 @@ function globerView
           date: customer.dateAquired,
           subscription: customer.currentSubscriptionId || 'None',
           cartridgeUsage: customer.cartridge.length || '0',
-          estimatedInventory: 'Est, Inv',
+          estimatedInventory: 'TODO: Est, Inv', //TODO: How to find this
           numberOfReturns: (function () {
             var numOfReturns = 0;
+
             numOfReturns += customer.machinesReturned? customer.machinesReturned.length: 0;
             numOfReturns += customer.cartridgesReturned? customer.cartridgesReturned.length: 0;
             numOfReturns += customer.filamentChanges? customer.filamentChanges.length: 0;
+
             return numOfReturns;
           }()),
           totMatUsed: (function () {
             var volUsed = 0;
-            _.chain(customer.filamentChanges)
-              .forEach(function (filamentChange) {
-                volUsed += filamentChange.volUsed;
-              })
-            ;
+
+            _.forEach(customer.filamentChanges, function (filamentChange) {
+              volUsed += filamentChange.volUsed;
+            });
+
             return volUsed;
           }()),
           totMatDel: (function () {
             var del = 0;
-            _.chain(customer.filaments)
-              .forEach(function (filament) {
+
+            _.forEach(customer.filaments, function (filament) {
                 del += filament.volume;
-              })
-            ;
+            });
+
             return del;
           }()),
-          totMatWasted: 'totMatWasted',
+          totMatWasted: ':Todo totMatWasted', //TODO: How to calculate this.
           numOfPrinterSwaps: (function () {
             var printSwaps = 0;
-            _.chain(customer.swaps)
-              .forEach(function (swap) {
-                if (swap.type === 'printer') {
-                  printSwaps += 1;
-                  return;
-                } else {
-                  return;
-                }
-              })
-            ;
+
+            _.forEach(customer.swaps, function (swap) {
+              if (swap.type === 'printer') {
+                printSwaps += 1;
+                return;
+              } else {
+                return;
+              }
+            });
+
             return printSwaps;
           }()),
           numOfTabletSwaps: (function () {
             var tabletSwaps = 0;
-            _.chain(customer.swaps)
-              .forEach(function (swap) {
-                if (swap.type === 'printer') {
-                  tabletSwaps += 1;
-                  return;
-                } else {
-                  return;
-                }
-              })
-            ;
+
+            _.forEach(customer.swaps, function (swap) {
+              if (swap.type === 'printer') {
+                tabletSwaps += 1;
+                return;
+              } else {
+                return;
+              }
+            });
+
             return tabletSwaps;
           }()),
           numOfScannerSwaps: (function () {
             var scannerSwaps = 0;
-            _.chain(customer.swaps)
-              .forEach(function (swap) {
-                if (swap.type === 'scanner') {
-                  scannerSwaps += 1;
-                  return ;
-                } else {
-                  return;
-                }
-              })
-            ;
+
+            _.forEach(customer.swaps, function (swap) {
+              if (swap.type === 'scanner') {
+                scannerSwaps += 1;
+                return ;
+              } else {
+                return;
+              }
+            });
+
             return scannerSwaps;
           }()),
-          averageScannerUpTime: 'scannerUpTime',
-          averageNumOfScansPer: 'scansPerUptime',
-          totalScans: 'totScans'
+          averageScannerUpTime: (function () {
+            var scannerOnTime,
+                scannerTotalTime,
+                upTimeAvg = 0,
+                numberOfScanners = customer.scannersOwned.length || 1
+            ;
+            _.forEach(customer.scannersOwned, function (scanner) {
+              scannerOnTime += _.chain(scanner.scanTimes)
+                .filter(function (scanTime) { return scanTime.type; })
+                .reduce(function (onTime, scanTime) {
+                  onTime += scanTime.time;
+                  return onTime;
+                }, 0)
+              ;
+
+              scannerTotalTime += _.reduce(scanner.scantTime, function (totalTime, scanTime) {
+                totalTime += scanTime;
+              }, 0);
+
+              upTimeAvg += scannerTotalTime && scannerTotalTime > 0? (scannerOnTime / scannerTotalTime * 100): 0;
+            });
+
+            return upTimeAvg / numberOfScanners;
+          }()),
+          averageNumOfScansPer: (function () {
+            var totalScans = 0;
+            var numberOfScanners = customer.scannersOwned.length || 1;
+
+            _.forEach(customer.scannersOwned, function (scanner) {
+                totalScans += _.reduce(scanner.scanTimes, function (count) {
+                  count += 1;
+                  return count;
+                }, 0);
+            });
+
+            return totalScans / numberOfScanners;
+          }()),
+          totalScans: (function () {
+            var totalScans = 0;
+
+            _.forEach(customer.scannersOwned, function (scanner) {
+              totalScans += _.reduce(scanner.scanTimes, function (count) {
+                count += 1;
+                return count;
+              }, 0);
+            });
+
+            return totalScans;
+          }())
         };
       }).value();
   };
@@ -354,14 +402,15 @@ function globerView
           'cartridgesReturned',
           'filament',
           'filamentChange',
+          'scannersOwned',
           'machinesReturned',
           'swaps'
         ],
-        where: { date: between }
+        where: { dateAquired: between }
       }
     }).$promise
       .then(function (customers) {
-        $log.debug(customers);
+        $log.debug('Customers', customers);
         $scope.customers = customers;
       })
       .catch(function (err) {

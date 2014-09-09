@@ -43,10 +43,6 @@ module.exports = {
       type: 'hasAndBelongsToMany',
       model: 'customer'
     },
-    /*filamentChanges: { //Don't think this needs to be here
-      type: 'hasMany',
-      model: 'filamentChange'
-    },*/
     scanner: {
       type: 'belongsTo',
       model: 'scanner'

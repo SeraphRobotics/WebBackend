@@ -4,7 +4,7 @@ var Scanner = {
     type: [
     {
       type: {
-        type: Boolean,
+        type: Boolean, // On/Off
         default: false
       },
       time: {
@@ -17,7 +17,7 @@ var Scanner = {
   },
   scanTimes: {
     type: [ Number ],
-    default: []
+    default: []  //Number of scans per scanner
   }
 };
 
@@ -30,8 +30,8 @@ module.exports = {
       type: 'belongsTo',
       model: 'machine'
     },
-    returnedBy: {
-      type: 'hasAndBelongsToMany',
+    customersOwned: {
+      type: 'belongsTo',
       model: 'customer'
     }
   }
