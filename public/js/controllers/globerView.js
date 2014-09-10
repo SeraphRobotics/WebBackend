@@ -198,37 +198,41 @@ function globerView
           subscription: customer.currentSubscriptionId || 'None',
           cartridgeUsage: customer.cartridge.length || '0',
           estimatedInventory: 'TODO: Est, Inv', //TODO: How to find this
+
           numberOfReturns: (function () {
             var numOfReturns = 0;
-
             numOfReturns += customer.machinesReturned? customer.machinesReturned.length: 0;
             numOfReturns += customer.cartridgesReturned? customer.cartridgesReturned.length: 0;
             numOfReturns += customer.filamentChanges? customer.filamentChanges.length: 0;
-
             return numOfReturns;
           }()),
+
           totMatUsed: (function () {
             var volUsed = 0;
-
             _.forEach(customer.filamentChanges, function (filamentChange) {
               volUsed += filamentChange.volUsed;
             });
-
             return volUsed;
           }()),
+
           totMatDel: (function () {
             var del = 0;
-
             _.forEach(customer.filaments, function (filament) {
                 del += filament.volume;
             });
-
             return del;
           }()),
-          totMatWasted: ':Todo totMatWasted', //TODO: How to calculate this.
+
+          totMatWasted: (function () {
+            var wasted = 0;
+            _.forEach(customer.filaments, function (filament) {
+              wasted += filament.wasted;
+            });
+            return wasted;
+          }()),
+
           numOfPrinterSwaps: (function () {
             var printSwaps = 0;
-
             _.forEach(customer.swaps, function (swap) {
               if (swap.type === 'printer') {
                 printSwaps += 1;
@@ -237,12 +241,11 @@ function globerView
                 return;
               }
             });
-
             return printSwaps;
           }()),
+
           numOfTabletSwaps: (function () {
             var tabletSwaps = 0;
-
             _.forEach(customer.swaps, function (swap) {
               if (swap.type === 'printer') {
                 tabletSwaps += 1;
@@ -251,12 +254,11 @@ function globerView
                 return;
               }
             });
-
             return tabletSwaps;
           }()),
+
           numOfScannerSwaps: (function () {
             var scannerSwaps = 0;
-
             _.forEach(customer.swaps, function (swap) {
               if (swap.type === 'scanner') {
                 scannerSwaps += 1;
@@ -265,9 +267,9 @@ function globerView
                 return;
               }
             });
-
             return scannerSwaps;
           }()),
+
           averageScannerUpTime: (function () {
             var scannerOnTime,
                 scannerTotalTime,
@@ -282,41 +284,37 @@ function globerView
                   return onTime;
                 }, 0)
               ;
-
               scannerTotalTime += _.reduce(scanner.scantTime, function (totalTime, scanTime) {
                 totalTime += scanTime;
               }, 0);
-
               upTimeAvg += scannerTotalTime && scannerTotalTime > 0? (scannerOnTime / scannerTotalTime * 100): 0;
             });
-
             return upTimeAvg / numberOfScanners;
           }()),
+
           averageNumOfScansPer: (function () {
             var totalScans = 0;
             var numberOfScanners = customer.scannersOwned.length || 1;
-
             _.forEach(customer.scannersOwned, function (scanner) {
                 totalScans += _.reduce(scanner.scanTimes, function (count) {
                   count += 1;
                   return count;
                 }, 0);
             });
-
             return totalScans / numberOfScanners;
           }()),
+
           totalScans: (function () {
             var totalScans = 0;
-
             _.forEach(customer.scannersOwned, function (scanner) {
               totalScans += _.reduce(scanner.scanTimes, function (count) {
                 count += 1;
                 return count;
               }, 0);
             });
-
             return totalScans;
           }())
+
         };
       }).value();
   };

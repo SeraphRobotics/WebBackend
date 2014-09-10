@@ -4,6 +4,10 @@ var filament = {
     type: Number,
     default: 0
   },
+  wasted: {
+    type: Number,
+    default: 0
+  },
   type: {
     type: String,
     default: ''
@@ -16,7 +20,7 @@ var filament = {
     type: String,
     default: ''
   },
-  numbPerBatch: {
+  numPerBatch: {
     type: Number,
     default: 1
   },
