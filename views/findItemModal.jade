@@ -7,5 +7,5 @@
       type="text"
       ng-model="itemId")
   .small-2.column
-    span.postfix.button(ng-click="findItem(itemId)") Find
-  small.error(ng-show="findItemIdErr") {{ findItemIdErr }}
+    span.postfix.button(ng-click="findItem(itemId, item.type)") Find
+  small.error(ng-if="findItemIdErr") {{ findItemIdErr }}

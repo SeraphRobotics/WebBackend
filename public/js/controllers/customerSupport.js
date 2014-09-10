@@ -129,7 +129,7 @@ angular.module('customerSupport', [
         type: $scope.ownedMachine.machineType
       };
 
-      // A shipment with fedex needs to be made here
+      //TODO: A shipment with fedex needs to be made here
       Shipment.create({}, {trackingNum: 'test' + Math.floor((Math.random() * 100))})
         .$promise
         .then(function (shipment) {

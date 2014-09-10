@@ -53,16 +53,16 @@ block body
               th shipment ID
               th Add to Shipment
           tbody
-            tr(ng-repeat="item in order.items")
+            tr(ng-repeat="item in order.items | filter: {status: 'unfulfilled'} ")
               td {{ item.type }}
               td {{ item.id }}
               td {{ item.status }}
-              td(
+              td: button.tiny.radius(
                 ng-click="openFindItemModal(item)")
                 | {{ item.shipmentId || 'add ' + item.type }}
-              td.button.tiny.expand(
-                ng-click="item.status === 'unfulfilled'? addToShipment(item):'' ")
-                | {{ (item.status === "unfulfilled")? 'add': '' }}
+              td: button.tiny.radius(
+                ng-click="item.status === 'unfulfilled' && item.id? addToShipment(item):'' ")
+                | {{ (item.status === "unfulfilled" && item.id)? 'add': '' }}
       .row
         h3.text-center New Shipment
         .divider

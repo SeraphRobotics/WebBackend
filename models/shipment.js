@@ -8,7 +8,10 @@ var shipment = {
     type: String,
     required: true
   },
-  items: []
+  items: {
+    type: [],
+    default: []
+  }
 };
 
 module.exports = {
