@@ -3,7 +3,7 @@
     "db": {
       "defaultForType": "db",
       "connector": "mongodb",
-      "database": "seraph",
+      "database": "seraphTest",
       "host": "ds047427.mongolab.com",
       "username": "seraphAdmin",
       "password": "seraph1seraph1",
