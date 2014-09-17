@@ -1,8 +1,7 @@
 'use strict';
 angular
   .module('app')
-  .controller('compItemsInventory', compItemsInventory)
-;
+  .controller('compItemsInventory', compItemsInventory);
 
 compItemsInventory.$inject = [
   '$q',
@@ -19,8 +18,7 @@ compItemsInventory.$inject = [
   'alertModal'
 ];
 
-function compItemsInventory
-(
+function compItemsInventory(
   $q,
   $log,
   $scope,
@@ -41,32 +39,32 @@ function compItemsInventory
   $scope.brokenInWarehousePagination = brokenInWarehousePagination;
   $scope.filamentPagination = filamentPagination;
 
-  function initController () {
+  function initController() {
 
     $scope.forSale = {
       totalItems: 0,
       itemsPerPage: 10,
-      printers:   { ids: [], count: 0 },
-      scanners:   { ids: [], count: 0 },
-      tablets:    { ids: [], count: 0 },
+      printers: { ids: [], count: 0 },
+      scanners: { ids: [], count: 0 },
+      tablets: { ids: [], count: 0 },
       cartridges: { ids: [], count: 0 },
-      filaments:  { ids: [], count: 0 },
+      filaments: { ids: [], count: 0 }
     };
 
     $scope.inTransit = {
       totalItems: 0,
       itemsPerPage: 10,
-      printers:   { ids: [], count: 0 },
-      scanners:   { ids: [], count: 0 },
-      tablets:    { ids: [], count: 0 },
+      printers: { ids: [], count: 0 },
+      scanners: { ids: [], count: 0 },
+      tablets: { ids: [], count: 0 }
     };
 
     $scope.brokenInWarehouse = {
       totalItems: 0,
       itemsPerPage: 10,
-      printers:   { ids: [], count: 0 },
-      scanners:   { ids: [], count: 0 },
-      tablets:    { ids: [], count: 0 },
+      printers: { ids: [], count: 0 },
+      scanners: { ids: [], count: 0 },
+      tablets: { ids: [], count: 0 }
     };
 
     $scope.filament = {
@@ -75,16 +73,15 @@ function compItemsInventory
     };
 
     Filament.count().$promise
-      .then(function (count) {
+      .then(function(count) {
         $log.debug('FilCount', count);
         $scope.filament.totalItems = count.count;
         filamentPagination();
       })
-      .catch(alertErr)
-    ;
+      .catch(alertErr);
 
     inventoryCount('Operational in warehouse', { isSold: false })
-      .then(function (counts) {
+      .then(function(counts) {
         $log.debug('Counts', counts);
 
         $scope.forSale.scanners.count = counts.scanner.count;
@@ -103,16 +100,15 @@ function compItemsInventory
 
         var roundedTotalItems = Math.round(totalItems / 10) * 10;
 
-        $scope.forSale.totalItems = roundedTotalItems < totalItems?
-          roundedTotalItems + 10: roundedTotalItems - 10;
+        $scope.forSale.totalItems = roundedTotalItems < totalItems ?
+          roundedTotalItems + 10 : roundedTotalItems - 10;
 
         forSalePagination();
       })
-      .catch(alertErr)
-    ;
+      .catch(alertErr);
 
     inventoryCount('In transit to warehouse')
-      .then(function inTransitThen (counts) {
+      .then(function inTransitThen(counts) {
         $log.debug('inTransitCounts', counts);
         $scope.inTransit.scanners.count = counts.scanner.count;
         $scope.inTransit.printers.count = counts.printer.count;
@@ -126,16 +122,15 @@ function compItemsInventory
 
         var roundedTotalItems = Math.round(totalItems / 10) * 10;
 
-        $scope.inTransit.totalItems = roundedTotalItems < totalItems?
-          roundedTotalItems + 10: roundedTotalItems - 10;
+        $scope.inTransit.totalItems = roundedTotalItems < totalItems ?
+          roundedTotalItems + 10 : roundedTotalItems - 10;
 
         inTransitPagination();
       })
-      .catch(alertErr)
-    ;
+      .catch(alertErr);
 
     inventoryCount('Broken in warehouse')
-      .then(function brokenInWarehouseThen (counts) {
+      .then(function brokenInWarehouseThen(counts) {
         $log.debug('brokenCounts', counts);
         $scope.brokenInWarehouse.scanners.count = counts.scanner.count;
         $scope.brokenInWarehouse.printers.count = counts.printer.count;
@@ -149,23 +144,22 @@ function compItemsInventory
 
         var roundedTotalItems = Math.round(totalItems / 10) * 10;
 
-        $scope.brokenInWarehouse.totalItems = roundedTotalItems < totalItems?
-          roundedTotalItems + 10: roundedTotalItems - 10;
+        $scope.brokenInWarehouse.totalItems = roundedTotalItems < totalItems ?
+          roundedTotalItems + 10 : roundedTotalItems - 10;
 
         brokenInWarehousePagination();
       })
-      .catch(alertErr)
-    ;
+      .catch(alertErr);
   }
 
-  function forSalePagination (page) {
+  function forSalePagination(page) {
     page = page || 1;
     var limit = 10;
     var skip = (page - 1) * limit;
     var status = 'Operational in warehouse';
 
     inventoryPageInterface(limit, skip, status, { isSold: false })
-      .then(function (ids) {
+      .then(function(ids) {
         $log.debug('Ids', ids);
         $scope.forSale.scanners.ids = _.map(ids.scanner, 'id');
         $scope.forSale.printers.ids = _.map(ids.printer, 'id');
@@ -173,59 +167,55 @@ function compItemsInventory
         $scope.forSale.filaments.ids = _.map(ids.filament, 'id');
         $scope.forSale.cartridges.ids = _.map(ids.cartridge, 'id');
       })
-      .catch(alertErr)
-    ;
+      .catch(alertErr);
   }
 
-  function inTransitPagination (page) {
+  function inTransitPagination(page) {
     page = page || 1;
     var limit = 10;
-    var skip= (page - 1) * limit;
+    var skip = (page - 1) * limit;
     var status = 'In transit to warehouse';
 
     machinePage(limit, skip, status)
-      .then(function (ids) {
+      .then(function(ids) {
         $log.debug('Ids', ids);
         $log.debug('scanner id', _.map(ids.scanner, 'id'));
         $scope.inTransit.scanners.ids = _.map(ids.scanner, 'id');
         $scope.inTransit.printers.ids = _.map(ids.printer, 'id');
         $scope.inTransit.tablets.ids = _.map(ids.tablet, 'id');
       })
-      .catch(alertErr)
-    ;
+      .catch(alertErr);
   }
 
-  function brokenInWarehousePagination (page) {
+  function brokenInWarehousePagination(page) {
     page = page || 1;
     var limit = 10;
-    var skip= (page - 1) * limit;
+    var skip = (page - 1) * limit;
     var status = 'Broken in warehouse';
 
     machinePage(limit, skip, status)
-      .then(function (ids) {
+      .then(function(ids) {
         $log.debug('Ids', ids);
         $scope.brokenInWarehouse.scanners.ids = _.map(ids.scanner, 'id');
         $scope.brokenInWarehouse.printers.ids = _.map(ids.printer, 'id');
         $scope.brokenInWarehouse.tablets.ids = _.map(ids.tablet, 'id');
       })
-      .catch(alertErr)
-    ;
+      .catch(alertErr);
   }
 
-  function filamentPagination (page) {
+  function filamentPagination(page) {
     page = page || 1;
     var limit = 10;
-    var skip= (page - 1) * limit;
+    var skip = (page - 1) * limit;
 
     filamentPage(limit, skip)
-      .then(function (filaments) {
+      .then(function(filaments) {
         $scope.filaments = filaments;
       })
-      .catch(alertErr)
-    ;
+      .catch(alertErr);
   }
 
-  function alertErr (err) {
+  function alertErr(err) {
     if (err.data) {
       alertModal(err.data.error.message);
     } else {

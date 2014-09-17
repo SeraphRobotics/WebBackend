@@ -37,7 +37,7 @@ module.exports = {
   relations: {
     order: {
       type: 'hasMany',
-      model: 'order',
+      model: 'order'
     },
     subscription: {
       type: 'hasMany',
@@ -54,11 +54,11 @@ module.exports = {
     },
     filamentChange: {
       type: 'hasMany',
-      model: 'filamentChange',
+      model: 'filamentChange'
     },
     machineSwap: {
       type: 'hasMany',
-      model: 'swap',
+      model: 'swap'
     },
     hasMachines: {
       type: 'hasMany',

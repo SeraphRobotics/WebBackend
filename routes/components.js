@@ -1,16 +1,16 @@
 'use strict';
-module.exports = function (app) {
+module.exports = function(app) {
   var comp = {};
-  comp.inventory = function (req, res) {
+  comp.inventory = function(req, res) {
     res.render('compInventory');
   };
-  comp.ordering = function (req, res) {
+  comp.ordering = function(req, res) {
     res.render('compOrdering');
   };
-  comp.receiving = function (req, res) {
+  comp.receiving = function(req, res) {
     res.render('compReceiving');
   };
-  comp.itemsInventory = function (req, res) {
+  comp.itemsInventory = function(req, res) {
     res.render('compItemsInventory');
   };
   app.use('/compInventory', comp.inventory);

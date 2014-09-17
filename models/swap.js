@@ -17,7 +17,7 @@ var swap = {
   },
   type: {
     type: String,
-    default: '',
+    default: ''
   }
 };
 
@@ -28,7 +28,7 @@ module.exports = {
   relations: {
     customer: {
       type: 'belongsTo',
-      model: 'customer',
+      model: 'customer'
     },
     shipment: {
       type: 'belongsTo',

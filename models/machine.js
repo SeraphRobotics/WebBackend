@@ -16,12 +16,12 @@ var machine = {
     type: Number,
     default: 0
   },
-  logs:{
+  logs: {
     type: [
     {
         date: {
           default: new Date(),
-          type: Date,
+          type: Date
         },
         status: String,
         custId: String,
