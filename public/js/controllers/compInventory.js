@@ -1,35 +1,41 @@
 'use strict';
 angular
   .module('app')
-  .controller('compInventory', compInventory)
-;
+  .controller('CompInventory', CompInventory);
 
-compInventory.$inject = [
+CompInventory.$inject = [
   '$log',
-  '$scope',
   'Part'
 ];
 
-function compInventory ($log, $scope, Part) {
+function CompInventory($log, Part) {
+  var vM = this;
   initController();
 
-  function initController () {
-    Part.query().$promise
-      .then(function (parts) {
-        $log.debug('Parts', parts);
-        $scope.mParts = _.remove(parts, function (part) {
-          return part.forMachine;
-        });
-        $scope.cParts = parts;
+  function initController() {
+    Part.query({
+      filter: {
+        include: ['vendorOrder']
+      }
+    }).$promise
+      .then(function(parts) {
+        // Splits into two arrays
+        vM.mParts = _.remove(parts, 'forMachine');
+        // Add remaining to scope
+        vM.cParts = parts;
+        $log.debug('Parts', vM.mParts, parts);
       })
-      .catch(function (err) {
+      .catch(function(err) {
         if (err.data) {
-          $scope.genErr = err.data.error.message;
+          vM.genErr = err.data.error.message;
         } else {
-          $scope.genErr = err;
+          vM.genErr = err;
         }
-      })
-    ;
+      });
+  }
+
+  function mapNumberOfParts() {
+    // body...
   }
 }
 

@@ -8,7 +8,11 @@ var VendorOrder = {
     type: Date,
     default: new Date()
   },
-  partsOrdered:{
+  isComplete: {
+    type: Boolean,
+    default: false
+  },
+  partsOrdered: {
     type: [
       {
         id: String,

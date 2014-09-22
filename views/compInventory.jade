@@ -1,10 +1,10 @@
 extends layout
 block body
   h1.text-center Component Inventory
-  .small-10.small-centered.column(ng-controller="compInventory")
-    small.error(ng-if="genErr") {{ genErr }}
+  .small-10.small-centered.column(ng-controller="CompInventory as compInv")
+    small.error(ng-if="compInv.genErr") {{ genErr }}
     h4 Machine Components
-    .row
+    .row.scrollable
       table
         thead
           tr
@@ -31,20 +31,28 @@ block body
             th Num In Stock
             th Num Ordered
         tbody
-          tr(ng-repeat="mPart in mParts")
-            td {{ mPart.name }}
-            td {{ mPart.id }}
-            td {{ mPart.vendor }}
-            td {{ mPart.numPerBatch }}
-            td {{ mPart.numInStock }}
-            td {{ mPart.leadTime }}
-            td {{ mPart.orders.date }}
-            td {{ mPart.orders.numPerBatch }}
-            td {{ mPart.printers.inStock }}
-            td {{ mPart.printers.ordered }}
-            td {{ mPart.scanners.inStock }}
-            td {{ mPart.scanners.ordered }}
-    .row
+          tr(ng-repeat="part in compInv.mParts")
+            td: small {{ part.name }}
+            td: small {{ part.id }}
+            td: small {{ part.vendor }}
+            td: small {{ part.numPerBatch || "1"}}
+            td: small {{ part.numInStock || "0" }}
+            td: small {{ part.leadTime || "N/A" }}
+            td.text-center(
+              ng-if="!part.vendorOrder.length"
+              colspan="2") No Orders
+            td(ng-if="part.vendorOrder.length")
+              ul(
+                ng-if="part.vendorOrder.length"
+                ng-repeat="order in part.vendorOrders")
+                {{ order.date | date: "MM/dd/yyyy" }}
+            td(ng-if="part.vendorOrder.length")
+              small {{ part.vendorOrder.length || "0" }}
+            td: small {{ part.numPerPrinter * part.numInStock || "N/A" }}
+            td: small {{ part.printers.ordered }}
+            td: small {{ part.numPerScanner * part.numInStock || "N/A" }}
+            td: small {{ part.scanners.ordered }}
+    .row.scrollable
       h4 Cartridge Components
       table
         thead
@@ -66,12 +74,17 @@ block body
             th Date
             th Number of
         tbody
-          tr(ng-repeat="cPart in cParts")
-            td {{ cPart.name }}
-            td {{ cPart.id }}
-            td {{ cPart.vendor }}
-            td {{ cPart.numPerBatch }}
-            td {{ cPart.numInStock }}
-            td {{ cPart.leadTime }}
-            td
-            td
+          tr(ng-repeat="part in compInv.cParts")
+            td: small {{ part.name }}
+            td: small {{ part.id }}
+            td: small {{ part.vendor }}
+            td: small {{ part.numPerBatch }}
+            td: small {{ part.numInStock }}
+            td: small {{ part.leadTime }}
+            td.text-center(
+              ng-if="!part.vendorOrder.length"
+              colspan="2") No Orders
+            td(ng-if="part.vendorOrder.length")
+              ul(ng-repeat="order in part.vendorOrder")
+                li: small {{ order.dateCreated | date:'MM/dd/yyyy' }}
+            td(ng-if="part.vendorOrder.length") {{ part.vendorOrder.length }}
