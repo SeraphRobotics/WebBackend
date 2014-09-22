@@ -16,7 +16,7 @@ var Scanner = {
     default: []
   },
   scanTimes: {
-    type: [ Number ],
+    type: [Number],
     default: []  //Number of scans per scanner
   }
 };

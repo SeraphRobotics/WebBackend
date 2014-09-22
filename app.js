@@ -1,19 +1,17 @@
 'use strict';
-var q             = require('q'),
-    fs            = require('fs'),
-    path          = require('path'),
-    config        = require('config'),
-    logger        = require('morgan'),
-    Bunyan        = require('bunyan'),
-    loopback      = require('loopback'),
-    body          = require('body-parser'),
-    debug         = require('debug')('app'),
-    errorHandler  = require('errorhandler'),
-    models        = require('./models.json'),
-    mo            = require('method-override'),
-    //DataSource    = require('loopback-datasource-juggler').DataSource,
-    dataSources   = config.dataSources
-;
+var q = require('q'),
+    fs = require('fs'),
+    path = require('path'),
+    config = require('config'),
+    logger = require('morgan'),
+    Bunyan = require('bunyan'),
+    loopback = require('loopback'),
+    body = require('body-parser'),
+    debug = require('debug')('app'),
+    errorHandler = require('errorhandler'),
+    models = require('./models.json'),
+    mo = require('method-override'),
+    dataSources = config.dataSources;
 
 var log = Bunyan.createLogger({name: 'app.js'});
 function debugIt(arg) {
@@ -26,8 +24,7 @@ var app = module.exports = exports.app = loopback();
 app.locals.siteName = 'Seraph';
 
 app.use(loopback.favicon(__dirname + '/public/favicon.ico'));
-var env   = process.env.NODE_ENV  || app.get('env')   || 'development';
-//var port  = process.env.PORT      || app.get('port')  || 9000;
+var env = process.env.NODE_ENV || app.get('env') || 'development';
 
 if ('development' === env) {
   app.use(logger('dev'));
@@ -57,7 +54,7 @@ app.boot({
 var modelsPath = path.join(__dirname, 'models');
 var modelName;
 try {
-  fs.readdirSync(modelsPath).forEach(function (file) {
+  fs.readdirSync(modelsPath).forEach(function(file) {
     modelName = file.toString().replace('.js', '');
     app.model(modelName, require(modelsPath + '/' + file));
   });
@@ -88,18 +85,19 @@ var fedex = loopback.createDataSource({
 });
 
 
-fedex.on('connected', function () {
+fedex.on('connected', function() {
   log.info('connected to Fedex Soap.');
-  var Customer      = app.models.Customer,
-      findCustById  = q.nbind(Customer.findById, Customer),
-      shipSchema    = require('./config/fedex/request'),
-      ShipService   = fedex.createModel('ShipService', shipSchema)
-  ;
-  ShipService.makeShipment = function (custId, cb) {
-    var customerPromise = findCustById(custId).catch(function (err) {
-      debugIt(err);
-    });
-    customerPromise.then(function (customer) {
+  var Customer = app.models.Customer,
+      findCustById = q.nbind(Customer.findById, Customer),
+      shipSchema = require('./config/fedex/request'),
+      ShipService = fedex.createModel('ShipService', shipSchema);
+
+  ShipService.makeShipment = function(custId, cb) {
+    var customerPromise = findCustById(custId)
+      .catch(function(err) {
+        debugIt(err);
+      });
+    customerPromise.then(function(customer) {
       var data = {
         DropoffType: 'REGULAR_PICKUP',
         ServiceType: 'STANDARD_OVERNIGHT',
@@ -115,13 +113,13 @@ fedex.on('connected', function () {
             StateOrProvinceCode: 'California',
             PostalCode: 94132,
             CountryCode: 'USA'
-          },
+          }
         },
         Recipient: {
           Contact: {
             CompanyName: customer.companyName,
             PersonName: customer.name,
-            PhoneNumber: customer.phoneNumber,
+            PhoneNumber: customer.phoneNumber
           },
           Address: {
             StreetLines: customer.address.street,
@@ -136,7 +134,7 @@ fedex.on('connected', function () {
           Payor: {
             ResponsibleParty: {
               AccountNumber: 510087585,
-              Contact:''
+              Contact: ''
             }
           }
         },
@@ -156,7 +154,7 @@ fedex.on('connected', function () {
           }
         }
       };
-      ShipService.processShipment(data, function (err, res) {
+      ShipService.processShipment(data, function(err, res) {
         if (err) {
           debugIt(err);
           return cb(err);
@@ -189,7 +187,6 @@ fedex.on('connected', function () {
   app.use(mo());
   app.use(body.urlencoded({extended: true}));
   app.use(body.json());
-
   app.use(app.get('restApiRoot'), loopback.rest());
 
   try {
@@ -198,7 +195,7 @@ fedex.on('connected', function () {
     app.once('started', function(baseUrl) {
       console.log('Browse your REST API at %s%s', baseUrl, explorer.route);
     });
-  } catch(e) {
+  } catch (e) {
     console.log(
       'Run `npm install loopback-explorer` to enable the LoopBack explorer'
     );
@@ -220,6 +217,7 @@ fedex.on('connected', function () {
   app.use(loopback.urlNotFound());
   // Start server
   app.set('host', process.env.HOST || app.get('host') || 'localhost');
+  app.enableAuth();
 
   app.start = function() {
     return app.listen(process.env.PORT, function() {
@@ -229,7 +227,7 @@ fedex.on('connected', function () {
     });
   };
 
-  if(require.main === module) {
+  if (require.main === module) {
     app.start();
   }
 });

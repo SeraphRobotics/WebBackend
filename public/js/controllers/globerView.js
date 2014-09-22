@@ -5,11 +5,9 @@ angular.module('globerView', [
   'app.paginateData',
   'lbServices'
 ])
-  .controller('globerView', globerView)
-;
+  .controller('globerView', globerView);
 
-function globerView
-(
+function globerView(
   $q,
   $log,
   $scope,
@@ -29,30 +27,30 @@ function globerView
   $scope.machinePage = machinePage;
 
   $scope.currentDate = $filter('date')(new Date(), 'yyyy-MM-dd');
-  $scope.startDate= $filter('date')(new Date(2014, 2, 15), 'yyyy-MM-dd');
+  $scope.startDate = $filter('date')(new Date(2014, 2, 15), 'yyyy-MM-dd');
   $scope.endDate = $scope.currentDate;
 
-  function initOverviewData () {
-    $scope.printers           = { made: 0, shipped: 0, returned: 0 };
-    $scope.scanners           = { made: 0, shipped: 0, returned: 0 };
-    $scope.tablets            = { made: 0, shipped: 0, returned: 0 };
+  function initOverviewData() {
+    $scope.printers = { made: 0, shipped: 0, returned: 0 };
+    $scope.scanners = { made: 0, shipped: 0, returned: 0 };
+    $scope.tablets = { made: 0, shipped: 0, returned: 0 };
     $scope.cartridgesOverview = { made: 0, shipped: 0, returned: 0 };
-    $scope.filamentsOverview  = { made: 0, shipped: 0, returned: 0 };
+    $scope.filamentsOverview = { made: 0, shipped: 0, returned: 0 };
   }
 
   initOverviewData();
 
-  $scope.updateData = function updateData () {
+  $scope.updateData = function updateData() {
     initOverviewData();
     pageData();
     machinePage();
   };
 
-  $scope.machineMadeData = function machineMadeData () {
-    _.forEach($scope.machines, function (machine) {
+  $scope.machineMadeData = function machineMadeData() {
+    _.forEach($scope.machines, function(machine) {
       if (machine.machineType === 'printer') {
         $scope.printers.made += 1;
-      } else if (machine.machineType === 'scanner'){
+      } else if (machine.machineType === 'scanner') {
         $scope.scanners.made += 1;
       } else if (machine.machineType === 'tablet') {
         $scope.tablets.made += 1;
@@ -62,13 +60,13 @@ function globerView
     });
   };
 
-  $scope.shippingData = function shippingData () {
-    _.forEach($scope.shipments, function (shipment) {
+  $scope.shippingData = function shippingData() {
+    _.forEach($scope.shipments, function(shipment) {
 
-      _.forEach(shipment.items, function (item) {
+      _.forEach(shipment.items, function(item) {
         if (item.type === 'printer') {
           $scope.printers.shipped += 1;
-        } else if (item.type === 'scanner'){
+        } else if (item.type === 'scanner') {
           $scope.scanners.shipped += 1;
         } else if (item.type === 'tablet') {
           $scope.tablets.shipped += 1;
@@ -84,12 +82,12 @@ function globerView
     });
   };
 
-  $scope.swapData = function swapData () {
-    _.forEach($scope.swaps, function (swap) {
+  $scope.swapData = function swapData() {
+    _.forEach($scope.swaps, function(swap) {
       var type = swap.oldMachine.machineType;
       if (type === 'printer') {
         $scope.printers.returned += 1;
-      } else if (type === 'scanner'){
+      } else if (type === 'scanner') {
         $scope.scanners.returned += 1;
       } else if (type === 'tablet') {
         $scope.tablets.returned += 1;
@@ -99,40 +97,42 @@ function globerView
     });
   };
 
-  $scope.cartsAndFilData = function cartsAndFilData () {
-    _.forEach($scope.cartridges, function () {
+  $scope.cartsAndFilData = function cartsAndFilData() {
+    _.forEach($scope.cartridges, function() {
       $scope.cartridgesOverview.made += 1;
     });
 
-    _.forEach($scope.cartridgeReturns, function () {
+    _.forEach($scope.cartridgeReturns, function() {
       $scope.cartridges.returned += 1;
     });
 
-    _.forEach($scope.filamentFil, function () {
+    _.forEach($scope.filamentFil, function() {
       $scope.filamentsOverview.made += 1;
     });
 
-    _.forEach($scope.filamentChanges,function () {
+    _.forEach($scope.filamentChanges, function() {
       $scope.filamentsOverview.returned += 1;
     });
   };
 
-  $scope.startDateCap = function  startDateCap () {
+  $scope.startDateCap = function startDateCap() {
     if (isThisBeforeThat($scope.startDate, $scope.endDate)) {
       return;
     } else {
-      $scope.startDate = $filter('date')(new Date($scope.endDate), 'yyyy-MM-dd');
+      $scope.startDate =
+        $filter('date')(new Date($scope.endDate), 'yyyy-MM-dd');
       return;
     }
   };
 
-  $scope.endDateCap = function  endDateCap () {
+  $scope.endDateCap = function endDateCap() {
     var isBeforeToday = isThisBeforeThat($scope.endDate, $scope.currentDate);
     if (isBeforeToday) {
       if (isThisBeforeThat($scope.startDate, $scope.endDate)) {
         return;
       } else {
-        $scope.endDate = $filter('date')(new Date($scope.startDate), 'yyyy-MM-dd');
+        $scope.endDate =
+          $filter('date')(new Date($scope.startDate), 'yyyy-MM-dd');
       }
     } else {
         $scope.endDate = $scope.currentDate;
@@ -148,16 +148,16 @@ function globerView
     'Previous Customer'
     ];
 
-  $scope.getOverviewData = function getOverviewData () {
+  $scope.getOverviewData = function getOverviewData() {
     var data = _.chain($scope.machines)
-      .filter(function (machine) {
+      .filter(function(machine) {
         if ($scope.productType && $scope.productType.length > 2) {
           return machine.machineType === $scope.productType;
         } else {
           return true;
         }
       })
-      .map(function (machine) {
+      .map(function(machine) {
         return {
           id: machine.id,
           status: machine.machineStatus,
@@ -167,8 +167,7 @@ function globerView
           previousCustomer: machine.prevCust || 'None'
         };
       })
-      .value()
-    ;
+      .value();
     return data;
   };
 
@@ -189,9 +188,9 @@ function globerView
     'total scans'
   ];
 
-  $scope.getCustomerReport = function  getCustomerReport () {
+  $scope.getCustomerReport = function getCustomerReport() {
     return _.chain($scope.customers)
-      .map(function (customer) {
+      .map(function(customer) {
         return {
           id: customer.id,
           date: customer.dateAquired,
@@ -199,41 +198,44 @@ function globerView
           cartridgeUsage: customer.cartridge.length || '0',
           estimatedInventory: 'TODO: Est, Inv', //TODO: How to find this
 
-          numberOfReturns: (function () {
+          numberOfReturns: (function() {
             var numOfReturns = 0;
-            numOfReturns += customer.machinesReturned? customer.machinesReturned.length: 0;
-            numOfReturns += customer.cartridgesReturned? customer.cartridgesReturned.length: 0;
-            numOfReturns += customer.filamentChanges? customer.filamentChanges.length: 0;
+            numOfReturns += customer.machinesReturned ?
+              customer.machinesReturned.length : 0;
+            numOfReturns += customer.cartridgesReturned ?
+              customer.cartridgesReturned.length : 0;
+            numOfReturns += customer.filamentChanges ?
+              customer.filamentChanges.length : 0;
             return numOfReturns;
           }()),
 
-          totMatUsed: (function () {
+          totMatUsed: (function() {
             var volUsed = 0;
-            _.forEach(customer.filamentChanges, function (filamentChange) {
+            _.forEach(customer.filamentChanges, function(filamentChange) {
               volUsed += filamentChange.volUsed;
             });
             return volUsed;
           }()),
 
-          totMatDel: (function () {
+          totMatDel: (function() {
             var del = 0;
-            _.forEach(customer.filaments, function (filament) {
+            _.forEach(customer.filaments, function(filament) {
                 del += filament.volume;
             });
             return del;
           }()),
 
-          totMatWasted: (function () {
+          totMatWasted: (function() {
             var wasted = 0;
-            _.forEach(customer.filaments, function (filament) {
+            _.forEach(customer.filaments, function(filament) {
               wasted += filament.wasted;
             });
             return wasted;
           }()),
 
-          numOfPrinterSwaps: (function () {
+          numOfPrinterSwaps: (function() {
             var printSwaps = 0;
-            _.forEach(customer.swaps, function (swap) {
+            _.forEach(customer.swaps, function(swap) {
               if (swap.type === 'printer') {
                 printSwaps += 1;
                 return;
@@ -244,9 +246,9 @@ function globerView
             return printSwaps;
           }()),
 
-          numOfTabletSwaps: (function () {
+          numOfTabletSwaps: (function() {
             var tabletSwaps = 0;
-            _.forEach(customer.swaps, function (swap) {
+            _.forEach(customer.swaps, function(swap) {
               if (swap.type === 'printer') {
                 tabletSwaps += 1;
                 return;
@@ -257,12 +259,12 @@ function globerView
             return tabletSwaps;
           }()),
 
-          numOfScannerSwaps: (function () {
+          numOfScannerSwaps: (function() {
             var scannerSwaps = 0;
-            _.forEach(customer.swaps, function (swap) {
+            _.forEach(customer.swaps, function(swap) {
               if (swap.type === 'scanner') {
                 scannerSwaps += 1;
-                return ;
+                return;
               } else {
                 return;
               }
@@ -270,33 +272,36 @@ function globerView
             return scannerSwaps;
           }()),
 
-          averageScannerUpTime: (function () {
+          averageScannerUpTime: (function() {
             var scannerOnTime,
                 scannerTotalTime,
                 upTimeAvg = 0,
-                numberOfScanners = customer.scannersOwned.length || 1
-            ;
-            _.forEach(customer.scannersOwned, function (scanner) {
+                numberOfScanners = customer.scannersOwned.length || 1;
+
+            _.forEach(customer.scannersOwned, function(scanner) {
               scannerOnTime += _.chain(scanner.scanTimes)
-                .filter(function (scanTime) { return scanTime.type; })
-                .reduce(function (onTime, scanTime) {
+                .filter(function(scanTime) { return scanTime.type; })
+                .reduce(function(onTime, scanTime) {
                   onTime += scanTime.time;
                   return onTime;
-                }, 0)
-              ;
-              scannerTotalTime += _.reduce(scanner.scantTime, function (totalTime, scanTime) {
-                totalTime += scanTime;
-              }, 0);
-              upTimeAvg += scannerTotalTime && scannerTotalTime > 0? (scannerOnTime / scannerTotalTime * 100): 0;
+                }, 0);
+
+              scannerTotalTime +=
+                _.reduce(scanner.scantTime, function(totalTime, scanTime) {
+                  totalTime += scanTime;
+                }, 0);
+
+              upTimeAvg += scannerTotalTime && scannerTotalTime > 0 ?
+                (scannerOnTime / scannerTotalTime * 100) : 0;
             });
             return upTimeAvg / numberOfScanners;
           }()),
 
-          averageNumOfScansPer: (function () {
+          averageNumOfScansPer: (function() {
             var totalScans = 0;
             var numberOfScanners = customer.scannersOwned.length || 1;
-            _.forEach(customer.scannersOwned, function (scanner) {
-                totalScans += _.reduce(scanner.scanTimes, function (count) {
+            _.forEach(customer.scannersOwned, function(scanner) {
+                totalScans += _.reduce(scanner.scanTimes, function(count) {
                   count += 1;
                   return count;
                 }, 0);
@@ -304,10 +309,10 @@ function globerView
             return totalScans / numberOfScanners;
           }()),
 
-          totalScans: (function () {
+          totalScans: (function() {
             var totalScans = 0;
-            _.forEach(customer.scannersOwned, function (scanner) {
-              totalScans += _.reduce(scanner.scanTimes, function (count) {
+            _.forEach(customer.scannersOwned, function(scanner) {
+              totalScans += _.reduce(scanner.scanTimes, function(count) {
                 count += 1;
                 return count;
               }, 0);
@@ -324,8 +329,10 @@ function globerView
   machineCount();
   machinePage();
 
-  function pageData () {
-    var between = { between: [ new Date($scope.startDate), new Date($scope.endDate) ] };
+  function pageData() {
+    var between = {
+      between: [new Date($scope.startDate), new Date($scope.endDate)]
+    };
 
     $q.all({
       machines: Machine.query({
@@ -338,7 +345,7 @@ function globerView
         filter: { include: 'oldMachine', where: { date: between } }
       }).$promise
     })
-      .then(function (promises) {
+      .then(function(promises) {
         $log.debug('MacPromises', promises);
         $scope.machines = promises.machines;
         $scope.shipments = promises.shipments;
@@ -347,18 +354,17 @@ function globerView
         $scope.swapData();
         $scope.shippingData();
       })
-      .catch(function (err) {
+      .catch(function(err) {
         $log.debug(err);
         if (err.data) {
           $scope.machinesAndShipmentsErr = err.data.error.message;
         } else {
           $scope.machinesAndShipmentsErr = err;
         }
-      })
-    ;
+      });
 
     $q.all({
-      cartridge:       Cartridge.query({
+      cartridge: Cartridge.query({
         filter: { where: { manufactureDate: between } }
       }).$promise,
       cartridgeCredit: CartridgeCredit.query({
@@ -367,14 +373,14 @@ function globerView
       cartridgeReturn: CartridgeReturn.query({
         filter: { where: { date: between } }
       }).$promise,
-      filaments:       Filament.query({
+      filaments: Filament.query({
         filter: { where: { importDate: between } }
       }).$promise,
       filamentChanges: FilamentChange.query({
         filter: { where: { importDate: between } }
-      }).$promise,
+      }).$promise
     })
-      .then(function (promises) {
+      .then(function(promises) {
         $log.debug('Promises', promises);
         $scope.cartridges = promises.cartridge;
         $scope.cartridgeCredits = promises.cartridgeCredit;
@@ -383,15 +389,14 @@ function globerView
         $scope.filamentChanges = promises.filamentChanges;
         $scope.cartsAndFilData();
       })
-      .catch(function (err) {
+      .catch(function(err) {
         $log.debug('PromisesErr', err);
         if (err.data) {
           $scope.cartsAndFilsErr = err.data.error.message;
         } else {
           $scope.cartsAndFilsErr = err;
         }
-      })
-    ;
+      });
 
     Customer.query({
       filter: {
@@ -407,53 +412,59 @@ function globerView
         where: { dateAquired: between }
       }
     }).$promise
-      .then(function (customers) {
+      .then(function(customers) {
         $log.debug('Customers', customers);
         $scope.customers = customers;
       })
-      .catch(function (err) {
+      .catch(function(err) {
         $log.debug(err);
-      })
-    ;
+      });
   }
 
-  function isThisBeforeThat (startDate, endDate) {
+  function isThisBeforeThat(startDate, endDate) {
     return new Date(startDate) <= new Date(endDate);
   }
 
   function machinePage(page) {
     page = page || 1;
-    var where = { dateManufactured: { between: [ new Date($scope.startDate), new Date($scope.endDate) ] }};
+    var where = {
+      dateManufactured: {
+        between: [new Date($scope.startDate), new Date($scope.endDate)]
+      }
+    };
+
     var limit = 10;
     var skip = (page - 1) * limit;
 
     Machine.query({
       filter: { limit: limit, skip: skip, where: where }
     }).$promise
-      .then(function (machines) {
+      .then(function(machines) {
         $log.debug('MachinesPage', machines);
         $scope.machinesPage = machines;
       })
-      .catch(function (err) {
+      .catch(function(err) {
         if (err.data) {
           $scope.cartsAndFilsErr = err.data.error.message;
         } else {
           $scope.cartsAndFilsErr = err;
         }
-      })
-    ;
+      });
   }
 
-  function machineCount () {
-    var where = { manufactureDate : { between: [ new Date($scope.startDate), new Date($scope.endDate) ] }};
+  function machineCount() {
+    var where = {
+      manufactureDate:
+        { between: [new Date($scope.startDate), new Date($scope.endDate)]
+      }
+    };
+
     Machine.count({ filter: where }).$promise
-      .then(function (count) {
+      .then(function(count) {
         $scope.totalItems = count.count;
       })
-      .catch(function (err) {
+      .catch(function(err) {
         $log.debug(err);
-      })
-    ;
+      });
   }
 }
-

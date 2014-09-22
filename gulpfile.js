@@ -1,23 +1,22 @@
 'use strict';
 
 var
-  fs        = require('fs'),
-  gulp      = require('gulp'),
-  wait      = require('gulp-wait'),
-  mocha     = require('gulp-mocha'),
-  watch     = require('gulp-watch'),
-  stylus    = require('gulp-stylus'),
-  concat    = require('gulp-concat'),
-  nodemon   = require('gulp-nodemon'),
-  reload    = require('gulp-livereload'),
-  lbng      = require('loopback-sdk-angular')
-;
+  fs = require('fs'),
+  gulp = require('gulp'),
+  wait = require('gulp-wait'),
+  mocha = require('gulp-mocha'),
+  watch = require('gulp-watch'),
+  stylus = require('gulp-stylus'),
+  concat = require('gulp-concat'),
+  nodemon = require('gulp-nodemon'),
+  reload = require('gulp-livereload'),
+  lbng = require('loopback-sdk-angular');
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', ['stylus', 'nodemon', 'watch']);
 
 // Copy all static images
-gulp.task('test', function () {
+gulp.task('test', function() {
   gulp.src('./test/*.js')
     .pipe(mocha({
       ignoreLeaks: false,
@@ -26,15 +25,14 @@ gulp.task('test', function () {
 });
 
 //stylus to css
-gulp.task('stylus', function () {
+gulp.task('stylus', function() {
   gulp.src(['stylesheets/*.styl'])
     .pipe(stylus())
     .pipe(concat('style.css'))
-    .pipe(gulp.dest('public/css'))
-  ;
+    .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('nodemon', function () {
+gulp.task('nodemon', function() {
   nodemon({
     script: 'app.js',
     ext: 'js',
@@ -45,25 +43,33 @@ gulp.task('nodemon', function () {
     },
     nodeArgs: ['--debug=9999']
   })
-    .on('restart', function () {})
-  ;
+    .on('restart', function() {});
 });
 
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
-  gulp.src(['*.js','routes/*.js', 'models/*.js', 'config/*.js'], { read: true })
-   .pipe(watch({ emit: 'all' }))
-  ;
-  gulp.src(['views/*.jade', 'public/css/style.css'])
+  gulp.src([
+    '*.js',
+    'routes/*.js',
+    'models/*.js',
+    'config/*.js'
+  ], {
+    read: true
+  })
+   .pipe(watch({ emit: 'all' }));
+
+  gulp.src([
+    'views/*.jade',
+    'public/css/style.css'
+  ])
     .pipe(watch())
     .pipe(wait(1000))
-    .pipe(reload())
-  ;
+    .pipe(reload());
   gulp.watch(['stylesheets/*.styl'], ['stylus']);
 });
 
-gulp.task('mockDataDev', function () {
+gulp.task('mockDataDev', function() {
   nodemon({
     script: './config/mockData.js',
     env: {
@@ -71,8 +77,7 @@ gulp.task('mockDataDev', function () {
       'PORT': process.env.PORT || 9000
     },
     nodeArgs: ['--debug=9999']
-  })
-  ;
+  });
 });
 
 gulp.task('lbServices', function generateLoopBackServices(callback) {
@@ -80,12 +85,12 @@ gulp.task('lbServices', function generateLoopBackServices(callback) {
     var app = require('./app.js');
     var content = lbng.services(app, 'lbServices', '/api');
     fs.writeFile('public/js/lbServices.js', content, 'utf-8', callback);
-  } catch(err) {
+  } catch (err) {
     callback(err);
   }
 });
 
-gulp.task('test', function () {
+gulp.task('test', function() {
   gulp.src('test/**/*.spec.js', { read: false })
     .pipe(watch({ emit: 'all' }, function(files) {
       files
@@ -96,11 +101,9 @@ gulp.task('test', function () {
             console.log(err.stack);
           }
           console.log('----------Done-----------');
-        })
-      ;
-    }))
-  ;
+        });
+    }));
 });
 
-gulp.task('watchTest', function () {
+gulp.task('watchTest', function() {
 });

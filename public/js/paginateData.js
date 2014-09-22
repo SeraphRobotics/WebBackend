@@ -7,18 +7,17 @@ angular
   .factory('filamentPage', filamentPage)
   .factory('cartridgePage', cartridgePage)
   .factory('inventoryPageInterface', inventoryPageInterface)
-  .factory('inventoryCount', inventoryCount)
-;
+  .factory('inventoryCount', inventoryCount);
 
-machinePage.$inject = [ '$q', 'Machine' ];
+machinePage.$inject = ['$q', 'Machine'];
 
-function machinePage ($q, Machine) {
+function machinePage($q, Machine) {
   var types = ['printer', 'scanner', 'tablet'];
 
-  return function machinePage (limit, skip, status, thenable) {
+  return function machinePage(limit, skip, status, thenable) {
 
     var promises = {};
-    types.forEach(function (type) {
+    types.forEach(function(type) {
       promises[type] = Machine.query({
         filter: {
           where: {
@@ -32,13 +31,13 @@ function machinePage ($q, Machine) {
       .$promise;
     });
 
-    return thenable? promises: $q.all(promises);
+    return thenable ? promises : $q.all(promises);
   };
 }
 
-filamentPage.$inject = [ 'Filament' ];
+filamentPage.$inject = ['Filament'];
 
-function filamentPage (Filament) {
+function filamentPage(Filament) {
 
   return function filamentPage(limit, skip, isSold) {
     isSold = isSold || false;
@@ -48,11 +47,11 @@ function filamentPage (Filament) {
   };
 }
 
-cartridgePage.$inject = [ 'Cartridge' ];
+cartridgePage.$inject = ['Cartridge'];
 
-function cartridgePage (Cartridge) {
+function cartridgePage(Cartridge) {
 
-  return function cartridgePage (limit, skip, isSold) {
+  return function cartridgePage(limit, skip, isSold) {
     isSold = isSold || false;
     var filter = { limit: limit, skip: skip };
     if (isSold) { filter.where = isSold; }
@@ -60,11 +59,16 @@ function cartridgePage (Cartridge) {
   };
 }
 
-inventoryPageInterface.$inject = [ '$q', 'cartridgePage', 'filamentPage', 'machinePage' ];
+inventoryPageInterface.$inject = [
+  '$q',
+  'cartridgePage',
+  'filamentPage',
+  'machinePage'
+];
 
-function inventoryPageInterface ($q, cartridgePage, filamentPage, machinePage) {
+function inventoryPageInterface($q, cartridgePage, filamentPage, machinePage) {
   var queries = {};
-  return function inventoryPageInterface (limit, skip, status, isSold ) {
+  return function inventoryPageInterface(limit, skip, status, isSold) {
     queries.cartridge = cartridgePage(limit, skip, isSold);
     queries.filament = filamentPage(limit, skip, isSold);
     var machineQuery = machinePage(limit, skip, status, true);
@@ -72,17 +76,18 @@ function inventoryPageInterface ($q, cartridgePage, filamentPage, machinePage) {
   };
 }
 
-inventoryCount.$inject = [ '$q', 'Machine', 'Filament', 'Cartridge' ];
+inventoryCount.$inject = ['$q', 'Machine', 'Filament', 'Cartridge'];
 
-function inventoryCount ($q, Machine, Filament, Cartridge) {
+function inventoryCount($q, Machine, Filament, Cartridge) {
   var types = ['printer', 'scanner', 'tablet'];
 
-  return function machineCounts (machineStatus, filamentStatus, cartridgeStatus) {
+  return machineCounts;
+  function machineCounts(machineStatus, filamentStatus, cartridgeStatus) {
     cartridgeStatus = cartridgeStatus || filamentStatus || false;
     filamentStatus = filamentStatus || false;
     var promises = {};
 
-    types.forEach(function (type) {
+    types.forEach(function(type) {
 
       promises[type] = Machine.count({
         where: {
@@ -110,5 +115,5 @@ function inventoryCount ($q, Machine, Filament, Cartridge) {
     }
 
     return $q.all(promises);
-  };
+  }
 }

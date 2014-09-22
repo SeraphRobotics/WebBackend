@@ -1,17 +1,17 @@
 'use strict';
-module.exports = function (app) {
+module.exports = function(app) {
   var bNO = {};
 
-  bNO.bookKeeping = function (req, res) {
+  bNO.bookKeeping = function(req, res) {
     res.render('bookKeeping');
   };
-  bNO.globerView = function (req, res) {
+  bNO.globerView = function(req, res) {
     res.render('globerView');
   };
-  bNO.masterList = function (req, res) {
+  bNO.masterList = function(req, res) {
     res.render('masterList');
   };
-  bNO.subscriptionSettings = function (req, res) {
+  bNO.subscriptionSettings = function(req, res) {
     res.render('subscriptionSettings');
   };
 

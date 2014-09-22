@@ -17,8 +17,7 @@ module.exports = {
   relations: {
     vendorOrders: {
       type: 'hasMany',
-      model: 'vendorOrder',
-      foreignKey: 'orderNum'
+      model: 'vendorOrder'
     }
   }
 };

@@ -1,12 +1,11 @@
 'use strict';
 angular
   .module('app')
-  .controller('bookKeeping', bookKeeping)
-;
+  .controller('bookKeeping', bookKeeping);
 
-bookKeeping.$inject = [ '$q', '$log', '$scope', '$filter', 'Order' ];
+bookKeeping.$inject = ['$q', '$log', '$scope', '$filter', 'Order'];
 
-function bookKeeping ($q, $log, $scope, $filter, Order) {
+function bookKeeping($q, $log, $scope, $filter, Order) {
   var data = {};
 
   initController();
@@ -18,28 +17,30 @@ function bookKeeping ($q, $log, $scope, $filter, Order) {
 
   pageData($scope.startDate, $scope.endDate);
 
-  function initController () {
+  function initController() {
     $scope.currentDate = $filter('date')(new Date(), 'yyyy-MM-dd');
     $scope.endDate = $scope.currentDate;
     $scope.startDate = $filter('date')(new Date(2014, 2, 15), 'yyyy-MM-dd');
   }
 
-  function startDateCap () {
+  function startDateCap() {
     if (isThisBeforeThat($scope.startDate, $scope.endDate)) {
       return;
     } else {
-      $scope.startDate = $filter('date')(new Date($scope.endDate), 'yyyy-MM-dd');
+      $scope.startDate =
+        $filter('date')(new Date($scope.endDate), 'yyyy-MM-dd');
       return;
     }
   }
 
-  function endDateCap () {
+  function endDateCap() {
     var isBeforeToday = isThisBeforeThat($scope.endDate, $scope.currentDate);
     if (isBeforeToday) {
       if (isThisBeforeThat($scope.startDate, $scope.endDate)) {
         return;
       } else {
-        $scope.endDate = $filter('date')(new Date($scope.startDate), 'yyyy-MM-dd');
+        $scope.endDate =
+          $filter('date')(new Date($scope.startDate), 'yyyy-MM-dd');
       }
     } else {
         $scope.endDate = $scope.currentDate;
@@ -54,12 +55,12 @@ function bookKeeping ($q, $log, $scope, $filter, Order) {
     'Customer ID'
   ];
 
-  function createReport () {
+  function createReport() {
     var csvData = [];
-    csvData = _.map(data.orders, function (order) {
+    csvData = _.map(data.orders, function(order) {
       return {
         id: order.id,
-        shippingStatus: (function () {
+        shippingStatus: (function() {
           if (order.isComplete) {
             return 'All items shipped';
           } else {
@@ -67,9 +68,9 @@ function bookKeeping ($q, $log, $scope, $filter, Order) {
           }
         }()),
         orderTotal: order.cost,
-        amountPaid: (function () {
+        amountPaid: (function() {
           var paid = 0;
-          _.forEach(order.payments, function (payment) {
+          _.forEach(order.payments, function(payment) {
             paid += payment.amount;
           });
           return paid;
@@ -81,7 +82,7 @@ function bookKeeping ($q, $log, $scope, $filter, Order) {
     return csvData;
   }
 
-  function pageData (startDate, endDate) {
+  function pageData(startDate, endDate) {
     var filter = {
       filter: {
         where: {
@@ -93,17 +94,16 @@ function bookKeeping ($q, $log, $scope, $filter, Order) {
     };
 
     Order.query(filter).$promise
-      .then(function (orders) {
+      .then(function(orders) {
         $log.debug('Orders', orders);
         data.orders = orders;
       })
-      .catch(function (err) {
+      .catch(function(err) {
         $log.debug(err);
-      })
-    ;
+      });
   }
 
-  function isThisBeforeThat (startDate, endDate) {
+  function isThisBeforeThat(startDate, endDate) {
     return new Date(startDate) <= new Date(endDate);
   }
 }

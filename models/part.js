@@ -1,5 +1,5 @@
 'use strict';
-var Part= {
+var Part = {
   name: {
     type: String,
     required: true,
@@ -36,6 +36,7 @@ var Part= {
     default: 1
   }
 };
+
 module.exports = {
   properties: Part,
   dataSource: 'db',
