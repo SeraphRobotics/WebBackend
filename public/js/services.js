@@ -2,24 +2,12 @@
 angular.module('helpers', [
   'lbServices'
 ])
-  .constant('machineTypes',
-    [
-      'Operational in warehouse',
-      'Operational at customer',
-      'Assigned to shipment',
-      'In transit to warehouse',
-      'In transit to Customer',
-      'Broken in warehouse',
-      'Broken at customer',
-      'Decommissioned'
-    ]
-  )
   .service('availableSubscriptionPlans', function(SubscriptionPlan) {
     return SubscriptionPlan
       .query()
       .$promise;
   })
-  .directive('onBlur', function() {
+  .directive('onBlur', function() { //This needs to be replaced by ng-blur
     return {
       restrict: 'A',
       link: function(scope, el, attr) {

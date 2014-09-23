@@ -13,6 +13,7 @@ angular.module('app.core', [
 angular.module('app', [
   'app.core',
   'app.filters',
+  'app.constants',
   'app.paginateData',
   'compOrdering'
 ])
