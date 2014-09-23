@@ -19,7 +19,7 @@
     "loopback-connector-soap": "^1.0.0",
     "loopback-datasource-juggler": "^1.7.1",
     "loopback-explorer": "^1.2.5",
-    "loopback-sdk-angular": "^1.2.0",
+    "loopback-sdk-angular": "^1.2.2",
     "method-override": "latest",
     "mocha": "^1.21.3",
     "mongoose": "latest",

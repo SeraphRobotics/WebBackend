@@ -42,16 +42,15 @@ block body
               ng-if="!part.vendorOrder.length"
               colspan="2") No Orders
             td(ng-if="part.vendorOrder.length")
-              ul(
-                ng-if="part.vendorOrder.length"
-                ng-repeat="order in part.vendorOrders")
-                {{ order.date | date: "MM/dd/yyyy" }}
+              ul.no-bullet
+                li(ng-repeat="order in part.vendorOrder")
+                  small {{ order.dateCreated | date: "MM/dd/yyyy" }}
             td(ng-if="part.vendorOrder.length")
               small {{ part.vendorOrder.length || "0" }}
             td: small {{ part.numPerPrinter * part.numInStock || "N/A" }}
-            td: small {{ part.printers.ordered }}
+            td: small {{ part.printer.ordered }}
             td: small {{ part.numPerScanner * part.numInStock || "N/A" }}
-            td: small {{ part.scanners.ordered }}
+            td: small {{ part.scanner.ordered }}
     .row.scrollable
       h4 Cartridge Components
       table
@@ -85,6 +84,7 @@ block body
               ng-if="!part.vendorOrder.length"
               colspan="2") No Orders
             td(ng-if="part.vendorOrder.length")
-              ul(ng-repeat="order in part.vendorOrder")
-                li: small {{ order.dateCreated | date:'MM/dd/yyyy' }}
+              ul.no-bullet
+                li(ng-repeat="order in part.vendorOrder")
+                  small {{ order.dateCreated | date:'MM/dd/yyyy' }}
             td(ng-if="part.vendorOrder.length") {{ part.vendorOrder.length }}

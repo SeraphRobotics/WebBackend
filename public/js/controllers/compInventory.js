@@ -19,10 +19,11 @@ function CompInventory($log, Part) {
       }
     }).$promise
       .then(function(parts) {
+        parts = mapNumberOfParts(parts);
         // Splits into two arrays
         vM.mParts = _.remove(parts, 'forMachine');
         // Add remaining to scope
-        vM.cParts = parts;
+        vM.cParts = mapNumberOfParts(parts);
         $log.debug('Parts', vM.mParts, parts);
       })
       .catch(function(err) {
@@ -34,8 +35,31 @@ function CompInventory($log, Part) {
       });
   }
 
-  function mapNumberOfParts() {
-    // body...
+  function mapNumberOfParts(parts) {
+    return _.chain(parts)
+      .map(function(part) {
+        part.printer = {
+          ordered: 0
+        };
+        part.scanner = {
+          ordered: 0
+        };
+        _.forEach(part.vendorOrder, function(order) {
+          _.forEach(order.partsOrdered, function(partsOrd) {
+            console.log(partsOrd);
+            if (part.id === partsOrd.id) {
+              if (part.numPerPrinter) {
+                part.printer.ordered += partsOrd.numOfBatches;
+              }
+              if (part.numPerScanner) {
+                part.scanner.ordered += partsOrd.numOfBatches;
+              }
+            }
+          });
+        });
+        return part;
+      })
+      .value();
   }
 }
 
