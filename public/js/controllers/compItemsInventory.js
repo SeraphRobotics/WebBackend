@@ -1,9 +1,9 @@
 'use strict';
 angular
   .module('app')
-  .controller('compItemsInventory', compItemsInventory);
+  .controller('CompItemsInventory', CompItemsInventory);
 
-compItemsInventory.$inject = [
+CompItemsInventory.$inject = [
   '$q',
   '$log',
   '$scope',
@@ -18,7 +18,7 @@ compItemsInventory.$inject = [
   'alertModal'
 ];
 
-function compItemsInventory(
+function CompItemsInventory(
   $q,
   $log,
   $scope,

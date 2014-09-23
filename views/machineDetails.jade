@@ -1,7 +1,7 @@
 extends layout
 block body
   h2.text-center Machine Details
-  form.small-10.column.small-centered(ng-controller="machineDetails" ng-init="initId('#{id}')")
+  form.small-10.column.small-centered(ng-controller="MachineDetails" ng-init="initId('#{id}')")
     .row.collapse
       .small-3.column
         .alert-box.prefix Machine Number
@@ -58,3 +58,5 @@ block body
             span.prefix Comments
           .small-9.column
             textarea(rows="3" ng-model="log.comments" disabled)
+block footer
+  script(type="text/javascript" src="js/controllers/machineDetails.js")

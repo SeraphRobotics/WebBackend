@@ -1,10 +1,6 @@
-/* globals _  */
 'use strict';
-angular.module('customerSupport', [
-  'lbServices',
-  'helpers'
-])
-  .controller('customerSupport', CustomerSupport);
+angular.module('app')
+  .controller('CustomerSupport', CustomerSupport);
 
 CustomerSupport.$injector = [
   '$q',

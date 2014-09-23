@@ -1,7 +1,7 @@
 extends layout
 block body
   h2.text-center Repair and Manufacturing Queue
-  form(ng-controller="queue")
+  form(ng-controller="Queue")
     .row.border.margin
       .small-6.column
         h3.text-left Orders
@@ -80,3 +80,5 @@ block body
     .row
       .small-12.column.small-centered
         a.button.expand(href="/updateMachine") Go to Machine Update Page
+block footer
+  script(type="text/javascript" src="js/controllers/queue.js")

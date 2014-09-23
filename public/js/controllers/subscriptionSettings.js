@@ -1,10 +1,6 @@
 'use strict';
-angular.module('subscriptionSettings', [
-  'helpers',
-  'ngTable',
-  'lbServices'
-])
-  .controller('subscriptionSettings', SubscriptionSettings);
+angular.module('app')
+  .controller('SubscriptionSettings', SubscriptionSettings);
 
 SubscriptionSettings.$injector = [
   '$q',

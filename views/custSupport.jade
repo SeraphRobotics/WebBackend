@@ -1,7 +1,7 @@
 extends layout
 block body
   h2.text-center Customer Support
-  .small-10.column.small-centered(ng-controller="customerSupport")
+  .small-10.column.small-centered(ng-controller="CustomerSupport")
     .h3.text-center Machine Swap and Return
     form(name="swap" novalidate)
       .row.collapse
@@ -124,3 +124,5 @@ block body
         .small-12.column.button(
           ng-click="submitSubscription()") Submit Subscription Change
         small.error(ng-hide="submitSubcriptionErr") {{ submitSubscriptionErr }}
+block footer
+  script(type="text/javascript" src="js/controllers/customerSupport.js")

@@ -1,32 +1,20 @@
 'use strict';
-angular
- .module('app.core', [
-    'helpers',
-    'lbServices',
-    'app.paginateData',
-    'mm.foundation.modal',
-    'mm.foundation.tpls',
-    'mm.foundation.accordion',
-    'mm.foundation.pagination'
-  ])
-;
+angular.module('app.core', [
+  'helpers',
+  'lbServices',
+  'ngCsv',
+  'ngTable',
+  'mm.foundation.modal',
+  'mm.foundation.tpls',
+  'mm.foundation.accordion',
+  'mm.foundation.pagination'
+]);
 
-angular.module('app',[
+angular.module('app', [
   'app.core',
-  'compOrdering',
-  'customerDetails',
-  'customerSupport',
-  'globerView',
-  'machineDetails',
-  'masterList',
-  'orderFulfill',
-  'productGeneration',
-  'subscriptionSettings',
-  'queue',
-  'updateMachine'
+  'app.paginateData',
+  'compOrdering'
 ])
-  .config(function($logProvider){
+  .config(function($logProvider) {
     $logProvider.debugEnabled(true);
-  })
-;
-
+  });

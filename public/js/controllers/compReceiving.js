@@ -1,9 +1,9 @@
 'use strict';
 angular
   .module('app')
-  .controller('compReceiving', compReceiving);
+  .controller('CompReceiving', CompReceiving);
 
-compReceiving.$inject = [
+CompReceiving.$inject = [
   '$q',
   '$log',
   '$scope',
@@ -14,7 +14,7 @@ compReceiving.$inject = [
   'VendorOrder'
 ];
 
-function compReceiving(
+function CompReceiving(
   $q,
   $log,
   $scope,

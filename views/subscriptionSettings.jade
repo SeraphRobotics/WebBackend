@@ -1,7 +1,7 @@
 extends layout
 block body
   h2.text-center Product and Pricing Master
-  form.small-10.column.small-centered(ng-controller="subscriptionSettings")
+  form.small-10.column.small-centered(ng-controller="SubscriptionSettings")
     .row.scrollable
       h3.text-left Material Shipping Units
       .divider
@@ -217,3 +217,5 @@ block body
     .row
       .small-12.column.tiny.button(ng-click="addPlan('subB')") Add New Subscription Plan
       .divider
+block footer
+  script(type="text/javascript" src="js/controllers/subscriptionSettings.js")

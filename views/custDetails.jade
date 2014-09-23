@@ -2,7 +2,7 @@ extends layout
 block body
   h2.text-center Customer Details
   form.small-10.column.small-centered(
-    ng-controller="customerDetails"
+    ng-controller="CustomerDetails"
     name="details"
     novalidate)
     .row.collapse(ng-class="custIdErr? 'error': ''")
@@ -283,3 +283,5 @@ block body
             .small-4.column.panel.callout Cartridge Id
             .small-4.column.panel {{ return.cartridgeId || "No Data" }}
             .small-4.column
+block footer
+  script(type="text/javascript" src="js/controllers/customerDetails.js")

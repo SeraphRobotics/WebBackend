@@ -88,3 +88,5 @@ block body
                 li(ng-repeat="order in part.vendorOrder")
                   small {{ order.dateCreated | date:'MM/dd/yyyy' }}
             td(ng-if="part.vendorOrder.length") {{ part.vendorOrder.length }}
+block footer
+  script(type="text/javascript" src="js/controllers/compInventory.js")

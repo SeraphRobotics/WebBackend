@@ -1,7 +1,7 @@
 extends layout
 block body
   h1.text-center Component Ordering
-  form(name="order" ng-controller="compOrdering" novalidate)
+  form(name="order" ng-controller="CompOrdering" novalidate)
     .row
       small.error(ng-if="genErr") {{ genErr }}
       .small-9.column.small-centered

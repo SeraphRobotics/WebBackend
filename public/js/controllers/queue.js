@@ -1,8 +1,6 @@
 'use strict';
-angular.module('queue', [
-  'lbServices'
-])
-  .controller('queue', Queue);
+angular.module('app')
+  .controller('Queue', Queue);
 
 Queue.$injector = [
   '$log',

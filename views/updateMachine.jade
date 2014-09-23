@@ -1,7 +1,7 @@
 extends layout
 block body
   h1.text-center Update Machine Status
-  form.row(name="form" ng-controller="updateMachine" ng-init="initId('#{id}')")
+  form.row(name="form" ng-controller="UpdateMachine" ng-init="initId('#{id}')")
     .small-10.column.small-centered
       .row.collapse
         .small-3.column
@@ -38,3 +38,5 @@ block body
       .row(ng-show="updateSuccess")
         .small-6.column.small-centered
           .alert-box.success Machine Updated
+block footer
+  script(type="text/javascript" src="js/controllers/updateMachine.js")

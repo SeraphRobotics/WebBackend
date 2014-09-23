@@ -1,7 +1,7 @@
 extends layout
 block body
   h2.text-center Order Fulfillment Status and Update
-  .row(ng-controller="orderFulfill" ng-init="initId('#{id}')")
+  .row(ng-controller="OrderFulfill" ng-init="initId('#{id}')")
     .small-10.column.small-centered
       .row.collapse(ng-class="orderIdErr? 'error': ''")
         .small-3.column
@@ -86,3 +86,5 @@ block body
               li(ng-repeat="item in shipment.items") {{ item.type }}: ID: {{ item.id }}
   script(type="text/ng-template" id="findItemModal.html")
     include findItemModal
+block footer
+  script(type="text/javascript" src="js/controllers/orderFulfill.js")

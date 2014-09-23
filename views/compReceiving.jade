@@ -2,7 +2,7 @@ extends layout
 block body
   h1.text-center Component Recieving
   h3.text-center and Vendor Orders
-  form(ng-controller="compReceiving")
+  form(ng-controller="CompReceiving")
     .row
       .small-9.column.small-centered
         .row.collapse
@@ -30,3 +30,5 @@ block body
                 td.button.tiny.radius(ng-click="editOrder(order)") Edit
   script(type="text/ng-template" id="editOrderModal.html")
     include editOrderModal
+block footer
+  script(type="text/javascript" src="js/controllers/compReceiving.js")

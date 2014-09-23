@@ -26,4 +26,6 @@ block body
         ng-csv="createReport()"
         filename="bookKeeping_{{ startDate | date:'dd/MM/yyyy' }}_{{ endDate | date:'dd/MM/YYYY'}}.csv"
         csv-header="reportHeader") Create Report
+block footer
+  script(type="text/javascript" src="js/controllers/bookKeeping.js")
 

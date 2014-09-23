@@ -1,7 +1,7 @@
 extends layout
 block body
   h2.text-center Global Overview
-  .small-10.column.small-centered(ng-controller="globerView")
+  .small-10.column.small-centered(ng-controller="GloberView")
     h3.text-center Machines
     .divider
     h4.text-left Overview
@@ -138,4 +138,6 @@ block body
         ng-csv="getCustomerReport()"
         filename="Customer_Report_{{ currentDate }}.csv"
         csv-header="customerReportHeaders") Generate Customer Report
+block footer
+  script(type="text/javascript" src="js/controllers/globerView.js")
 

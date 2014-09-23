@@ -1,7 +1,7 @@
 extends layout
 block body
   h1.text-center Master List
-  .large-10.column.large-centered(ng-controller="masterList")
+  .large-10.column.large-centered(ng-controller="MasterList")
     small.error(ng-if="genErr") {{ genErr }}
     .row.scrollable
       table
@@ -33,3 +33,5 @@ block body
       .button.small.expand(ng-click="addNew()") Create Component
   script(type="text/ng-template" id="editPartModal.html")
     include editPartModal
+block footer
+  script(type="text/javascript" src="js/controllers/masterList.js")

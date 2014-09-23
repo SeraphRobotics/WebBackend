@@ -1,8 +1,6 @@
 'use strict';
-angular.module('masterList', [
-  'lbServices'
-])
-  .controller('masterList', MasterList)
+angular.module('app')
+  .controller('MasterList', MasterList)
   .controller('editPartModalController', editPartModalController);
 
 MasterList.$injector = [

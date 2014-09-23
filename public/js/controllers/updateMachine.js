@@ -1,11 +1,6 @@
-/* globals angular */
 'use strict';
-
-angular.module('updateMachine', [
-  'lbServices',
-  'helpers'
-])
-  .controller('updateMachine', UpdateMachine);
+angular.module('app')
+  .controller('UpdateMachine', UpdateMachine);
 
 UpdateMachine.$injector = [
   '$q',

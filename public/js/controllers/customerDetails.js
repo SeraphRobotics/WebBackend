@@ -1,10 +1,8 @@
-/* globals _ */
 'use strict';
-angular.module('customerDetails', [
-  'lbServices',
-  'mm.foundation.accordion'
-])
-  .controller('customerDetails', CustomerDetails)
+angular.module('app')
+  //'lbServices',
+  //'mm.foundation.accordion'
+  .controller('CustomerDetails', CustomerDetails)
   .directive('updateCustomer', UpdateCustomer);
 
 UpdateCustomer.$injector = [

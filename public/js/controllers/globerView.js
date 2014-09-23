@@ -1,13 +1,25 @@
 'use strict';
-angular.module('globerView', [
-  'ngCsv',
-  'helpers',
-  'app.paginateData',
-  'lbServices'
-])
-  .controller('globerView', globerView);
+angular.module('app')
+  .controller('GloberView', GloberView);
 
-function globerView(
+GloberView.$inject = [
+  '$q',
+  '$log',
+  '$scope',
+  '$filter',
+  'Machine',
+  'Swap',
+  'Customer',
+  'Cartridge',
+  'CartridgeCredit',
+  'CartridgeReturn',
+  'Filament',
+  'filamentPage',
+  'FilamentChange',
+  'Shipment'
+];
+
+function GloberView(
   $q,
   $log,
   $scope,

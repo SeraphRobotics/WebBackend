@@ -1,9 +1,7 @@
 /* global angular */
 'use strict';
-angular.module('productGeneration', [
-  'lbServices'
-])
-  .controller('productGeneration', ProductGeneration);
+angular.module('app')
+  .controller('ProductGeneration', ProductGeneration);
 
 ProductGeneration.$injector = [
   '$q',

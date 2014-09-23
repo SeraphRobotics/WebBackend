@@ -1,9 +1,6 @@
-/* globals angular */
 'use strict';
-angular.module('machineDetails', [
-  'lbServices'
-])
-  .controller('machineDetails', MachineDetails);
+angular.module('app')
+  .controller('MachineDetails', MachineDetails);
 
 MachineDetails.$injector = [
   '$scope',

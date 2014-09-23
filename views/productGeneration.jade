@@ -1,7 +1,7 @@
 extends layout
 block body
   h1.text-center Product Generation
-  form.row(name="form" ng-controller="productGeneration")
+  form.row(name="form" ng-controller="ProductGeneration")
     .small-10.column.small-centered
       .row.collapse
         .small-3.column
@@ -35,3 +35,5 @@ block body
           .alert-box {{model.machineType || (model.filamentNum? 'Filament': 'Cartridge')}}
         .small-6.column
           .alert-box {{model.id || model.filamentNum || model.cartridgeNum}}
+block footer
+  script(type="text/javascript" src="js/controllers/productGeneration.js")

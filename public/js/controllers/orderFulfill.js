@@ -1,12 +1,7 @@
 'use strict';
-angular.module('orderFulfill', [
-    'helpers',
-    'lbServices',
-    'mm.foundation.modal',
-    'mm.foundation.accordion'
-  ])
+angular.module('app')
   .controller('findItemModal', FindItemModal)
-  .controller('orderFulfill', OrderFulfill);
+  .controller('OrderFulfill', OrderFulfill);
 
 OrderFulfill.$injector = [
   '$q',
