@@ -15,7 +15,6 @@ angular.module('app', [
   'app.filters',
   'app.constants',
   'app.paginateData',
-  'compOrdering'
 ])
   .config(function($logProvider) {
     $logProvider.debugEnabled(true);

@@ -1,10 +1,6 @@
 'use strict';
-angular.module('compOrdering', [
-  'lbServices',
-  'helpers',
-  'ngTable'
-])
-  .controller('compOrdering', CompOrdering);
+angular.module('app')
+  .controller('CompOrdering', CompOrdering);
 
 CompOrdering.$injector = [
   '$q',
@@ -74,12 +70,16 @@ function CompOrdering(
       VendorOrder.create({}, $scope.vendorOrder).$promise
         .then(function(order) {
           $log.debug('Order', order);
+          return $q.all(linkPartsToOrder(order.id, order.partsOrdered));
+        })
+        .then(function(links) {
+          $log.debug('Vendor links', links);
           return alertModal('Order Placed');
         })
         .then(function() {
-          $window.location.href = '/';
+          //$window.location.href = '/';
         })
-        .catch(function(err) {
+        .catch (function(err) {
           if (err.data) {
             $scope.placeOrderErr = err.data.error.message;
           } else {
@@ -151,6 +151,21 @@ function CompOrdering(
       $scope.addItem();
     }
   };
+
+  function linkPartsToOrder(orderId, parts) {
+    var promises = [];
+    promises = _.map(parts, function(part) {
+      return VendorOrder.part.link({
+        id: orderId,
+        fk: part.id
+      }, {
+        id: orderId,
+        fk: part.id
+      }).$promise;
+    });
+    $log.debug(promises);
+    return promises;
+  }
 
   function mapToOrderedParts(part, $index) {
     $scope.vendorOrder.partsOrdered[$index] = {
