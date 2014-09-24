@@ -19,6 +19,10 @@ var Part = {
     type: Boolean,
     default: true
   },
+  numPerPrinter: {
+    type: Number,
+    default: 0
+  },
   costPer: {
     type: Number,
     default: 0
